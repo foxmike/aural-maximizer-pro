@@ -1,0 +1,194 @@
+{
+  "plan_name": "AURAL_MAXIMIZER_PRO",
+  "purpose": "Build the AuralMaximizerPro cross-platform C++20 / JUCE audio plugin (Standalone, VST3, CLAP, LV2) as a sequence of small, real-time-safe, independently verifiable tasks. Each DSP and GUI module is authored header-first then implementation, wired into the APVTS processor and split-screen editor, and gated by an incremental Standalone build. Because Abracapocus ships no C++ adapter (only Python/TypeScript/Go/C) and the C adapter covers .c/.h but not .cpp and defaults verification to make, this plan does not rely on adapter auto-detection: every task uses exact per-file allowed_write_paths (never globs) and every phase specifies its verification explicitly as a CMake/Ninja build plus cppcheck and clang-format, not make. Real-time-thread safety (no heap allocation, no locks, ScopedNoDenormals, smoothed parameters, lock-free SPSC audio-to-UI transfer) is a hard constraint on every audio-path task.",
+  "async_strategy": "Phases run strictly sequentially; each phase is a synchronous verification boundary. Within a phase, tasks with disjoint allowed_write_paths run in the same wave. Wave 1 creates class headers (.h) and other standalone files; Wave 2 creates the matching implementations (.cpp) and depends on its own header; the final wave writes the phase verification artifact under docs/verification/ and depends on all implementation tasks. Files that appear in more than one phase (Source/PluginProcessor.cpp in phases a, e, h; Source/PluginEditor.* in phases a, h; each DSP/GUI file stubbed in phase a then implemented later) are never co-written inside a single phase, so phase ordering alone serializes them. VERIFICATION STACK (applies to every phase_verification.json): the C adapter's default make command MUST be overridden. Per-task focused verification compiles the AuralMaximizerPro_Standalone target only via 'cmake -B cmake-build-debug -G Ninja' then 'cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone'; phase lint/format uses 'cppcheck --enable=all Source/' and 'clang-format --dry-run --Werror' on the phase's changed files. The full four-format build (VST3, CLAP, LV2) is gated once in phase i, never after every task. Backend routing is cost-first: codex_cli (CLI default model) for the hardest DSP/FFT/APVTS math; antigravity_cli (agy default = Gemini) for medium work; OpenCode+OpenRouter GLM 5.2 for lighter code; OpenCode+OpenRouter DeepSeek V4 Pro (or Gemma for trivial) for stubs-adjacent and documentation. Nothing is routed to Claude; claude_code_cli is reserved as a manual plan-patch fallback for tasks the cheaper backends fail.",
+  "cost_estimate": "medium",
+  "operator_questions": [
+    "No C++ adapter exists in create_default_registry(); the C adapter detects CMakeLists.txt at 0.95 and covers .h but NOT .cpp, and its suggest_verification returns make. This plan compensates with exact per-file allowed_write_paths and explicit CMake/cppcheck/clang-format verification in every phase. Proceed with those in-plan overrides (sufficient to build), or first approve adding a real C++ adapter to Abracapocus (abracapocus/languages/cpp_adapter.py + registry registration + quality_doctrine.md) as a separate prerequisite change? (Flagged, not bundled, per the no-architecture-change rule.)",
+    "CMakeLists.txt is classified as config by the C adapter and is write-protected by the write policy; task a.1 lists it explicitly in allowed_write_paths. Confirm the write policy permits config-file writes when the exact path is declared, so phase a can author the build file.",
+    "CLAP is not emitted by stock JUCE 7 or 8; it requires the free-audio clap-juce-extensions module and a clap_juce_extensions_plugin() call in CMakeLists.txt. Approve adding that submodule/dependency, or drop CLAP from FORMATS for the initial build?",
+    "Confirm JUCE is vendored as a git submodule at ./JUCE so add_subdirectory(JUCE) resolves, and pin JUCE 7 vs 8 (LV2 is stable in JUCE 7.0.6+; JUCE 8 changes some juce::dsp and font APIs).",
+    "The OpenRouter model IDs openrouter/z-ai/glm-5.2 and openrouter/deepseek/deepseek-v4-pro are real but are not in Abracapocus's empirically-validated list (only gemma-4-31b-it is). Validate each backend+model pair with 'opencode run --dir \"$PWD\" -m <model> \"Reply only with SUCCESS\"' before phase execution, or approve as-is."
+  ],
+  "phases": [
+    {
+      "phase_id": "a",
+      "goal": "Establish the build system and a compiling empty plugin shell. Create the root CMakeLists.txt (JUCE subdirectory, C++20, juce_add_plugin with COMPANY_NAME nSpace / CODE Axpr, FORMATS Standalone VST3 CLAP LV2, link juce_audio_utils/juce_audio_processors/juce_dsp/juce_gui_basics/juce_gui_extra, juce_generate_juce_header) and a minimal empty stub (.h/.cpp) for every class in target_sources so the tree configures with Ninja and builds the Standalone target green. Materialize into one file-scoped task per file, not a single broad task. Each stub must compile against JUCE but contain no real DSP or layout yet: the processor stub returns a juce::GenericAudioProcessorEditor (it must NOT include PluginEditor.h, to keep the processor and editor tasks on disjoint write paths); the editor stub is a bare juce::AudioProcessorEditor.",
+      "expected_changed_files": [
+        "CMakeLists.txt",
+        "Source/PluginProcessor.h",
+        "Source/PluginProcessor.cpp",
+        "Source/PluginEditor.h",
+        "Source/PluginEditor.cpp",
+        "Source/DSP/SonicMaximizer.h",
+        "Source/DSP/SonicMaximizer.cpp",
+        "Source/DSP/AuralExciter.h",
+        "Source/DSP/AuralExciter.cpp",
+        "Source/DSP/RoutingEngine.h",
+        "Source/DSP/RoutingEngine.cpp",
+        "Source/GUI/CustomLookAndFeel.h",
+        "Source/GUI/CustomLookAndFeel.cpp",
+        "Source/GUI/SpectrumVisualizer.h",
+        "Source/GUI/SpectrumVisualizer.cpp",
+        "Source/GUI/MeterComponent.h",
+        "Source/GUI/MeterComponent.cpp",
+        "docs/verification/phase_a_build_skeleton.md"
+      ],
+      "async_notes": "Wave 1 (parallel, all disjoint write paths): a.1 CMakeLists.txt; a.2 Source/PluginProcessor.{h,cpp} stub; a.3 Source/PluginEditor.{h,cpp} stub; a.4 Source/DSP/SonicMaximizer.{h,cpp} stub; a.5 Source/DSP/AuralExciter.{h,cpp} stub; a.6 Source/DSP/RoutingEngine.{h,cpp} stub; a.7 Source/GUI/CustomLookAndFeel.{h,cpp} stub; a.8 Source/GUI/SpectrumVisualizer.{h,cpp} stub; a.9 Source/GUI/MeterComponent.{h,cpp} stub. Final wave: a.10 writes docs/verification/phase_a_build_skeleton.md and depends on a.1, a.2, a.3, a.4, a.5, a.6, a.7, a.8, a.9. No two tasks in this phase write the same file.",
+      "risk_notes": "Verification: phase_verification.json must run 'cmake -B cmake-build-debug -G Ninja' then 'cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone' plus 'clang-format --dry-run --Werror' on the created files; do NOT use the C adapter default make. CMakeLists.txt is a config/protected file authored only by a.1 via exact allowed_write_paths. target_sources references every stub path, so the tree configures but does not build until all stubs exist; keep a.10 in the final wave. The processor stub must use juce::GenericAudioProcessorEditor and must NOT include PluginEditor.h, or a.2 and a.3 collide. CLAP/LV2 wrapper generation may fail configure if the JUCE version or clap-juce-extensions is missing (see operator_questions); the phase gate targets Standalone only.",
+      "estimated_task_count": 10,
+      "task_hints": [
+        { "title": "Author root CMakeLists.txt build config", "selected_backend": "codex_cli" },
+        { "title": "Stub PluginProcessor with generic editor", "selected_backend": "opencode_cli", "model": "openrouter/z-ai/glm-5.2" },
+        { "title": "Stub PluginEditor component", "selected_backend": "opencode_cli", "model": "openrouter/z-ai/glm-5.2" },
+        { "title": "Stub SonicMaximizer class", "selected_backend": "opencode_cli", "model": "openrouter/z-ai/glm-5.2" },
+        { "title": "Stub AuralExciter class", "selected_backend": "opencode_cli", "model": "openrouter/z-ai/glm-5.2" },
+        { "title": "Stub RoutingEngine class", "selected_backend": "opencode_cli", "model": "openrouter/z-ai/glm-5.2" },
+        { "title": "Stub CustomLookAndFeel class", "selected_backend": "opencode_cli", "model": "openrouter/z-ai/glm-5.2" },
+        { "title": "Stub SpectrumVisualizer component", "selected_backend": "opencode_cli", "model": "openrouter/z-ai/glm-5.2" },
+        { "title": "Stub MeterComponent component", "selected_backend": "opencode_cli", "model": "openrouter/z-ai/glm-5.2" },
+        { "title": "Record phase a build skeleton verification", "selected_backend": "opencode_cli", "model": "openrouter/deepseek/deepseek-v4-pro" }
+      ]
+    },
+    {
+      "phase_id": "b",
+      "goal": "Implement Module A, the Sonic Maximizer (phase alignment and dynamic low contour). Header first, then implementation. Pre-allocate all state in prepareToPlay(sampleRate, samplesPerBlock) with zero heap allocation, locks, or juce::String work in process(): 3-band split (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ) using juce::dsp::IIR::Filter cascades; cascaded 1st/2nd-order allpass filters giving frequency-dependent group delay (4x APF on the low band, 2x on mid, 0x on high) with coefficient a = (tan(pi*fc/fs) - 1)/(tan(pi*fc/fs) + 1); an envelope follower e[n] = (1-alpha)*|x_low[n]| + alpha*e[n-1] with alpha = exp(-1/(0.05*sampleRate)); and dynamic boost G_low[n] = 1 + LoContour*(e[n]/(1+e[n])). Split into header-declares-state and cpp-implements-math tasks.",
+      "expected_changed_files": [
+        "Source/DSP/SonicMaximizer.h",
+        "Source/DSP/SonicMaximizer.cpp",
+        "docs/verification/phase_b_sonic_maximizer.md"
+      ],
+      "async_notes": "Wave 1: b.1 writes Source/DSP/SonicMaximizer.h only (band-filter members, APF cascade arrays, envelope state, prepare/process signatures). Wave 2: b.2 writes Source/DSP/SonicMaximizer.cpp only and depends on b.1. Final wave: b.3 writes docs/verification/phase_b_sonic_maximizer.md and depends on b.2. No same-file overlap.",
+      "risk_notes": "Verification: cmake/Ninja Standalone build plus 'cppcheck --enable=all Source/DSP' and clang-format on the two files; not make. Real-time safety is the primary risk: any new/delete/resize or juce::String in process() must be rejected. APF coefficient and envelope constants must be recomputed only in prepareToPlay or on parameter change, never per-sample from raw parameter reads. Header and cpp are serialized by dependency.",
+      "estimated_task_count": 3,
+      "task_hints": [
+        { "title": "Declare SonicMaximizer header and pre-allocated state", "selected_backend": "antigravity_cli" },
+        { "title": "Implement APF cascades and dynamic low contour", "selected_backend": "codex_cli" },
+        { "title": "Record phase b sonic maximizer verification", "selected_backend": "opencode_cli", "model": "openrouter/deepseek/deepseek-v4-pro" }
+      ]
+    },
+    {
+      "phase_id": "c",
+      "goal": "Implement Module B, the Aural Exciter (sidechain saturation and harmonics). Header first, then implementation, real-time safe with all buffers and the oversampler pre-allocated in prepareToPlay. Requirements: a 2nd-order high-pass sidechain via juce::dsp::StateVariableFilter with cutoff EXC_TUNE in [800 Hz, 10 kHz]; three selectable wave-shapers on the high-passed signal (Cubic Soft Clipping with the piecewise 2/3 and 4/3 thresholds; Asymmetric Tube y = tanh(G*x + delta) + gamma*(G*x)^2 with delta approx 0.15 for even harmonics and gamma from EXC_HARMONICS; Tape y = (2/pi)*arctan(G*x)); the non-linear stage wrapped in juce::dsp::Oversampling<float> with selectable 2x/4x polyphase FIR; and a post-saturation high-shelf Air EQ above 10 kHz driven by EXC_AIR_GAIN. Split header vs implementation.",
+      "expected_changed_files": [
+        "Source/DSP/AuralExciter.h",
+        "Source/DSP/AuralExciter.cpp",
+        "docs/verification/phase_c_aural_exciter.md"
+      ],
+      "async_notes": "Wave 1: c.1 writes Source/DSP/AuralExciter.h only (SVF member, Oversampling member, wave-shaper mode, air-EQ high-shelf, prepare/process signatures). Wave 2: c.2 writes Source/DSP/AuralExciter.cpp only and depends on c.1. Final wave: c.3 writes docs/verification/phase_c_aural_exciter.md and depends on c.2. No same-file overlap.",
+      "risk_notes": "Verification: cmake/Ninja Standalone build plus cppcheck --enable=all on Source/DSP and clang-format on the two files; not make. Oversampling must be constructed and its latency queried in prepareToPlay, never in process(). Drive gain G, delta bias, and gamma must be smoothed off the per-sample raw parameter path to avoid zipper noise. The exciter must not introduce locks or allocations.",
+      "estimated_task_count": 3,
+      "task_hints": [
+        { "title": "Declare AuralExciter header with SVF and oversampler", "selected_backend": "antigravity_cli" },
+        { "title": "Implement wave-shapers oversampling and air EQ", "selected_backend": "codex_cli" },
+        { "title": "Record phase c aural exciter verification", "selected_backend": "opencode_cli", "model": "openrouter/deepseek/deepseek-v4-pro" }
+      ]
+    },
+    {
+      "phase_id": "d",
+      "goal": "Implement Module C, the Routing / Matrix engine. Header first, then implementation. Pre-allocate all scratch buffers in prepareToPlay (no allocation in process()). Support three routing modes selected by ROUTING_MODE: Serial Maximizer -> Exciter, Serial Exciter -> Maximizer, and Parallel Matrix Blend y = (1-K)*S_M(x) + K*S_E(x) where K is PARALLEL_BLEND smoothed with juce::SmoothedValue<float> to avoid clicks on mode/blend changes. The engine owns the two modules' invocation order and the crossfade summing; it must not itself allocate or lock.",
+      "expected_changed_files": [
+        "Source/DSP/RoutingEngine.h",
+        "Source/DSP/RoutingEngine.cpp",
+        "docs/verification/phase_d_routing_engine.md"
+      ],
+      "async_notes": "Wave 1: d.1 writes Source/DSP/RoutingEngine.h only (mode enum, pre-allocated scratch buffers, SmoothedValue crossfader, prepare/process signatures). Wave 2: d.2 writes Source/DSP/RoutingEngine.cpp only and depends on d.1. Final wave: d.3 writes docs/verification/phase_d_routing_engine.md and depends on d.2. No same-file overlap.",
+      "risk_notes": "Verification: cmake/Ninja Standalone build plus cppcheck and clang-format on the two files; not make. Scratch buffers for the parallel path must be sized to samplesPerBlock and channel count in prepareToPlay. Switching routing mode at runtime must not reallocate; the crossfader smoothing prevents summing-bus clicks. Depends conceptually on phases b and c existing (guaranteed by phase order).",
+      "estimated_task_count": 3,
+      "task_hints": [
+        { "title": "Declare RoutingEngine header and scratch buffers", "selected_backend": "opencode_cli", "model": "openrouter/z-ai/glm-5.2" },
+        { "title": "Implement serial and parallel matrix crossfade", "selected_backend": "antigravity_cli" },
+        { "title": "Record phase d routing engine verification", "selected_backend": "opencode_cli", "model": "openrouter/deepseek/deepseek-v4-pro" }
+      ]
+    },
+    {
+      "phase_id": "e",
+      "goal": "Integrate the DSP into PluginProcessor and stand up the APVTS. Header first, then implementation (both re-write the phase-a stub, single-owner within this phase). The header declares the APVTS member, owned SonicMaximizer / AuralExciter / RoutingEngine instances, a lock-free SPSC ring buffer (juce::AbstractFifo + std::array<float,N>) for audio-to-UI spectrum transfer, latency state, and prepare/process declarations. The implementation builds createParameterLayout() with all 19 parameters exactly as specified (MAX_ENABLE, MAX_PROCESS, MAX_CONTOUR, MAX_LOW_FREQ, MAX_HIGH_FREQ, MAX_PHASE_MODE, EXC_ENABLE, EXC_TUNE, EXC_DRIVE, EXC_MIX, EXC_MODE, EXC_HARMONICS, EXC_AIR_GAIN, ROUTING_MODE, PARALLEL_BLEND, MASTER_IN_GAIN, MASTER_OUT_GAIN, MASTER_MIX, OVERSAMPLING) with their ranges/defaults/skews; pre-allocates everything in prepareToPlay; runs processBlock with juce::ScopedNoDenormals at the top, input gain -> RoutingEngine -> output gain/dry-wet, atomic/SmoothedValue parameter reads, and pushes spectrum frames into the FIFO; and reports latency via setLatencySamples() based on the oversampling factor. Keep createEditor returning the generic editor for now (the real editor is wired in a later phase).",
+      "expected_changed_files": [
+        "Source/PluginProcessor.h",
+        "Source/PluginProcessor.cpp",
+        "docs/verification/phase_e_processor_apvts.md"
+      ],
+      "async_notes": "Wave 1: e.1 writes Source/PluginProcessor.h only (APVTS, DSP members, SPSC FIFO, latency, signatures). Wave 2: e.2 writes Source/PluginProcessor.cpp only and depends on e.1. Final wave: e.3 writes docs/verification/phase_e_processor_apvts.md and depends on e.2. No same-file overlap; PluginProcessor.{h,cpp} were last written in phase a and are re-authored here as single owner.",
+      "risk_notes": "Verification: cmake/Ninja Standalone build plus cppcheck and clang-format on the two files; not make. ScopedNoDenormals must be the first statement in processBlock. All 19 parameter IDs/ranges/defaults must match the specification table exactly or downstream editor attachments break. Latency reporting must track the selected oversampling factor. Do NOT wire the real PluginEditor here (later fan-in phase) to keep createEditor stable.",
+      "estimated_task_count": 3,
+      "task_hints": [
+        { "title": "Declare PluginProcessor header APVTS and FIFO", "selected_backend": "antigravity_cli" },
+        { "title": "Implement APVTS layout processBlock and latency", "selected_backend": "codex_cli" },
+        { "title": "Record phase e processor apvts verification", "selected_backend": "opencode_cli", "model": "openrouter/deepseek/deepseek-v4-pro" }
+      ]
+    },
+    {
+      "phase_id": "f",
+      "goal": "Implement the CustomLookAndFeel theme. Header first, then implementation (re-writes the phase-a stub, single owner here). Define the palette constants (Background #121417, Panel #1A1D22, Border #2C3038, Maximizer accent #00D2FF, Exciter accent #FF9500, Master accent #34C759, Text #F2F2F7) and override drawRotarySlider() to render precision brushed-aluminum knobs, plus styled ComboBox and ToggleButton drawing consistent with the dark slate chassis. No audio-thread interaction.",
+      "expected_changed_files": [
+        "Source/GUI/CustomLookAndFeel.h",
+        "Source/GUI/CustomLookAndFeel.cpp",
+        "docs/verification/phase_f_lookandfeel.md"
+      ],
+      "async_notes": "Wave 1: f.1 writes Source/GUI/CustomLookAndFeel.h only (palette constants, override declarations). Wave 2: f.2 writes Source/GUI/CustomLookAndFeel.cpp only and depends on f.1. Final wave: f.3 writes docs/verification/phase_f_lookandfeel.md and depends on f.2. No same-file overlap.",
+      "risk_notes": "Verification: cmake/Ninja Standalone build plus cppcheck and clang-format on the two files; not make. Colour constants must match the design hex values exactly so accent routing (cyan/amber/green) is correct when the editor assigns them per module. JUCE 8 changes some Font constructors; if pinned to JUCE 8 the drawText paths may need the newer API (see operator_questions).",
+      "estimated_task_count": 3,
+      "task_hints": [
+        { "title": "Declare CustomLookAndFeel header and palette", "selected_backend": "opencode_cli", "model": "openrouter/google/gemma-4-31b-it" },
+        { "title": "Implement rotary combobox and toggle drawing", "selected_backend": "antigravity_cli" },
+        { "title": "Record phase f lookandfeel verification", "selected_backend": "opencode_cli", "model": "openrouter/deepseek/deepseek-v4-pro" }
+      ]
+    },
+    {
+      "phase_id": "g",
+      "goal": "Implement the two independent GUI display components: the FFT SpectrumVisualizer and the L/R MeterComponent. These live in separate files, so their headers run in parallel and their implementations run in parallel. SpectrumVisualizer uses juce::dsp::FFT with a lock-free juce::AbstractFifo ring buffer consumed on a juce::Timer at 30 Hz on the message thread; it must never touch the audio thread directly and must only read frames the processor pushed into the SPSC FIFO. MeterComponent renders real-time L/R peak/RMS LED bars, also updated on a capped Timer. Neither component allocates in any audio-thread callback.",
+      "expected_changed_files": [
+        "Source/GUI/SpectrumVisualizer.h",
+        "Source/GUI/SpectrumVisualizer.cpp",
+        "Source/GUI/MeterComponent.h",
+        "Source/GUI/MeterComponent.cpp",
+        "docs/verification/phase_g_gui_components.md"
+      ],
+      "async_notes": "Wave 1 (parallel, disjoint): g.1 writes Source/GUI/SpectrumVisualizer.h only; g.3 writes Source/GUI/MeterComponent.h only. Wave 2 (parallel, disjoint): g.2 writes Source/GUI/SpectrumVisualizer.cpp only and depends on g.1; g.4 writes Source/GUI/MeterComponent.cpp only and depends on g.3. Final wave: g.5 writes docs/verification/phase_g_gui_components.md and depends on g.2 and g.4. The two components never share a write path.",
+      "risk_notes": "Verification: cmake/Ninja Standalone build plus cppcheck and clang-format on the four files; not make. The Timer must be capped at 30-60 Hz and must pull from the FIFO, never call repaint() from the audio thread. The FFT size and the SPSC array size must match the buffer the processor declared in phase e. Keep g.1/g.3 and g.2/g.4 disjoint to preserve the parallel waves.",
+      "estimated_task_count": 5,
+      "task_hints": [
+        { "title": "Declare SpectrumVisualizer header and ring buffer", "selected_backend": "antigravity_cli" },
+        { "title": "Implement FFT visualizer timer and paint", "selected_backend": "codex_cli" },
+        { "title": "Declare MeterComponent header", "selected_backend": "opencode_cli", "model": "openrouter/google/gemma-4-31b-it" },
+        { "title": "Implement L R peak meter rendering", "selected_backend": "opencode_cli", "model": "openrouter/z-ai/glm-5.2" },
+        { "title": "Record phase g gui components verification", "selected_backend": "opencode_cli", "model": "openrouter/deepseek/deepseek-v4-pro" }
+      ]
+    },
+    {
+      "phase_id": "h",
+      "goal": "Assemble the PluginEditor and attach every control to the APVTS. Header first, then implementation, then a single-line re-wire of the processor's createEditor. The editor header declares the fixed 920x540 window, the CustomLookAndFeel instance, all knobs/combos/toggles, the embedded SpectrumVisualizer and MeterComponent, and the APVTS attachment members. The implementation lays out the split-screen wireframe (left: Sonic Maximizer in cyan, right: Aural Exciter in amber with the FFT display, bottom: master routing/matrix/I-O in green), assigns accent colours, and binds every parameter with juce::AudioProcessorValueTreeState::SliderAttachment / ComboBoxAttachment / ButtonAttachment to the exact 19 parameter IDs. A separate task then updates PluginProcessor.cpp so createEditor() returns the real PluginEditor instead of the generic editor.",
+      "expected_changed_files": [
+        "Source/PluginEditor.h",
+        "Source/PluginEditor.cpp",
+        "Source/PluginProcessor.cpp",
+        "docs/verification/phase_h_editor.md"
+      ],
+      "async_notes": "Wave 1: h.1 writes Source/PluginEditor.h only (components, attachments, fixed size). Wave 2: h.2 writes Source/PluginEditor.cpp only and depends on h.1. Wave 3: h.3 writes Source/PluginProcessor.cpp only (swap createEditor to return the real editor) and depends on h.2; this is the only task in phase h that writes the processor file, so it is single owner here even though the file was authored in phases a and e. Final wave: h.4 writes docs/verification/phase_h_editor.md and depends on h.3. No two tasks in this phase share a write path.",
+      "risk_notes": "Verification: cmake/Ninja Standalone build plus cppcheck and clang-format on the changed files; not make. Attachment parameter IDs must exactly match the phase-e APVTS layout or attachments assert at construction. Layout coordinates must honor the fixed 920x540 (46:27) frame. h.3 touches PluginProcessor.cpp (also written in phases a and e) but is the sole writer within phase h; keep h.3 minimal (createEditor swap only).",
+      "estimated_task_count": 4,
+      "task_hints": [
+        { "title": "Declare PluginEditor header and attachments", "selected_backend": "antigravity_cli" },
+        { "title": "Implement split screen layout and APVTS bindings", "selected_backend": "codex_cli" },
+        { "title": "Wire processor createEditor to real editor", "selected_backend": "opencode_cli", "model": "openrouter/z-ai/glm-5.2" },
+        { "title": "Record phase h editor verification", "selected_backend": "opencode_cli", "model": "openrouter/deepseek/deepseek-v4-pro" }
+      ]
+    },
+    {
+      "phase_id": "i",
+      "goal": "Full build and multi-format target verification. Provide a deterministic, paste-safe build helper script that configures with Ninja and builds every format, then record the verification artifact. The script runs: cmake -B cmake-build-debug -G Ninja, followed by cmake --build cmake-build-debug for the AuralMaximizerPro_Standalone, AuralMaximizerPro_VST3, AuralMaximizerPro_CLAP, and AuralMaximizerPro_LV2 targets, and reports any undefined references or target-discovery failures. This is the only phase that gates the full four-format matrix; earlier phases gate Standalone only.",
+      "expected_changed_files": [
+        "scripts/build_all.sh",
+        "docs/verification/phase_i_build_targets.md"
+      ],
+      "async_notes": "Wave 1: i.1 writes scripts/build_all.sh only (configure + build all four format targets, no set -e, no exit 0, paste-safe). Final wave: i.2 writes docs/verification/phase_i_build_targets.md and depends on i.1, recording the clean multi-format build result. No same-file overlap.",
+      "risk_notes": "Verification: run scripts/build_all.sh and confirm all requested format targets build; this phase intentionally uses the CMake/Ninja multi-target build, never make. CLAP and LV2 only build if the CLAP-extension and JUCE-version questions are resolved; if CLAP is deferred, the script and doc build Standalone+VST3+LV2 and mark CLAP pending rather than fail. The script must not use set -e or exit 0 so a paste into an interactive shell cannot close it.",
+      "estimated_task_count": 2,
+      "task_hints": [
+        { "title": "Author multi-format build helper script", "selected_backend": "antigravity_cli" },
+        { "title": "Record phase i build targets verification", "selected_backend": "opencode_cli", "model": "openrouter/deepseek/deepseek-v4-pro" }
+      ]
+    }
+  ]
+}
