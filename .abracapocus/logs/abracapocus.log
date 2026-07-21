@@ -4,3 +4,9 @@
 2026-07-21 19:44:16 | INFO | abracapocus.backends.antigravity_cli | backend=antigravity_cli retry_count=0
 2026-07-21 19:44:16 | INFO | abracapocus | run=81d4c5c6-a0b1-4af3-9209-fa920d86c1fd phases=1 verification=passed
 2026-07-21 19:44:49 | INFO | abracapocus.backends.antigravity_cli | backend=antigravity_cli retry_count=0
+2026-07-21 19:44:49 | INFO | abracapocus | run=d3edca1c-6cf5-40d3-a19a-9f3d2f9747f6 phases=1 verification=passed
+2026-07-21 19:49:26 | INFO | abracapocus.backends.pi_cli | backend=pi_cli retry_count=0
+2026-07-21 19:49:26 | INFO | abracapocus | run=e789cf6f-9f74-4fb4-b2ca-5e88e3bf93a1 phases=1 verification=passed
+2026-07-21 19:51:50 | INFO | abracapocus.backends.pi_cli | backend=pi_cli retry_count=0
+2026-07-21 19:51:50 | INFO | abracapocus | run=b73ee55b-d8dd-4f2e-904a-d0c319f6281d phases=1 verification=passed
+2026-07-21 19:52:32 | INFO | abracapocus.backends.antigravity_cli | backend=antigravity_cli retry_count=0

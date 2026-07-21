@@ -1,17 +1,17 @@
 {
   "project_name": "aural-maximizer-pro",
-  "plan_version": "task-a.3",
+  "plan_version": "task-a.6",
   "active_phase": "A",
   "default_backend": "codex_cli",
   "routing_mode": "manual",
   "tasks": [
     {
-      "task_id": "a.3",
-      "title": "Stub PluginEditor component",
+      "task_id": "a.6",
+      "title": "Stub RoutingEngine class",
       "phase": "A",
-      "status": "completed",
+      "status": "planned",
       "backend": "antigravity_cli",
-      "last_run": "2026-07-21T23:44:49.491523",
+      "last_run": null,
       "notes": ""
     }
   ],
@@ -33,6 +33,24 @@
       "reviewer_status": "approved",
       "verifier_status": "passed",
       "timestamp": "2026-07-21T23:44:49.491691"
+    },
+    {
+      "run_id": "e789cf6f-9f74-4fb4-b2ca-5e88e3bf93a1",
+      "task_id": "a.4",
+      "backend": "pi_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-21T23:49:26.238644"
+    },
+    {
+      "run_id": "b73ee55b-d8dd-4f2e-904a-d0c319f6281d",
+      "task_id": "a.5",
+      "backend": "pi_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-21T23:51:50.703968"
     }
   ],
   "operator_overrides": {},
