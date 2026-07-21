@@ -1,17 +1,17 @@
 {
   "project_name": "aural-maximizer-pro",
-  "plan_version": "task-a.6",
+  "plan_version": "task-a.10",
   "active_phase": "A",
   "default_backend": "codex_cli",
   "routing_mode": "manual",
   "tasks": [
     {
-      "task_id": "a.6",
-      "title": "Stub RoutingEngine class",
+      "task_id": "a.10",
+      "title": "Record phase a build skeleton verification",
       "phase": "A",
-      "status": "completed",
-      "backend": "antigravity_cli",
-      "last_run": "2026-07-21T23:52:33.051378",
+      "status": "planned",
+      "backend": "pi_cli",
+      "last_run": null,
       "notes": ""
     }
   ],
@@ -60,6 +60,33 @@
       "reviewer_status": "approved",
       "verifier_status": "passed",
       "timestamp": "2026-07-21T23:52:33.051617"
+    },
+    {
+      "run_id": "665ba6d0-7a02-4972-a606-4978f83a480e",
+      "task_id": "a.7",
+      "backend": "antigravity_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-21T23:52:48.287777"
+    },
+    {
+      "run_id": "602ae423-0c12-4d47-8218-0fc32d62ab28",
+      "task_id": "a.8",
+      "backend": "antigravity_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-21T23:53:18.568442"
+    },
+    {
+      "run_id": "e919d944-ef9d-44b1-8e23-7743d6e27f06",
+      "task_id": "a.9",
+      "backend": "pi_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-21T23:53:33.752543"
     }
   ],
   "operator_overrides": {},
