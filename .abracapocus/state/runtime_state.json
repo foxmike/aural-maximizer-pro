@@ -9,9 +9,9 @@
       "task_id": "c.3",
       "title": "Record phase c aural exciter verification",
       "phase": "C",
-      "status": "planned",
+      "status": "completed",
       "backend": "pi_cli",
-      "last_run": null,
+      "last_run": "2026-07-21T23:59:49.484574",
       "notes": ""
     }
   ],
@@ -141,6 +141,15 @@
       "reviewer_status": "approved",
       "verifier_status": "passed",
       "timestamp": "2026-07-21T23:58:34.120206"
+    },
+    {
+      "run_id": "46d64482-5a90-4977-9a30-6c66b608bd53",
+      "task_id": "c.3",
+      "backend": "pi_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-21T23:59:49.484910"
     }
   ],
   "operator_overrides": {},
