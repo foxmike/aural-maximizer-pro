@@ -485,5 +485,181 @@
       "version": "task-a.9",
       "created_at": "2026-07-21T23:53:18.802587"
     }
+  },
+  {
+    "created_at": "2026-07-21T23:54:57.782393",
+    "project_name": "aural-maximizer-pro",
+    "goal": "Write docs/verification/phase_a_build_skeleton.md documenting that the phase skeletons exist and the Standalone target is the phase gate. Record the exact verification commands used: cmake -B cmake-build-debug -G Ninja; cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone; clang-format --dry-run --Werror on created sources. Do NOT use make.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_a_build_skeleton.md.\n\nBefore editing, inspect: CMakeLists.txt and all Source stub paths to list them accurately in the verification note.",
+    "plan_template": {
+      "project_name": "aural-maximizer-pro",
+      "summary": "Task run: Record phase a build skeleton verification",
+      "phases": [
+        {
+          "name": "A",
+          "objective": "Write docs/verification/phase_a_build_skeleton.md documenting that the phase skeletons exist and the Standalone target is the phase gate. Record the exact verification commands used: cmake -B cmake-build-debug -G Ninja; cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone; clang-format --dry-run --Werror on created sources. Do NOT use make.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_a_build_skeleton.md.\n\nBefore editing, inspect: CMakeLists.txt and all Source stub paths to list them accurately in the verification note.",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "a.10",
+                "title": "Record phase a build skeleton verification",
+                "description": "Write docs/verification/phase_a_build_skeleton.md documenting that the phase skeletons exist and the Standalone target is the phase gate. Record the exact verification commands used: cmake -B cmake-build-debug -G Ninja; cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone; clang-format --dry-run --Werror on created sources. Do NOT use make.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_a_build_skeleton.md.\n\nBefore editing, inspect: CMakeLists.txt and all Source stub paths to list them accurately in the verification note.",
+                "phase": "A",
+                "dependencies": [
+                  "a.1",
+                  "a.2",
+                  "a.3",
+                  "a.4",
+                  "a.5",
+                  "a.6",
+                  "a.7",
+                  "a.8",
+                  "a.9"
+                ],
+                "exclusivity_category": null,
+                "max_in_category": null,
+                "status": "completed",
+                "acceptance_criteria": [
+                  "docs/verification/phase_a_build_skeleton.md exists",
+                  "docs/verification/phase_a_build_skeleton.md mentions AuralMaximizerPro_Standalone",
+                  "docs/verification/phase_a_build_skeleton.md documents cmake -B cmake-build-debug -G Ninja",
+                  "docs/verification/phase_a_build_skeleton.md documents cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone",
+                  "No file outside the task's allowed_write_paths is created or modified"
+                ],
+                "created_at": "2026-07-21T23:53:33.839607",
+                "selected_backend": "pi_cli",
+                "model": "openrouter/z-ai/glm-5.2",
+                "task_timeout_seconds": 900.0,
+                "verification_profile": "focused",
+                "verification_commands": [],
+                "allowed_write_paths": [
+                  "docs/verification/phase_a_build_skeleton.md"
+                ],
+                "forbidden_patterns_override": null
+              },
+              "dependencies": [],
+              "status": "completed"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-07-21T23:54:57.693033",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-a.10",
+      "created_at": "2026-07-21T23:53:34.099123"
+    }
+  },
+  {
+    "created_at": "2026-07-21T23:55:25.573454",
+    "project_name": "aural-maximizer-pro",
+    "goal": "Create Source/DSP/SonicMaximizer.h only for Module A (Sonic Maximizer): phase alignment and dynamic low contour.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.h.\n\nBefore editing, inspect:\n- Source/ for existing JUCE/DSP headers, PluginProcessor prepare/process patterns, and any MAX_LOW_FREQ / MAX_HIGH_FREQ constants\n- CMakeLists.txt target layout (do not modify)\n- phase goal: 3-band split, APF cascades, envelope follower, dynamic low boost; all audio state pre-allocated in prepareToPlay\n\nHeader requirements:\n- Declare class SonicMaximizer (or equivalent name matching project style) with publicly callable prepare(double sampleRate, int samplesPerBlock) and process(...) suitable for real-time use from the audio thread\n- Pre-allocated state members only (no heap ownership that reallocates in process):\n  - 3-band split via juce::dsp::IIR::Filter cascades (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ)\n  - Cascaded 1st/2nd-order allpass filter state: 4x APF on low, 2x on mid, 0x on high\n  - Envelope follower state e and alpha\n  - Cached APF coefficient a and contour parameter storage (LoContour); coefficients/constants updated only in prepare or on parameter change helpers, never implied as per-sample raw param math in the header contract\n- Document in comments near process that process must perform: no new/delete/resize, no locks, no juce::String work; use ScopedNoDenormals at call site or inside process as appropriate\n- Include only necessary JUCE DSP headers; keep the type complete for a later .cpp implementation\n- Provide clear member names for band filters, APF arrays, envelope, sampleRate cache, and parameter targets\n\nDo not implement DSP math in this task; declarations and state layout only.",
+    "plan_template": {
+      "project_name": "aural-maximizer-pro",
+      "summary": "Task run: Declare SonicMaximizer header and pre-allocated state",
+      "phases": [
+        {
+          "name": "B",
+          "objective": "Create Source/DSP/SonicMaximizer.h only for Module A (Sonic Maximizer): phase alignment and dynamic low contour.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.h.\n\nBefore editing, inspect:\n- Source/ for existing JUCE/DSP headers, PluginProcessor prepare/process patterns, and any MAX_LOW_FREQ / MAX_HIGH_FREQ constants\n- CMakeLists.txt target layout (do not modify)\n- phase goal: 3-band split, APF cascades, envelope follower, dynamic low boost; all audio state pre-allocated in prepareToPlay\n\nHeader requirements:\n- Declare class SonicMaximizer (or equivalent name matching project style) with publicly callable prepare(double sampleRate, int samplesPerBlock) and process(...) suitable for real-time use from the audio thread\n- Pre-allocated state members only (no heap ownership that reallocates in process):\n  - 3-band split via juce::dsp::IIR::Filter cascades (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ)\n  - Cascaded 1st/2nd-order allpass filter state: 4x APF on low, 2x on mid, 0x on high\n  - Envelope follower state e and alpha\n  - Cached APF coefficient a and contour parameter storage (LoContour); coefficients/constants updated only in prepare or on parameter change helpers, never implied as per-sample raw param math in the header contract\n- Document in comments near process that process must perform: no new/delete/resize, no locks, no juce::String work; use ScopedNoDenormals at call site or inside process as appropriate\n- Include only necessary JUCE DSP headers; keep the type complete for a later .cpp implementation\n- Provide clear member names for band filters, APF arrays, envelope, sampleRate cache, and parameter targets\n\nDo not implement DSP math in this task; declarations and state layout only.",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "b.1",
+                "title": "Declare SonicMaximizer header and pre-allocated state",
+                "description": "Create Source/DSP/SonicMaximizer.h only for Module A (Sonic Maximizer): phase alignment and dynamic low contour.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.h.\n\nBefore editing, inspect:\n- Source/ for existing JUCE/DSP headers, PluginProcessor prepare/process patterns, and any MAX_LOW_FREQ / MAX_HIGH_FREQ constants\n- CMakeLists.txt target layout (do not modify)\n- phase goal: 3-band split, APF cascades, envelope follower, dynamic low boost; all audio state pre-allocated in prepareToPlay\n\nHeader requirements:\n- Declare class SonicMaximizer (or equivalent name matching project style) with publicly callable prepare(double sampleRate, int samplesPerBlock) and process(...) suitable for real-time use from the audio thread\n- Pre-allocated state members only (no heap ownership that reallocates in process):\n  - 3-band split via juce::dsp::IIR::Filter cascades (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ)\n  - Cascaded 1st/2nd-order allpass filter state: 4x APF on low, 2x on mid, 0x on high\n  - Envelope follower state e and alpha\n  - Cached APF coefficient a and contour parameter storage (LoContour); coefficients/constants updated only in prepare or on parameter change helpers, never implied as per-sample raw param math in the header contract\n- Document in comments near process that process must perform: no new/delete/resize, no locks, no juce::String work; use ScopedNoDenormals at call site or inside process as appropriate\n- Include only necessary JUCE DSP headers; keep the type complete for a later .cpp implementation\n- Provide clear member names for band filters, APF arrays, envelope, sampleRate cache, and parameter targets\n\nDo not implement DSP math in this task; declarations and state layout only.",
+                "phase": "B",
+                "dependencies": [],
+                "exclusivity_category": null,
+                "max_in_category": null,
+                "status": "completed",
+                "acceptance_criteria": [
+                  "Source/DSP/SonicMaximizer.h exists",
+                  "Source/DSP/SonicMaximizer.h declares prepare and process entry points and pre-allocated band/APF/envelope state members",
+                  "Source/DSP/SonicMaximizer.h references 3-band split (MAX_LOW_FREQ / MAX_HIGH_FREQ), APF cascade sizing (4 low / 2 mid / 0 high), and envelope/LoContour-related state",
+                  "clang-format --dry-run --Werror Source/DSP/SonicMaximizer.h passes",
+                  "No file outside the task's allowed_write_paths is created or modified"
+                ],
+                "created_at": "2026-07-21T23:54:59.432619",
+                "selected_backend": "codex_cli",
+                "model": null,
+                "task_timeout_seconds": 900.0,
+                "verification_profile": "focused",
+                "verification_commands": [],
+                "allowed_write_paths": [
+                  "Source/DSP/SonicMaximizer.h"
+                ],
+                "forbidden_patterns_override": null
+              },
+              "dependencies": [],
+              "status": "completed"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-07-21T23:55:25.500543",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-b.1",
+      "created_at": "2026-07-21T23:54:59.635334"
+    }
+  },
+  {
+    "created_at": "2026-07-21T23:55:55.845107",
+    "project_name": "aural-maximizer-pro",
+    "goal": "Implement Source/DSP/SonicMaximizer.cpp only, matching Source/DSP/SonicMaximizer.h.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.cpp.\n\nBefore editing, inspect:\n- Source/DSP/SonicMaximizer.h (authoritative API and state layout from b.1)\n- Existing Source/ DSP .cpp files for prepare/process style if present\n\nImplementation requirements (real-time-safe):\n- prepare(sampleRate, samplesPerBlock): pre-allocate/reset all filter and envelope state; compute band IIR coefficients; compute APF coefficient a = (tan(pi*fc/fs) - 1)/(tan(pi*fc/fs) + 1); set envelope alpha = exp(-1/(0.05*sampleRate)); never allocate in process\n- process: 3-band split (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ) using juce::dsp::IIR::Filter cascades; apply cascaded allpass group-delay (4x APF low, 2x mid, 0x high); envelope e[n] = (1-alpha)*|x_low[n]| + alpha*e[n-1]; dynamic boost G_low[n] = 1 + LoContour*(e[n]/(1+e[n])); recombine bands; use ScopedNoDenormals; no new/delete/resize, no locks, no juce::String\n- Recompute APF/envelope constants only in prepare or explicit parameter-change path, never per-sample from unsmoothed raw parameter reads\n- Include the header and implement all declared methods\n\nDepend on header task b.1 completing first.",
+    "plan_template": {
+      "project_name": "aural-maximizer-pro",
+      "summary": "Task run: Implement APF cascades and dynamic low contour",
+      "phases": [
+        {
+          "name": "B",
+          "objective": "Implement Source/DSP/SonicMaximizer.cpp only, matching Source/DSP/SonicMaximizer.h.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.cpp.\n\nBefore editing, inspect:\n- Source/DSP/SonicMaximizer.h (authoritative API and state layout from b.1)\n- Existing Source/ DSP .cpp files for prepare/process style if present\n\nImplementation requirements (real-time-safe):\n- prepare(sampleRate, samplesPerBlock): pre-allocate/reset all filter and envelope state; compute band IIR coefficients; compute APF coefficient a = (tan(pi*fc/fs) - 1)/(tan(pi*fc/fs) + 1); set envelope alpha = exp(-1/(0.05*sampleRate)); never allocate in process\n- process: 3-band split (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ) using juce::dsp::IIR::Filter cascades; apply cascaded allpass group-delay (4x APF low, 2x mid, 0x high); envelope e[n] = (1-alpha)*|x_low[n]| + alpha*e[n-1]; dynamic boost G_low[n] = 1 + LoContour*(e[n]/(1+e[n])); recombine bands; use ScopedNoDenormals; no new/delete/resize, no locks, no juce::String\n- Recompute APF/envelope constants only in prepare or explicit parameter-change path, never per-sample from unsmoothed raw parameter reads\n- Include the header and implement all declared methods\n\nDepend on header task b.1 completing first.",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "b.2",
+                "title": "Implement APF cascades and dynamic low contour",
+                "description": "Implement Source/DSP/SonicMaximizer.cpp only, matching Source/DSP/SonicMaximizer.h.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.cpp.\n\nBefore editing, inspect:\n- Source/DSP/SonicMaximizer.h (authoritative API and state layout from b.1)\n- Existing Source/ DSP .cpp files for prepare/process style if present\n\nImplementation requirements (real-time-safe):\n- prepare(sampleRate, samplesPerBlock): pre-allocate/reset all filter and envelope state; compute band IIR coefficients; compute APF coefficient a = (tan(pi*fc/fs) - 1)/(tan(pi*fc/fs) + 1); set envelope alpha = exp(-1/(0.05*sampleRate)); never allocate in process\n- process: 3-band split (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ) using juce::dsp::IIR::Filter cascades; apply cascaded allpass group-delay (4x APF low, 2x mid, 0x high); envelope e[n] = (1-alpha)*|x_low[n]| + alpha*e[n-1]; dynamic boost G_low[n] = 1 + LoContour*(e[n]/(1+e[n])); recombine bands; use ScopedNoDenormals; no new/delete/resize, no locks, no juce::String\n- Recompute APF/envelope constants only in prepare or explicit parameter-change path, never per-sample from unsmoothed raw parameter reads\n- Include the header and implement all declared methods\n\nDepend on header task b.1 completing first.",
+                "phase": "B",
+                "dependencies": [
+                  "b.1"
+                ],
+                "exclusivity_category": null,
+                "max_in_category": null,
+                "status": "completed",
+                "acceptance_criteria": [
+                  "Source/DSP/SonicMaximizer.cpp exists and implements prepare and process from Source/DSP/SonicMaximizer.h",
+                  "cmake -B cmake-build-debug -G Ninja succeeds",
+                  "cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone succeeds",
+                  "cppcheck --enable=all Source/DSP reports no error-level issues on SonicMaximizer.cpp",
+                  "clang-format --dry-run --Werror Source/DSP/SonicMaximizer.cpp passes",
+                  "process path has no heap allocation, locks, or juce::String work (reviewable in Source/DSP/SonicMaximizer.cpp)",
+                  "No file outside the task's allowed_write_paths is created or modified"
+                ],
+                "created_at": "2026-07-21T23:55:25.637924",
+                "selected_backend": "codex_cli",
+                "model": null,
+                "task_timeout_seconds": 1200.0,
+                "verification_profile": "focused",
+                "verification_commands": [],
+                "allowed_write_paths": [
+                  "Source/DSP/SonicMaximizer.cpp"
+                ],
+                "forbidden_patterns_override": null
+              },
+              "dependencies": [],
+              "status": "completed"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-07-21T23:55:55.775757",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-b.2",
+      "created_at": "2026-07-21T23:55:25.843495"
+    }
   }
 ]

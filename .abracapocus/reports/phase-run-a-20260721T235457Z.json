@@ -1,0 +1,169 @@
+{
+  "run_at": "2026-07-21T23:54:57.811660",
+  "phase_dir": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a",
+  "status": "failed",
+  "counts": {
+    "passed": 9,
+    "blocked": 0,
+    "skipped": 0,
+    "unverified": 1
+  },
+  "tasks": [
+    {
+      "task_id": "a.1",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.1_author_root_cmakelists.txt_build_config.json",
+      "status": "unverified",
+      "acceptance_status": "unverified",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "d93e485c-9712-471e-91a1-6c03ba7d2584",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "a.1:Review complete"
+    },
+    {
+      "task_id": "a.2",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.2_stub_pluginprocessor_with_generic_editor.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "81d4c5c6-a0b1-4af3-9209-fa920d86c1fd",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "a.2:Review complete"
+    },
+    {
+      "task_id": "a.3",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.3_stub_plugineditor_component.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "d3edca1c-6cf5-40d3-a19a-9f3d2f9747f6",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "a.3:Review complete"
+    },
+    {
+      "task_id": "a.4",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.4_stub_sonicmaximizer_class.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "e789cf6f-9f74-4fb4-b2ca-5e88e3bf93a1",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "a.4:Review complete"
+    },
+    {
+      "task_id": "a.5",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.5_stub_auralexciter_class.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "b73ee55b-d8dd-4f2e-904a-d0c319f6281d",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "a.5:Review complete"
+    },
+    {
+      "task_id": "a.6",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.6_stub_routingengine_class.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "31d01b60-c373-4108-8976-966e02e7fd7d",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "a.6:Review complete"
+    },
+    {
+      "task_id": "a.7",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.7_stub_customlookandfeel_class.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "665ba6d0-7a02-4972-a606-4978f83a480e",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "a.7:Review complete"
+    },
+    {
+      "task_id": "a.8",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.8_stub_spectrumvisualizer_component.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "602ae423-0c12-4d47-8218-0fc32d62ab28",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "a.8:Review complete"
+    },
+    {
+      "task_id": "a.9",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.9_stub_metercomponent_component.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "e919d944-ef9d-44b1-8e23-7743d6e27f06",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "a.9:Review complete"
+    },
+    {
+      "task_id": "a.10",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.10_record_phase_a_build_skeleton_verification.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "9a4cc85c-480f-4b02-8193-7c3438ee639c",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "a.10:Review complete"
+    }
+  ],
+  "phase_verification": {
+    "status": "skipped",
+    "checks": [],
+    "notes": "phase verification deferred until all tasks pass",
+    "run_when": "all_tasks_pass"
+  }
+}
