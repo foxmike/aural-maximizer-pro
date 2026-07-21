@@ -1,17 +1,17 @@
 {
   "project_name": "aural-maximizer-pro",
-  "plan_version": "task-b.3",
-  "active_phase": "B",
+  "plan_version": "task-c.3",
+  "active_phase": "C",
   "default_backend": "codex_cli",
   "routing_mode": "manual",
   "tasks": [
     {
-      "task_id": "b.3",
-      "title": "Record phase b sonic maximizer verification",
-      "phase": "B",
-      "status": "completed",
+      "task_id": "c.3",
+      "title": "Record phase c aural exciter verification",
+      "phase": "C",
+      "status": "planned",
       "backend": "pi_cli",
-      "last_run": "2026-07-21T23:57:13.731774",
+      "last_run": null,
       "notes": ""
     }
   ],
@@ -123,11 +123,29 @@
       "reviewer_status": "approved",
       "verifier_status": "passed",
       "timestamp": "2026-07-21T23:57:13.731973"
+    },
+    {
+      "run_id": "ac4c9202-01a8-4526-b20d-60edb7ef47b7",
+      "task_id": "c.1",
+      "backend": "codex_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-21T23:58:00.491580"
+    },
+    {
+      "run_id": "c1746088-a57e-4f21-83e5-dad7434d04e6",
+      "task_id": "c.2",
+      "backend": "codex_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-21T23:58:34.120206"
     }
   ],
   "operator_overrides": {},
   "completed_phases": [],
   "remaining_phases": [
-    "B"
+    "C"
   ]
 }

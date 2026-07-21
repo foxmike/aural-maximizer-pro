@@ -661,5 +661,177 @@
       "version": "task-b.2",
       "created_at": "2026-07-21T23:55:25.843495"
     }
+  },
+  {
+    "created_at": "2026-07-21T23:57:13.794287",
+    "project_name": "aural-maximizer-pro",
+    "goal": "Write docs/verification/phase_b_sonic_maximizer.md only. Record deterministic verification evidence for phase b (Sonic Maximizer).\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_b_sonic_maximizer.md.\n\nBefore editing, inspect:\n- docs/verification/phase_a_cli_smoke.md for report tone/structure\n- Source/DSP/SonicMaximizer.h and Source/DSP/SonicMaximizer.cpp existence and real-time constraints\n\nDocument:\n- Commands run: cmake -B cmake-build-debug -G Ninja; cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone; cppcheck --enable=all Source/DSP; clang-format --dry-run --Werror on Source/DSP/SonicMaximizer.h and Source/DSP/SonicMaximizer.cpp\n- Pass/fail outcomes and any residual risks (RT safety, coefficient update sites)\n- Changed files list for the phase: Source/DSP/SonicMaximizer.h, Source/DSP/SonicMaximizer.cpp, this verification doc\n\nDo not modify source or build files.",
+    "plan_template": {
+      "project_name": "aural-maximizer-pro",
+      "summary": "Task run: Record phase b sonic maximizer verification",
+      "phases": [
+        {
+          "name": "B",
+          "objective": "Write docs/verification/phase_b_sonic_maximizer.md only. Record deterministic verification evidence for phase b (Sonic Maximizer).\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_b_sonic_maximizer.md.\n\nBefore editing, inspect:\n- docs/verification/phase_a_cli_smoke.md for report tone/structure\n- Source/DSP/SonicMaximizer.h and Source/DSP/SonicMaximizer.cpp existence and real-time constraints\n\nDocument:\n- Commands run: cmake -B cmake-build-debug -G Ninja; cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone; cppcheck --enable=all Source/DSP; clang-format --dry-run --Werror on Source/DSP/SonicMaximizer.h and Source/DSP/SonicMaximizer.cpp\n- Pass/fail outcomes and any residual risks (RT safety, coefficient update sites)\n- Changed files list for the phase: Source/DSP/SonicMaximizer.h, Source/DSP/SonicMaximizer.cpp, this verification doc\n\nDo not modify source or build files.",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "b.3",
+                "title": "Record phase b sonic maximizer verification",
+                "description": "Write docs/verification/phase_b_sonic_maximizer.md only. Record deterministic verification evidence for phase b (Sonic Maximizer).\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_b_sonic_maximizer.md.\n\nBefore editing, inspect:\n- docs/verification/phase_a_cli_smoke.md for report tone/structure\n- Source/DSP/SonicMaximizer.h and Source/DSP/SonicMaximizer.cpp existence and real-time constraints\n\nDocument:\n- Commands run: cmake -B cmake-build-debug -G Ninja; cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone; cppcheck --enable=all Source/DSP; clang-format --dry-run --Werror on Source/DSP/SonicMaximizer.h and Source/DSP/SonicMaximizer.cpp\n- Pass/fail outcomes and any residual risks (RT safety, coefficient update sites)\n- Changed files list for the phase: Source/DSP/SonicMaximizer.h, Source/DSP/SonicMaximizer.cpp, this verification doc\n\nDo not modify source or build files.",
+                "phase": "B",
+                "dependencies": [
+                  "b.2"
+                ],
+                "exclusivity_category": null,
+                "max_in_category": null,
+                "status": "completed",
+                "acceptance_criteria": [
+                  "docs/verification/phase_b_sonic_maximizer.md exists",
+                  "docs/verification/phase_b_sonic_maximizer.md records cmake Ninja configure and AuralMaximizerPro_Standalone build commands",
+                  "docs/verification/phase_b_sonic_maximizer.md records cppcheck --enable=all Source/DSP and clang-format checks on SonicMaximizer.h/cpp",
+                  "docs/verification/phase_b_sonic_maximizer.md lists phase changed files Source/DSP/SonicMaximizer.h and Source/DSP/SonicMaximizer.cpp",
+                  "No file outside the task's allowed_write_paths is created or modified"
+                ],
+                "created_at": "2026-07-21T23:55:55.875785",
+                "selected_backend": "pi_cli",
+                "model": "openrouter/z-ai/glm-5.2",
+                "task_timeout_seconds": 600.0,
+                "verification_profile": "focused",
+                "verification_commands": [],
+                "allowed_write_paths": [
+                  "docs/verification/phase_b_sonic_maximizer.md"
+                ],
+                "forbidden_patterns_override": null
+              },
+              "dependencies": [],
+              "status": "completed"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-07-21T23:57:13.713820",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-b.3",
+      "created_at": "2026-07-21T23:55:56.024284"
+    }
+  },
+  {
+    "created_at": "2026-07-21T23:58:00.537252",
+    "project_name": "aural-maximizer-pro",
+    "goal": "Create Source/DSP/AuralExciter.h only for Module B (Aural Exciter).\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/AuralExciter.h.\n\nBefore editing, inspect:\n- Source/DSP/ for existing DSP header patterns (prepare/process, parameter smoothing, juce::dsp types)\n- Source/PluginProcessor.h (or equivalent) for how DSP modules are owned and prepared\n- Any existing parameter IDs / ranges for EXC_TUNE, drive/mode, EXC_HARMONICS, EXC_AIR_GAIN, oversampling factor\n\nHeader requirements (declarations only; no heavy implementation):\n- Class AuralExciter (or project-consistent name) with real-time-safe API: prepare(const juce::dsp::ProcessSpec&), reset(), process(juce::AudioBuffer<float>& or ProcessContextReplacing)\n- juce::dsp::StateVariableTPTFilter<float> (or StateVariableFilter) member for 2nd-order high-pass sidechain; cutoff driven by EXC_TUNE in [800 Hz, 10 kHz]\n- juce::dsp::Oversampling<float> member for selectable 2x/4x polyphase FIR wrapping the non-linear stage; construct/configure and query latency only in prepare path (never allocate in process)\n- Wave-shaper mode enum/selector for: Cubic Soft Clipping, Asymmetric Tube, Tape\n- Post-saturation high-shelf Air EQ above 10 kHz driven by EXC_AIR_GAIN\n- Smoothed parameters for drive gain G, delta bias (~0.15), and gamma (from EXC_HARMONICS) \u2014 no per-sample raw APVTS reads in process\n- Pre-allocated buffers/state members only; no heap allocation, locks, or blocking in the audio path\n- Includes limited to what the header needs; keep it self-contained for c.2 implementation\n\nDo not write AuralExciter.cpp or any verification docs.",
+    "plan_template": {
+      "project_name": "aural-maximizer-pro",
+      "summary": "Task run: Declare AuralExciter header with SVF and oversampler",
+      "phases": [
+        {
+          "name": "C",
+          "objective": "Create Source/DSP/AuralExciter.h only for Module B (Aural Exciter).\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/AuralExciter.h.\n\nBefore editing, inspect:\n- Source/DSP/ for existing DSP header patterns (prepare/process, parameter smoothing, juce::dsp types)\n- Source/PluginProcessor.h (or equivalent) for how DSP modules are owned and prepared\n- Any existing parameter IDs / ranges for EXC_TUNE, drive/mode, EXC_HARMONICS, EXC_AIR_GAIN, oversampling factor\n\nHeader requirements (declarations only; no heavy implementation):\n- Class AuralExciter (or project-consistent name) with real-time-safe API: prepare(const juce::dsp::ProcessSpec&), reset(), process(juce::AudioBuffer<float>& or ProcessContextReplacing)\n- juce::dsp::StateVariableTPTFilter<float> (or StateVariableFilter) member for 2nd-order high-pass sidechain; cutoff driven by EXC_TUNE in [800 Hz, 10 kHz]\n- juce::dsp::Oversampling<float> member for selectable 2x/4x polyphase FIR wrapping the non-linear stage; construct/configure and query latency only in prepare path (never allocate in process)\n- Wave-shaper mode enum/selector for: Cubic Soft Clipping, Asymmetric Tube, Tape\n- Post-saturation high-shelf Air EQ above 10 kHz driven by EXC_AIR_GAIN\n- Smoothed parameters for drive gain G, delta bias (~0.15), and gamma (from EXC_HARMONICS) \u2014 no per-sample raw APVTS reads in process\n- Pre-allocated buffers/state members only; no heap allocation, locks, or blocking in the audio path\n- Includes limited to what the header needs; keep it self-contained for c.2 implementation\n\nDo not write AuralExciter.cpp or any verification docs.",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "c.1",
+                "title": "Declare AuralExciter header with SVF and oversampler",
+                "description": "Create Source/DSP/AuralExciter.h only for Module B (Aural Exciter).\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/AuralExciter.h.\n\nBefore editing, inspect:\n- Source/DSP/ for existing DSP header patterns (prepare/process, parameter smoothing, juce::dsp types)\n- Source/PluginProcessor.h (or equivalent) for how DSP modules are owned and prepared\n- Any existing parameter IDs / ranges for EXC_TUNE, drive/mode, EXC_HARMONICS, EXC_AIR_GAIN, oversampling factor\n\nHeader requirements (declarations only; no heavy implementation):\n- Class AuralExciter (or project-consistent name) with real-time-safe API: prepare(const juce::dsp::ProcessSpec&), reset(), process(juce::AudioBuffer<float>& or ProcessContextReplacing)\n- juce::dsp::StateVariableTPTFilter<float> (or StateVariableFilter) member for 2nd-order high-pass sidechain; cutoff driven by EXC_TUNE in [800 Hz, 10 kHz]\n- juce::dsp::Oversampling<float> member for selectable 2x/4x polyphase FIR wrapping the non-linear stage; construct/configure and query latency only in prepare path (never allocate in process)\n- Wave-shaper mode enum/selector for: Cubic Soft Clipping, Asymmetric Tube, Tape\n- Post-saturation high-shelf Air EQ above 10 kHz driven by EXC_AIR_GAIN\n- Smoothed parameters for drive gain G, delta bias (~0.15), and gamma (from EXC_HARMONICS) \u2014 no per-sample raw APVTS reads in process\n- Pre-allocated buffers/state members only; no heap allocation, locks, or blocking in the audio path\n- Includes limited to what the header needs; keep it self-contained for c.2 implementation\n\nDo not write AuralExciter.cpp or any verification docs.",
+                "phase": "C",
+                "dependencies": [],
+                "exclusivity_category": null,
+                "max_in_category": null,
+                "status": "completed",
+                "acceptance_criteria": [
+                  "Source/DSP/AuralExciter.h exists",
+                  "Source/DSP/AuralExciter.h declares AuralExciter with prepare/reset/process signatures",
+                  "Source/DSP/AuralExciter.h declares SVF high-pass sidechain and Oversampling members",
+                  "Source/DSP/AuralExciter.h declares wave-shaper mode and Air EQ high-shelf members/APIs",
+                  "clang-format --dry-run --Werror Source/DSP/AuralExciter.h passes",
+                  "No file outside the task's allowed_write_paths is created or modified"
+                ],
+                "created_at": "2026-07-21T23:57:15.268898",
+                "selected_backend": "codex_cli",
+                "model": null,
+                "task_timeout_seconds": 900.0,
+                "verification_profile": "focused",
+                "verification_commands": [],
+                "allowed_write_paths": [
+                  "Source/DSP/AuralExciter.h"
+                ],
+                "forbidden_patterns_override": null
+              },
+              "dependencies": [],
+              "status": "completed"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-07-21T23:58:00.470429",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-c.1",
+      "created_at": "2026-07-21T23:57:15.453776"
+    }
+  },
+  {
+    "created_at": "2026-07-21T23:58:34.166181",
+    "project_name": "aural-maximizer-pro",
+    "goal": "Implement Source/DSP/AuralExciter.cpp only, matching Source/DSP/AuralExciter.h from c.1.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/AuralExciter.cpp.\n\nBefore editing, inspect:\n- Source/DSP/AuralExciter.h (API, members, modes \u2014 implement exactly)\n- Other Source/DSP/*.cpp for prepare/process, ScopedNoDenormals, smoothing, buffer handling patterns\n- JUCE Oversampling usage patterns already in the tree if any\n\nImplementation requirements (real-time safe):\n- prepareToPlay/prepare: construct/configure juce::dsp::Oversampling<float> (2x/4x polyphase FIR selectable), query latency, size any pre-allocated buffers; never construct oversampler in process()\n- High-pass sidechain: 2nd-order juce::dsp SVF, cutoff EXC_TUNE clamped to [800 Hz, 10 kHz]\n- Non-linear stage on high-passed signal inside oversampled domain, modes:\n  1) Cubic Soft Clipping with piecewise 2/3 and 4/3 thresholds\n  2) Asymmetric Tube: y = tanh(G*x + delta) + gamma*(G*x)^2 with delta \u2248 0.15 (even harmonics), gamma from EXC_HARMONICS\n  3) Tape: y = (2/pi)*arctan(G*x)\n- Post-saturation high-shelf Air EQ above 10 kHz from EXC_AIR_GAIN\n- Smooth drive gain G, delta, and gamma off the raw per-sample parameter path (no zipper noise)\n- process(): juce::ScopedNoDenormals; no heap allocation, no locks, no filesystem/UI\n- Dry/wet or blend policy only if already declared in the header; do not invent new public API beyond the header\n\nVerification intent for this task: compile Standalone only after this file exists:\ncmake -B cmake-build-debug -G Ninja && cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone\nplus cppcheck on Source/DSP and clang-format on the cpp file when run by the executor.\n\nDo not edit the header, processor, editor, or docs.",
+    "plan_template": {
+      "project_name": "aural-maximizer-pro",
+      "summary": "Task run: Implement wave-shapers oversampling and air EQ",
+      "phases": [
+        {
+          "name": "C",
+          "objective": "Implement Source/DSP/AuralExciter.cpp only, matching Source/DSP/AuralExciter.h from c.1.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/AuralExciter.cpp.\n\nBefore editing, inspect:\n- Source/DSP/AuralExciter.h (API, members, modes \u2014 implement exactly)\n- Other Source/DSP/*.cpp for prepare/process, ScopedNoDenormals, smoothing, buffer handling patterns\n- JUCE Oversampling usage patterns already in the tree if any\n\nImplementation requirements (real-time safe):\n- prepareToPlay/prepare: construct/configure juce::dsp::Oversampling<float> (2x/4x polyphase FIR selectable), query latency, size any pre-allocated buffers; never construct oversampler in process()\n- High-pass sidechain: 2nd-order juce::dsp SVF, cutoff EXC_TUNE clamped to [800 Hz, 10 kHz]\n- Non-linear stage on high-passed signal inside oversampled domain, modes:\n  1) Cubic Soft Clipping with piecewise 2/3 and 4/3 thresholds\n  2) Asymmetric Tube: y = tanh(G*x + delta) + gamma*(G*x)^2 with delta \u2248 0.15 (even harmonics), gamma from EXC_HARMONICS\n  3) Tape: y = (2/pi)*arctan(G*x)\n- Post-saturation high-shelf Air EQ above 10 kHz from EXC_AIR_GAIN\n- Smooth drive gain G, delta, and gamma off the raw per-sample parameter path (no zipper noise)\n- process(): juce::ScopedNoDenormals; no heap allocation, no locks, no filesystem/UI\n- Dry/wet or blend policy only if already declared in the header; do not invent new public API beyond the header\n\nVerification intent for this task: compile Standalone only after this file exists:\ncmake -B cmake-build-debug -G Ninja && cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone\nplus cppcheck on Source/DSP and clang-format on the cpp file when run by the executor.\n\nDo not edit the header, processor, editor, or docs.",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "c.2",
+                "title": "Implement wave-shapers oversampling and air EQ",
+                "description": "Implement Source/DSP/AuralExciter.cpp only, matching Source/DSP/AuralExciter.h from c.1.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/AuralExciter.cpp.\n\nBefore editing, inspect:\n- Source/DSP/AuralExciter.h (API, members, modes \u2014 implement exactly)\n- Other Source/DSP/*.cpp for prepare/process, ScopedNoDenormals, smoothing, buffer handling patterns\n- JUCE Oversampling usage patterns already in the tree if any\n\nImplementation requirements (real-time safe):\n- prepareToPlay/prepare: construct/configure juce::dsp::Oversampling<float> (2x/4x polyphase FIR selectable), query latency, size any pre-allocated buffers; never construct oversampler in process()\n- High-pass sidechain: 2nd-order juce::dsp SVF, cutoff EXC_TUNE clamped to [800 Hz, 10 kHz]\n- Non-linear stage on high-passed signal inside oversampled domain, modes:\n  1) Cubic Soft Clipping with piecewise 2/3 and 4/3 thresholds\n  2) Asymmetric Tube: y = tanh(G*x + delta) + gamma*(G*x)^2 with delta \u2248 0.15 (even harmonics), gamma from EXC_HARMONICS\n  3) Tape: y = (2/pi)*arctan(G*x)\n- Post-saturation high-shelf Air EQ above 10 kHz from EXC_AIR_GAIN\n- Smooth drive gain G, delta, and gamma off the raw per-sample parameter path (no zipper noise)\n- process(): juce::ScopedNoDenormals; no heap allocation, no locks, no filesystem/UI\n- Dry/wet or blend policy only if already declared in the header; do not invent new public API beyond the header\n\nVerification intent for this task: compile Standalone only after this file exists:\ncmake -B cmake-build-debug -G Ninja && cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone\nplus cppcheck on Source/DSP and clang-format on the cpp file when run by the executor.\n\nDo not edit the header, processor, editor, or docs.",
+                "phase": "C",
+                "dependencies": [
+                  "c.1"
+                ],
+                "exclusivity_category": null,
+                "max_in_category": null,
+                "status": "completed",
+                "acceptance_criteria": [
+                  "Source/DSP/AuralExciter.cpp exists and implements the API declared in Source/DSP/AuralExciter.h",
+                  "AuralExciter prepares Oversampling and SVF in prepare, not in process",
+                  "Wave-shapers implement Cubic Soft Clip, Asymmetric Tube, and Tape as specified",
+                  "Air EQ high-shelf above 10 kHz is driven by EXC_AIR_GAIN",
+                  "Drive G, delta, and gamma use smoothed values in the audio path",
+                  "cmake -B cmake-build-debug -G Ninja succeeds",
+                  "cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone succeeds",
+                  "cppcheck --enable=all Source/DSP passes or reports no errors in AuralExciter.cpp",
+                  "clang-format --dry-run --Werror Source/DSP/AuralExciter.cpp passes",
+                  "No file outside the task's allowed_write_paths is created or modified"
+                ],
+                "created_at": "2026-07-21T23:58:00.609005",
+                "selected_backend": "codex_cli",
+                "model": null,
+                "task_timeout_seconds": 1200.0,
+                "verification_profile": "focused",
+                "verification_commands": [],
+                "allowed_write_paths": [
+                  "Source/DSP/AuralExciter.cpp"
+                ],
+                "forbidden_patterns_override": null
+              },
+              "dependencies": [],
+              "status": "completed"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-07-21T23:58:34.085825",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-c.2",
+      "created_at": "2026-07-21T23:58:00.876011"
+    }
   }
 ]
