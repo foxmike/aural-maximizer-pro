@@ -14,7 +14,7 @@
     "If CLAP is deferred, script builds Standalone+VST3+LV2 and marks CLAP pending rather than silently succeeding with empty CLAP coverage",
     "No file outside the task's allowed_write_paths is created or modified"
   ],
-  "selected_backend": "antigravity_cli",
+  "selected_backend": "codex_cli",
   "verification_profile": "focused",
   "allowed_write_paths": [
     "scripts/build_all.sh"

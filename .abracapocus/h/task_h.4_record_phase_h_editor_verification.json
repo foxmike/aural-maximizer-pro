@@ -12,8 +12,8 @@
     "docs/verification/phase_h_editor.md states make was not used and multi-format build is deferred to phase i",
     "No file outside the task's allowed_write_paths is created or modified"
   ],
-  "selected_backend": "opencode_cli",
-  "model": "openrouter/deepseek/deepseek-v4-pro",
+  "selected_backend": "pi_cli",
+  "model": "openrouter/z-ai/glm-5.2",
   "verification_profile": "focused",
   "allowed_write_paths": [
     "docs/verification/phase_h_editor.md"

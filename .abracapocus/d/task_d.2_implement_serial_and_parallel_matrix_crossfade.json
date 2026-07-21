@@ -16,7 +16,7 @@
     "clang-format --dry-run --Werror Source/DSP/RoutingEngine.cpp Source/DSP/RoutingEngine.h passes",
     "No file outside the task's allowed_write_paths is created or modified"
   ],
-  "selected_backend": "antigravity_cli",
+  "selected_backend": "codex_cli",
   "verification_profile": "focused",
   "allowed_write_paths": [
     "Source/DSP/RoutingEngine.cpp"

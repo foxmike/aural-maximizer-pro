@@ -15,7 +15,7 @@
     "clang-format --dry-run --Werror Source/GUI/MeterComponent.cpp exits 0",
     "No file outside the task's allowed_write_paths is created or modified"
   ],
-  "selected_backend": "opencode_cli",
+  "selected_backend": "antigravity_cli",
   "verification_profile": "focused",
   "allowed_write_paths": [
     "Source/GUI/MeterComponent.cpp"
@@ -57,6 +57,6 @@
     "g.3"
   ],
   "task_timeout_seconds": 1200,
-  "model": "openrouter/z-ai/glm-5.2",
+  "model": "",
   "verification_commands": []
 }

@@ -11,7 +11,7 @@
     "MeterComponent class is declared in the header",
     "No file outside the task's allowed_write_paths is created or modified"
   ],
-  "selected_backend": "opencode_cli",
+  "selected_backend": "pi_cli",
   "verification_profile": "focused",
   "allowed_write_paths": [
     "Source/GUI/MeterComponent.h",
