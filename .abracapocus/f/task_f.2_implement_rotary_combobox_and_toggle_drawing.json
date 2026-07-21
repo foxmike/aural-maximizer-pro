@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "task_id": "f.2",
+  "phase": "F",
+  "phase_id": "f",
+  "title": "Implement rotary combobox and toggle drawing",
+  "description": "Implement Source/GUI/CustomLookAndFeel.cpp (re-write any phase-a stub; this task is sole owner of the .cpp). Include CustomLookAndFeel.h and implement:\n1) drawRotarySlider \u2014 precision brushed-aluminum knobs on the dark slate chassis using palette Colours (Background/Panel/Border/Text and accent where appropriate).\n2) ComboBox drawing consistent with dark slate chassis (panel fill, border, text #F2F2F7).\n3) ToggleButton drawing consistent with the same theme.\n\nNo audio-thread interaction, no heap in hypothetical audio paths, no locks. Use JUCE 8-compatible Font APIs if the project is on JUCE 8. Do not edit the header except if a compile-breaking signature mismatch forces a follow-up outside this scope \u2014 header ownership is f.1; this task writes .cpp only.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in this task's allowed_write_paths.\n\nBefore editing, inspect:\n- Source/GUI/CustomLookAndFeel.h (palette constants and override declarations from f.1)\n- Any phase-a CustomLookAndFeel.cpp stub\n- JUCE LookAndFeel_V4 method signatures for the overrides declared in the header",
+  "acceptance_criteria": [
+    "Source/GUI/CustomLookAndFeel.cpp exists and includes Source/GUI/CustomLookAndFeel.h",
+    "Source/GUI/CustomLookAndFeel.cpp implements drawRotarySlider as brushed-aluminum precision knobs using the header palette",
+    "Source/GUI/CustomLookAndFeel.cpp implements ComboBox and ToggleButton drawing consistent with dark slate chassis colours",
+    "cmake -B cmake-build-debug -G Ninja && cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone passes",
+    "cppcheck --enable=all Source/GUI/CustomLookAndFeel.cpp completes without error exit",
+    "clang-format --dry-run --Werror Source/GUI/CustomLookAndFeel.cpp passes",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "antigravity_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/GUI/CustomLookAndFeel.cpp"
+  ],
+  "forbidden_changes": [
+    "modify Source/GUI/CustomLookAndFeel.h",
+    "modify Source/PluginProcessor.cpp",
+    "modify Source/PluginEditor.cpp",
+    "modify Source/PluginEditor.h",
+    "modify CMakeLists.txt",
+    "add third-party dependencies",
+    "add audio-thread work, locks, or heap allocation patterns in processBlock paths",
+    "change palette hex values away from header constants"
+  ],
+  "allowed_symbols": [
+    "CustomLookAndFeel",
+    "drawRotarySlider",
+    "drawComboBox",
+    "drawToggleButton"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "implement LookAndFeel draw overrides in CustomLookAndFeel.cpp",
+      "use JUCE Graphics paths/fills/gradients for brushed-metal rotary knobs",
+      "use JUCE 8 Font APIs if required by pinned JUCE version"
+    ],
+    "forbidden": [
+      "rewrite the header as primary scope",
+      "introduce non-JUCE UI frameworks",
+      "wire editor module accent assignment (editor owns that later)",
+      "change build system or plugin formats"
+    ]
+  },
+  "dependencies": [
+    "f.1"
+  ],
+  "task_timeout_seconds": 900,
+  "verification_commands": []
+}

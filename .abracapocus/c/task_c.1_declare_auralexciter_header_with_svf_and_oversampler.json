@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "task_id": "c.1",
+  "phase": "C",
+  "phase_id": "c",
+  "title": "Declare AuralExciter header with SVF and oversampler",
+  "description": "Create Source/DSP/AuralExciter.h only for Module B (Aural Exciter).\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/AuralExciter.h.\n\nBefore editing, inspect:\n- Source/DSP/ for existing DSP header patterns (prepare/process, parameter smoothing, juce::dsp types)\n- Source/PluginProcessor.h (or equivalent) for how DSP modules are owned and prepared\n- Any existing parameter IDs / ranges for EXC_TUNE, drive/mode, EXC_HARMONICS, EXC_AIR_GAIN, oversampling factor\n\nHeader requirements (declarations only; no heavy implementation):\n- Class AuralExciter (or project-consistent name) with real-time-safe API: prepare(const juce::dsp::ProcessSpec&), reset(), process(juce::AudioBuffer<float>& or ProcessContextReplacing)\n- juce::dsp::StateVariableTPTFilter<float> (or StateVariableFilter) member for 2nd-order high-pass sidechain; cutoff driven by EXC_TUNE in [800 Hz, 10 kHz]\n- juce::dsp::Oversampling<float> member for selectable 2x/4x polyphase FIR wrapping the non-linear stage; construct/configure and query latency only in prepare path (never allocate in process)\n- Wave-shaper mode enum/selector for: Cubic Soft Clipping, Asymmetric Tube, Tape\n- Post-saturation high-shelf Air EQ above 10 kHz driven by EXC_AIR_GAIN\n- Smoothed parameters for drive gain G, delta bias (~0.15), and gamma (from EXC_HARMONICS) \u2014 no per-sample raw APVTS reads in process\n- Pre-allocated buffers/state members only; no heap allocation, locks, or blocking in the audio path\n- Includes limited to what the header needs; keep it self-contained for c.2 implementation\n\nDo not write AuralExciter.cpp or any verification docs.",
+  "acceptance_criteria": [
+    "Source/DSP/AuralExciter.h exists",
+    "Source/DSP/AuralExciter.h declares AuralExciter with prepare/reset/process signatures",
+    "Source/DSP/AuralExciter.h declares SVF high-pass sidechain and Oversampling members",
+    "Source/DSP/AuralExciter.h declares wave-shaper mode and Air EQ high-shelf members/APIs",
+    "clang-format --dry-run --Werror Source/DSP/AuralExciter.h passes",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "antigravity_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/DSP/AuralExciter.h"
+  ],
+  "forbidden_changes": [
+    "modify Source/DSP/AuralExciter.cpp",
+    "modify Source/PluginProcessor.cpp",
+    "modify Source/PluginEditor.cpp",
+    "modify CMakeLists.txt",
+    "add third-party dependencies",
+    "allocate or construct Oversampling in process()",
+    "introduce locks or heap allocation on the audio path"
+  ],
+  "allowed_symbols": [
+    "AuralExciter",
+    "prepare",
+    "reset",
+    "process",
+    "WaveShaperMode"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "declare DSP member types and public prepare/process API matching existing project DSP headers",
+      "use juce::dsp::StateVariableTPTFilter or project-equivalent SVF typedef",
+      "enum or int mode for three wave-shapers"
+    ],
+    "forbidden": [
+      "implement process body in the header beyond trivial inline getters",
+      "wire module into PluginProcessor or Editor",
+      "change plugin formats or CMake targets",
+      "introduce non-JUCE DSP frameworks"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "verification_commands": []
+}

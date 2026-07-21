@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "task_id": "f.1",
+  "phase": "F",
+  "phase_id": "f",
+  "title": "Declare CustomLookAndFeel header and palette",
+  "description": "Create Source/GUI/CustomLookAndFeel.h defining class CustomLookAndFeel : public juce::LookAndFeel_V4 with exact palette Colour constants and override declarations only (no .cpp bodies).\n\nPalette (hex must match exactly):\n- Background #121417\n- Panel #1A1D22\n- Border #2C3038\n- Maximizer accent #00D2FF\n- Exciter accent #FF9500\n- Master accent #34C759\n- Text #F2F2F7\n\nDeclare public static Colour (or juce::Colour) constants for each, plus overrides for drawRotarySlider, drawComboBox (and related ComboBox drawing helpers as needed by JUCE LookAndFeel_V4), and drawToggleButton. No audio-thread APIs. No heap policy changes. This task owns the header only; phase-a stub is superseded here as single owner for the header.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in this task's allowed_write_paths.\n\nBefore editing, inspect:\n- Source/GUI/ for any existing CustomLookAndFeel stub from phase a\n- Source/PluginEditor.h for LookAndFeel usage patterns\n- JUCE LookAndFeel_V4 override signatures for rotary slider, ComboBox, ToggleButton\n- CMakeLists.txt / JUCE version pin for Font API notes (JUCE 8)",
+  "acceptance_criteria": [
+    "Source/GUI/CustomLookAndFeel.h exists and declares class CustomLookAndFeel publicly deriving from juce::LookAndFeel_V4",
+    "Source/GUI/CustomLookAndFeel.h defines palette Colours Background #121417, Panel #1A1D22, Border #2C3038, Maximizer #00D2FF, Exciter #FF9500, Master #34C759, Text #F2F2F7",
+    "Source/GUI/CustomLookAndFeel.h declares overrides for drawRotarySlider, ComboBox drawing, and drawToggleButton",
+    "Source/GUI/CustomLookAndFeel.h contains no function bodies beyond inline constants if required",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/GUI/CustomLookAndFeel.h"
+  ],
+  "forbidden_changes": [
+    "modify Source/GUI/CustomLookAndFeel.cpp",
+    "modify Source/PluginProcessor.cpp",
+    "modify Source/PluginEditor.cpp",
+    "modify Source/PluginEditor.h",
+    "modify CMakeLists.txt",
+    "add third-party dependencies",
+    "touch DSP or audio-thread code",
+    "change hex palette values away from the specified design colours"
+  ],
+  "allowed_symbols": [
+    "CustomLookAndFeel",
+    "drawRotarySlider",
+    "drawComboBox",
+    "drawToggleButton"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "declare LookAndFeel_V4 subclass header with palette Colour constants",
+      "declare rotary/ComboBox/ToggleButton draw overrides matching JUCE signatures"
+    ],
+    "forbidden": [
+      "implement .cpp drawing bodies",
+      "introduce non-JUCE UI frameworks",
+      "allocate on the audio thread or add locks",
+      "change plugin formats or CMake targets"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "model": "openrouter/google/gemma-4-31b-it",
+  "verification_commands": []
+}

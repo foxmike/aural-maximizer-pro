@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "task_id": "d.1",
+  "phase": "D",
+  "phase_id": "d",
+  "title": "Declare RoutingEngine header and scratch buffers",
+  "description": "Create Source/DSP/RoutingEngine.h only (header-first Wave 1).\n\nDeclare Module C, the Routing / Matrix engine API:\n- RoutingMode enum for the three ROUTING_MODE values: SerialMaximizerThenExciter, SerialExciterThenMaximizer, ParallelMatrixBlend.\n- Class RoutingEngine that owns invocation order and crossfade summing (does not implement Maximizer/Exciter DSP itself).\n- Pre-allocated per-channel scratch buffers sized in prepareToPlay from samplesPerBlock and channel count; no heap allocation in process().\n- juce::SmoothedValue<float> for PARALLEL_BLEND (K) so mode/blend changes do not click.\n- prepare(double sampleRate, int samplesPerBlock, int numChannels) and process(...) signatures that accept references/pointers to the maximizer and exciter modules and the current ROUTING_MODE / PARALLEL_BLEND targets.\n- Real-time contract in comments/API: no locks, no allocation, no blocking I/O on the audio path; mode switches must not reallocate.\n\nBefore editing, inspect:\n- Source/DSP/ (Maximizer / Exciter headers from phases b and c if present)\n- Source/PluginProcessor.h for APVTS parameter IDs ROUTING_MODE and PARALLEL_BLEND\n- CMakeLists.txt for target layout\n- Any existing DSP header style (include guards, JUCE includes, prepare/process patterns)\n\nDo not infer APIs from this description alone; match existing project conventions after inspection.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/RoutingEngine.h. Do not create the .cpp, edit PluginProcessor, or change other DSP modules.",
+  "acceptance_criteria": [
+    "Source/DSP/RoutingEngine.h exists",
+    "Source/DSP/RoutingEngine.h declares RoutingMode with three modes (serial max->exc, serial exc->max, parallel blend)",
+    "Source/DSP/RoutingEngine.h declares RoutingEngine with prepare/process signatures and SmoothedValue blend and pre-allocated scratch buffer members",
+    "clang-format --dry-run --Werror Source/DSP/RoutingEngine.h passes",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/DSP/RoutingEngine.h"
+  ],
+  "forbidden_changes": [
+    "modify Source/DSP/RoutingEngine.cpp",
+    "modify Source/PluginProcessor.cpp",
+    "modify Source/PluginEditor.h or Source/PluginEditor.cpp",
+    "implement DSP bodies in the header beyond inline accessors",
+    "add new third-party dependencies",
+    "change CMakeLists.txt or build system",
+    "allocate on the audio thread or introduce locks in the declared API"
+  ],
+  "allowed_symbols": [
+    "RoutingMode",
+    "RoutingEngine",
+    "prepare",
+    "process"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "header-only API matching existing DSP module header style",
+      "use juce::SmoothedValue<float> for PARALLEL_BLEND",
+      "pre-declare scratch AudioBuffer or heap arrays filled in prepare"
+    ],
+    "forbidden": [
+      "implement process body in .cpp in this task",
+      "rewire APVTS or PluginProcessor in this task",
+      "introduce a new routing framework or graph library",
+      "use make as verification"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "model": "openrouter/z-ai/glm-5.2",
+  "verification_commands": []
+}

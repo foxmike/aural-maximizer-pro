@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "task_id": "f.3",
+  "phase": "F",
+  "phase_id": "f",
+  "title": "Record phase f lookandfeel verification",
+  "description": "Write docs/verification/phase_f_lookandfeel.md documenting phase F verification for CustomLookAndFeel only. Record commands run, exit outcomes, and file scope.\n\nRequired verification stack (do not use make):\n1) cmake -B cmake-build-debug -G Ninja\n2) cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone\n3) cppcheck --enable=all Source/GUI/CustomLookAndFeel.h Source/GUI/CustomLookAndFeel.cpp\n4) clang-format --dry-run --Werror Source/GUI/CustomLookAndFeel.h Source/GUI/CustomLookAndFeel.cpp\n\nDocument palette hex checklist (Background #121417, Panel #1A1D22, Border #2C3038, Maximizer #00D2FF, Exciter #FF9500, Master #34C759, Text #F2F2F7), that drawRotarySlider/ComboBox/ToggleButton are implemented, and that the phase touched only the two LookAndFeel sources plus this verification artifact. Do not implement product code in this task.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in this task's allowed_write_paths.\n\nBefore editing, inspect:\n- Source/GUI/CustomLookAndFeel.h\n- Source/GUI/CustomLookAndFeel.cpp\n- docs/verification/ for prior phase verification markdown format if present",
+  "acceptance_criteria": [
+    "docs/verification/phase_f_lookandfeel.md exists",
+    "docs/verification/phase_f_lookandfeel.md records cmake -B cmake-build-debug -G Ninja and cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone",
+    "docs/verification/phase_f_lookandfeel.md records cppcheck --enable=all on Source/GUI/CustomLookAndFeel.h and Source/GUI/CustomLookAndFeel.cpp",
+    "docs/verification/phase_f_lookandfeel.md records clang-format --dry-run --Werror on Source/GUI/CustomLookAndFeel.h and Source/GUI/CustomLookAndFeel.cpp",
+    "docs/verification/phase_f_lookandfeel.md lists exact palette hex values and confirms no make-based verification",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "docs/verification/phase_f_lookandfeel.md"
+  ],
+  "forbidden_changes": [
+    "modify Source/GUI/CustomLookAndFeel.h",
+    "modify Source/GUI/CustomLookAndFeel.cpp",
+    "modify Source/PluginProcessor.cpp",
+    "modify Source/PluginEditor.cpp",
+    "modify CMakeLists.txt",
+    "implement product or GUI drawing code in the verification markdown"
+  ],
+  "allowed_symbols": [],
+  "decision_budget": {
+    "allowed": [
+      "author phase F verification markdown under docs/verification/"
+    ],
+    "forbidden": [
+      "change source code",
+      "use make as the build command",
+      "claim full VST3/CLAP/LV2 multi-format success from this phase"
+    ]
+  },
+  "dependencies": [
+    "f.2"
+  ],
+  "task_timeout_seconds": 600,
+  "model": "openrouter/deepseek/deepseek-v4-pro",
+  "verification_commands": []
+}

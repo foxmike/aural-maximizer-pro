@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "task_id": "c.3",
+  "phase": "C",
+  "phase_id": "c",
+  "title": "Record phase c aural exciter verification",
+  "description": "Write docs/verification/phase_c_aural_exciter.md only. Record that phase c Module B (Aural Exciter) was implemented and how it was verified.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_c_aural_exciter.md.\n\nBefore editing, inspect:\n- Source/DSP/AuralExciter.h and Source/DSP/AuralExciter.cpp for actual symbols and behavior to document\n- docs/verification/ for existing phase verification markdown format\n\nDocument must include:\n- Phase goal summary: sidechain HP (EXC_TUNE 800 Hz\u201310 kHz), three wave-shapers, 2x/4x oversampling, Air EQ shelf, RT-safety constraints\n- Files delivered: Source/DSP/AuralExciter.h, Source/DSP/AuralExciter.cpp\n- Verification commands run (not make):\n  - cmake -B cmake-build-debug -G Ninja\n  - cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone\n  - cppcheck --enable=all Source/DSP\n  - clang-format --dry-run --Werror on Source/DSP/AuralExciter.h and Source/DSP/AuralExciter.cpp\n- Explicit notes: oversampler constructed/latency queried in prepare only; smoothed G/delta/gamma; no locks/allocations on audio thread\n- Pass/fail table for each check\n\nDo not modify source code.",
+  "acceptance_criteria": [
+    "docs/verification/phase_c_aural_exciter.md exists",
+    "docs/verification/phase_c_aural_exciter.md references Source/DSP/AuralExciter.h and Source/DSP/AuralExciter.cpp",
+    "docs/verification/phase_c_aural_exciter.md documents cmake Ninja Standalone build, cppcheck, and clang-format checks",
+    "docs/verification/phase_c_aural_exciter.md states real-time safety constraints for oversampling and parameter smoothing",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "docs/verification/phase_c_aural_exciter.md"
+  ],
+  "forbidden_changes": [
+    "modify Source/DSP/AuralExciter.h",
+    "modify Source/DSP/AuralExciter.cpp",
+    "modify any Source/** file",
+    "modify CMakeLists.txt",
+    "claim verification passed without listing the commands"
+  ],
+  "allowed_symbols": [],
+  "decision_budget": {
+    "allowed": [
+      "write structured markdown verification report matching docs/verification style"
+    ],
+    "forbidden": [
+      "change DSP implementation",
+      "add new build system files",
+      "expand scope beyond phase c exciter verification"
+    ]
+  },
+  "dependencies": [
+    "c.2"
+  ],
+  "task_timeout_seconds": 600,
+  "model": "openrouter/deepseek/deepseek-v4-pro",
+  "verification_commands": []
+}

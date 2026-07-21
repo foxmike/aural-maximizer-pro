@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "task_id": "a.10",
+  "phase": "A",
+  "phase_id": "a",
+  "title": "Record phase a build skeleton verification",
+  "description": "Write docs/verification/phase_a_build_skeleton.md documenting that the phase skeletons exist and the Standalone target is the phase gate. Record the exact verification commands used: cmake -B cmake-build-debug -G Ninja; cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone; clang-format --dry-run --Werror on created sources. Do NOT use make.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_a_build_skeleton.md.\n\nBefore editing, inspect: CMakeLists.txt and all Source stub paths to list them accurately in the verification note.",
+  "acceptance_criteria": [
+    "docs/verification/phase_a_build_skeleton.md exists",
+    "docs/verification/phase_a_build_skeleton.md mentions AuralMaximizerPro_Standalone",
+    "docs/verification/phase_a_build_skeleton.md documents cmake -B cmake-build-debug -G Ninja",
+    "docs/verification/phase_a_build_skeleton.md documents cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "docs/verification/phase_a_build_skeleton.md"
+  ],
+  "forbidden_changes": [
+    "modify Source/ files",
+    "modify CMakeLists.txt",
+    "claim full VST3 CLAP LV2 build gate for this phase",
+    "document make as the primary build command"
+  ],
+  "allowed_symbols": [],
+  "decision_budget": {
+    "allowed": [
+      "markdown verification record only"
+    ],
+    "forbidden": [
+      "change build configuration",
+      "implement code stubs"
+    ]
+  },
+  "dependencies": [
+    "a.1",
+    "a.2",
+    "a.3",
+    "a.4",
+    "a.5",
+    "a.6",
+    "a.7",
+    "a.8",
+    "a.9"
+  ],
+  "task_timeout_seconds": 900,
+  "model": "openrouter/deepseek/deepseek-v4-pro",
+  "verification_commands": []
+}

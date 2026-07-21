@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task_id": "a.7",
+  "phase": "A",
+  "phase_id": "a",
+  "title": "Stub CustomLookAndFeel class",
+  "description": "Create empty CustomLookAndFeel stubs in Source/GUI/CustomLookAndFeel.h and Source/GUI/CustomLookAndFeel.cpp subclassing juce::LookAndFeel_V4 (or equivalent bare JUCE LookAndFeel) with no real skinning yet.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: Source/GUI directory expectations and JUCE LookAndFeel include patterns.",
+  "acceptance_criteria": [
+    "Source/GUI/CustomLookAndFeel.h exists",
+    "Source/GUI/CustomLookAndFeel.cpp exists",
+    "CustomLookAndFeel class is declared in the header",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/GUI/CustomLookAndFeel.h",
+    "Source/GUI/CustomLookAndFeel.cpp"
+  ],
+  "forbidden_changes": [
+    "full LookAndFeel skin implementation",
+    "modify PluginEditor or other GUI components",
+    "modify CMakeLists.txt",
+    "modify DSP files"
+  ],
+  "allowed_symbols": [
+    "CustomLookAndFeel"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "minimal LookAndFeel subclass stub"
+    ],
+    "forbidden": [
+      "editor wiring",
+      "new GUI frameworks"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "model": "openrouter/z-ai/glm-5.2",
+  "verification_commands": []
+}

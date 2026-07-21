@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "task_id": "g.1",
+  "phase": "G",
+  "phase_id": "g",
+  "title": "Declare SpectrumVisualizer header and ring buffer",
+  "description": "Create Source/GUI/SpectrumVisualizer.h only. Declare a juce::Component subclass SpectrumVisualizer that consumes FFT magnitude frames from a lock-free juce::AbstractFifo / SPSC ring buffer on a juce::Timer (message thread only). It must never run on the audio thread and must never allocate in any path that could be audio-called.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/GUI/SpectrumVisualizer.h.\n\nBefore editing, inspect:\n- Source/PluginProcessor.h\n- Source/PluginProcessor.cpp\n- Source/GUI/ (existing GUI headers)\n- any FIFO / FFT size constants declared in phase e for the processor push side\n\nHeader requirements:\n- Class SpectrumVisualizer : public juce::Component, private juce::Timer\n- Public API enough for the editor to host it (constructor/destructor, paint, resized as needed)\n- Push/consume API that only reads frames the processor already pushed into the SPSC FIFO (no direct audio-thread coupling)\n- juce::dsp::FFT size and AbstractFifo / ring capacity constants must match the processor buffer sizes from phase e (do not invent divergent FFT sizes)\n- Timer interval intended for ~30 Hz (state the Hz constant in the header)\n- No heap allocation in documented audio-path surfaces; all audio-thread interaction is processor-side push into the lock-free FIFO only\n- Include guards / #pragma once and minimal JUCE includes\n- Method and member declarations only; no out-of-line implementations in this task\n\nDo not implement .cpp, MeterComponent, PluginEditor, or PluginProcessor in this task.",
+  "acceptance_criteria": [
+    "Source/GUI/SpectrumVisualizer.h exists",
+    "Source/GUI/SpectrumVisualizer.h declares class SpectrumVisualizer deriving from juce::Component and juce::Timer",
+    "Source/GUI/SpectrumVisualizer.h declares juce::AbstractFifo (or equivalent SPSC ring) members and FFT size constants aligned with the processor FIFO from phase e",
+    "Source/GUI/SpectrumVisualizer.h documents or declares a ~30 Hz timer cadence",
+    "clang-format --dry-run --Werror Source/GUI/SpectrumVisualizer.h exits 0",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "antigravity_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/GUI/SpectrumVisualizer.h"
+  ],
+  "forbidden_changes": [
+    "modify Source/GUI/SpectrumVisualizer.cpp",
+    "modify Source/GUI/MeterComponent.h",
+    "modify Source/GUI/MeterComponent.cpp",
+    "modify Source/PluginProcessor.cpp",
+    "modify Source/PluginProcessor.h",
+    "modify Source/PluginEditor.h",
+    "modify Source/PluginEditor.cpp",
+    "modify CMakeLists.txt",
+    "add third-party dependencies",
+    "call repaint() from any audio-thread API",
+    "allocate on the audio thread"
+  ],
+  "allowed_symbols": [
+    "SpectrumVisualizer"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "declare SpectrumVisualizer header API",
+      "declare AbstractFifo ring buffer and FFT size constants matching processor phase e",
+      "declare Timer-driven consume path on the message thread"
+    ],
+    "forbidden": [
+      "implement .cpp bodies",
+      "wire the component into PluginEditor",
+      "change processor DSP or FIFO push logic",
+      "introduce a non-lock-free UI transfer path",
+      "touch MeterComponent"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "verification_commands": []
+}

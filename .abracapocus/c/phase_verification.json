@@ -1,0 +1,60 @@
+{
+  "verification": {
+    "checks": [
+      {
+        "name": "cmake_configure_ninja",
+        "command": [
+          "cmake",
+          "-B",
+          "cmake-build-debug",
+          "-G",
+          "Ninja"
+        ]
+      },
+      {
+        "name": "build_standalone",
+        "command": [
+          "cmake",
+          "--build",
+          "cmake-build-debug",
+          "--target",
+          "AuralMaximizerPro_Standalone"
+        ]
+      },
+      {
+        "name": "cppcheck_dsp",
+        "command": [
+          "cppcheck",
+          "--enable=all",
+          "Source/DSP"
+        ]
+      },
+      {
+        "name": "clang_format_aural_exciter_h",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/DSP/AuralExciter.h"
+        ]
+      },
+      {
+        "name": "clang_format_aural_exciter_cpp",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/DSP/AuralExciter.cpp"
+        ]
+      },
+      {
+        "name": "phase_verification_doc_exists",
+        "command": [
+          "test",
+          "-f",
+          "docs/verification/phase_c_aural_exciter.md"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,308 @@
+# Plan Review Report
+
+Plan directory: /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus
+
+## Warnings
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.1_author_root_cmakelists.txt_build_config.json] allowed_write_paths entry 'CMakeLists.txt' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.1_author_root_cmakelists.txt_build_config.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.1_author_root_cmakelists.txt_build_config.json] description contains broad word: every
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.1_author_root_cmakelists.txt_build_config.json] acceptance_criteria[3] contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.2_stub_pluginprocessor_with_generic_editor.json] allowed_write_paths entry 'Source/PluginProcessor.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.2_stub_pluginprocessor_with_generic_editor.json] allowed_write_paths entry 'Source/PluginProcessor.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.2_stub_pluginprocessor_with_generic_editor.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.3_stub_plugineditor_component.json] allowed_write_paths entry 'Source/PluginEditor.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.3_stub_plugineditor_component.json] allowed_write_paths entry 'Source/PluginEditor.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.3_stub_plugineditor_component.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.4_stub_sonicmaximizer_class.json] allowed_write_paths entry 'Source/DSP/SonicMaximizer.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.4_stub_sonicmaximizer_class.json] allowed_write_paths entry 'Source/DSP/SonicMaximizer.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.4_stub_sonicmaximizer_class.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.5_stub_auralexciter_class.json] allowed_write_paths entry 'Source/DSP/AuralExciter.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.5_stub_auralexciter_class.json] allowed_write_paths entry 'Source/DSP/AuralExciter.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.5_stub_auralexciter_class.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.6_stub_routingengine_class.json] allowed_write_paths entry 'Source/DSP/RoutingEngine.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.6_stub_routingengine_class.json] allowed_write_paths entry 'Source/DSP/RoutingEngine.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.6_stub_routingengine_class.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.7_stub_customlookandfeel_class.json] allowed_write_paths entry 'Source/GUI/CustomLookAndFeel.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.7_stub_customlookandfeel_class.json] allowed_write_paths entry 'Source/GUI/CustomLookAndFeel.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.7_stub_customlookandfeel_class.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.8_stub_spectrumvisualizer_component.json] allowed_write_paths entry 'Source/GUI/SpectrumVisualizer.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.8_stub_spectrumvisualizer_component.json] allowed_write_paths entry 'Source/GUI/SpectrumVisualizer.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.8_stub_spectrumvisualizer_component.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.9_stub_metercomponent_component.json] allowed_write_paths entry 'Source/GUI/MeterComponent.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.9_stub_metercomponent_component.json] allowed_write_paths entry 'Source/GUI/MeterComponent.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.9_stub_metercomponent_component.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.10_record_phase_a_build_skeleton_verification.json] allowed_write_paths entry 'docs/verification/phase_a_build_skeleton.md' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.10_record_phase_a_build_skeleton_verification.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.10_record_phase_a_build_skeleton_verification.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.10_record_phase_a_build_skeleton_verification.json] description contains broad word: all
+- Task 'a.10' depends on 'a.1' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'a.10' depends on 'a.2' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'a.10' depends on 'a.3' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'a.10' depends on 'a.4' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'a.10' depends on 'a.5' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'a.10' depends on 'a.6' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'a.10' depends on 'a.7' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'a.10' depends on 'a.8' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'a.10' depends on 'a.9' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'a.10' acceptance_criteria[4] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'a.1' acceptance_criteria[4] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'a.2' acceptance_criteria[2] may produce unsatisfied reconciliation: 'Processor createEditor returns juce::GenericAudioProcessorEd...' lacks file reference or test command
+- Task 'a.2' acceptance_criteria[4] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'a.3' acceptance_criteria[2] may produce unsatisfied reconciliation: 'PluginEditor subclasses juce::AudioProcessorEditor...' lacks file reference or test command
+- Task 'a.3' acceptance_criteria[3] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'a.4' acceptance_criteria[2] may produce unsatisfied reconciliation: 'SonicMaximizer class is declared in the header...' lacks file reference or test command
+- Task 'a.4' acceptance_criteria[3] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'a.5' acceptance_criteria[2] may produce unsatisfied reconciliation: 'AuralExciter class is declared in the header...' lacks file reference or test command
+- Task 'a.5' acceptance_criteria[3] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'a.6' acceptance_criteria[2] may produce unsatisfied reconciliation: 'RoutingEngine class is declared in the header...' lacks file reference or test command
+- Task 'a.6' acceptance_criteria[3] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'a.7' acceptance_criteria[2] may produce unsatisfied reconciliation: 'CustomLookAndFeel class is declared in the header...' lacks file reference or test command
+- Task 'a.7' acceptance_criteria[3] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'a.8' acceptance_criteria[2] may produce unsatisfied reconciliation: 'SpectrumVisualizer class is declared in the header...' lacks file reference or test command
+- Task 'a.8' acceptance_criteria[3] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'a.9' acceptance_criteria[2] may produce unsatisfied reconciliation: 'MeterComponent class is declared in the header...' lacks file reference or test command
+- Task 'a.9' acceptance_criteria[3] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.1_declare_sonicmaximizer_header_and_pre_allocated_state.json] allowed_write_paths entry 'Source/DSP/SonicMaximizer.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.1_declare_sonicmaximizer_header_and_pre_allocated_state.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.1_declare_sonicmaximizer_header_and_pre_allocated_state.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.1_declare_sonicmaximizer_header_and_pre_allocated_state.json] description contains broad word: complete
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.1_declare_sonicmaximizer_header_and_pre_allocated_state.json] description contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.2_implement_apf_cascades_and_dynamic_low_contour.json] allowed_write_paths entry 'Source/DSP/SonicMaximizer.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.2_implement_apf_cascades_and_dynamic_low_contour.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.2_implement_apf_cascades_and_dynamic_low_contour.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.2_implement_apf_cascades_and_dynamic_low_contour.json] description contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.2_implement_apf_cascades_and_dynamic_low_contour.json] acceptance_criteria[3] contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.3_record_phase_b_sonic_maximizer_verification.json] allowed_write_paths entry 'docs/verification/phase_b_sonic_maximizer.md' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.3_record_phase_b_sonic_maximizer_verification.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.3_record_phase_b_sonic_maximizer_verification.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.3_record_phase_b_sonic_maximizer_verification.json] description contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.3_record_phase_b_sonic_maximizer_verification.json] acceptance_criteria[2] contains broad word: all
+- Task 'b.2' depends on 'b.1' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'b.3' depends on 'b.2' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'b.1' acceptance_criteria[4] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'b.2' acceptance_criteria[1] may produce unsatisfied reconciliation: 'cmake -B cmake-build-debug -G Ninja succeeds...' lacks file reference or test command
+- Task 'b.2' acceptance_criteria[2] may produce unsatisfied reconciliation: 'cmake --build cmake-build-debug --target AuralMaximizerPro_S...' lacks file reference or test command
+- Task 'b.2' acceptance_criteria[6] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'b.3' acceptance_criteria[4] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.1_declare_auralexciter_header_with_svf_and_oversampler.json] allowed_write_paths entry 'Source/DSP/AuralExciter.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.1_declare_auralexciter_header_with_svf_and_oversampler.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.1_declare_auralexciter_header_with_svf_and_oversampler.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.2_implement_wave_shapers_oversampling_and_air_eq.json] allowed_write_paths entry 'Source/DSP/AuralExciter.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.2_implement_wave_shapers_oversampling_and_air_eq.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.2_implement_wave_shapers_oversampling_and_air_eq.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.2_implement_wave_shapers_oversampling_and_air_eq.json] acceptance_criteria[7] contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.3_record_phase_c_aural_exciter_verification.json] allowed_write_paths entry 'docs/verification/phase_c_aural_exciter.md' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.3_record_phase_c_aural_exciter_verification.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.3_record_phase_c_aural_exciter_verification.json] description contains broad word: all
+- Task 'c.2' depends on 'c.1' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'c.3' depends on 'c.2' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'c.1' acceptance_criteria[5] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'c.2' acceptance_criteria[1] may produce unsatisfied reconciliation: 'AuralExciter prepares Oversampling and SVF in prepare, not i...' lacks file reference or test command
+- Task 'c.2' acceptance_criteria[2] may produce unsatisfied reconciliation: 'Wave-shapers implement Cubic Soft Clip, Asymmetric Tube, and...' lacks file reference or test command
+- Task 'c.2' acceptance_criteria[3] may produce unsatisfied reconciliation: 'Air EQ high-shelf above 10 kHz is driven by EXC_AIR_GAIN...' lacks file reference or test command
+- Task 'c.2' acceptance_criteria[4] may produce unsatisfied reconciliation: 'Drive G, delta, and gamma use smoothed values in the audio p...' lacks file reference or test command
+- Task 'c.2' acceptance_criteria[5] may produce unsatisfied reconciliation: 'cmake -B cmake-build-debug -G Ninja succeeds...' lacks file reference or test command
+- Task 'c.2' acceptance_criteria[6] may produce unsatisfied reconciliation: 'cmake --build cmake-build-debug --target AuralMaximizerPro_S...' lacks file reference or test command
+- Task 'c.2' acceptance_criteria[9] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'c.3' acceptance_criteria[4] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/d/task_d.1_declare_routingengine_header_and_scratch_buffers.json] allowed_write_paths entry 'Source/DSP/RoutingEngine.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/d/task_d.1_declare_routingengine_header_and_scratch_buffers.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/d/task_d.1_declare_routingengine_header_and_scratch_buffers.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/d/task_d.2_implement_serial_and_parallel_matrix_crossfade.json] allowed_write_paths entry 'Source/DSP/RoutingEngine.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/d/task_d.2_implement_serial_and_parallel_matrix_crossfade.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/d/task_d.2_implement_serial_and_parallel_matrix_crossfade.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/d/task_d.2_implement_serial_and_parallel_matrix_crossfade.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/d/task_d.2_implement_serial_and_parallel_matrix_crossfade.json] description contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/d/task_d.2_implement_serial_and_parallel_matrix_crossfade.json] acceptance_criteria[6] contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/d/task_d.3_record_phase_d_routing_engine_verification.json] allowed_write_paths entry 'docs/verification/phase_d_routing_engine.md' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/d/task_d.3_record_phase_d_routing_engine_verification.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/d/task_d.3_record_phase_d_routing_engine_verification.json] description contains broad word: all
+- Task 'd.2' depends on 'd.1' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'd.3' depends on 'd.2' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'd.1' acceptance_criteria[4] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'd.2' acceptance_criteria[1] may produce unsatisfied reconciliation: 'Serial Maximizer->Exciter and Serial Exciter->Maximizer path...' lacks file reference or test command
+- Task 'd.2' acceptance_criteria[2] may produce unsatisfied reconciliation: 'Parallel path implements y = (1-K)*S_M(x) + K*S_E(x) with K ...' lacks file reference or test command
+- Task 'd.2' acceptance_criteria[3] may produce unsatisfied reconciliation: 'process() performs no heap allocation and no locking...' lacks file reference or test command
+- Task 'd.2' acceptance_criteria[4] may produce unsatisfied reconciliation: 'cmake -B cmake-build-debug -G Ninja configures successfully ...' lacks file reference or test command
+- Task 'd.2' acceptance_criteria[5] may produce unsatisfied reconciliation: 'cmake --build cmake-build-debug --target AuralMaximizerPro_S...' lacks file reference or test command
+- Task 'd.2' acceptance_criteria[8] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'd.3' acceptance_criteria[4] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.1_declare_pluginprocessor_header_apvts_and_fifo.json] allowed_write_paths entry 'Source/PluginProcessor.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.1_declare_pluginprocessor_header_apvts_and_fifo.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.1_declare_pluginprocessor_header_apvts_and_fifo.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.1_declare_pluginprocessor_header_apvts_and_fifo.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.1_declare_pluginprocessor_header_apvts_and_fifo.json] acceptance_criteria[6] contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.2_implement_apvts_layout_processblock_and_latency.json] allowed_write_paths entry 'Source/PluginProcessor.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.2_implement_apvts_layout_processblock_and_latency.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.2_implement_apvts_layout_processblock_and_latency.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.2_implement_apvts_layout_processblock_and_latency.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.2_implement_apvts_layout_processblock_and_latency.json] description contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.2_implement_apvts_layout_processblock_and_latency.json] acceptance_criteria[0] contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.2_implement_apvts_layout_processblock_and_latency.json] acceptance_criteria[8] contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.3_record_phase_e_processor_apvts_verification.json] allowed_write_paths entry 'docs/verification/phase_e_processor_apvts.md' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.3_record_phase_e_processor_apvts_verification.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.3_record_phase_e_processor_apvts_verification.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.3_record_phase_e_processor_apvts_verification.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.3_record_phase_e_processor_apvts_verification.json] description contains broad word: all
+- Task 'e.2' depends on 'e.1' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'e.3' depends on 'e.2' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'e.1' acceptance_criteria[4] may produce unsatisfied reconciliation: 'cmake -B cmake-build-debug -G Ninja succeeds...' lacks file reference or test command
+- Task 'e.1' acceptance_criteria[5] may produce unsatisfied reconciliation: 'cmake --build cmake-build-debug --target AuralMaximizerPro_S...' lacks file reference or test command
+- Task 'e.1' acceptance_criteria[8] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'e.2' acceptance_criteria[1] may produce unsatisfied reconciliation: 'prepareToPlay pre-allocates DSP/oversampling state and repor...' lacks file reference or test command
+- Task 'e.2' acceptance_criteria[2] may produce unsatisfied reconciliation: 'processBlock begins with juce::ScopedNoDenormals as the firs...' lacks file reference or test command
+- Task 'e.2' acceptance_criteria[3] may produce unsatisfied reconciliation: 'processBlock applies input gain -> RoutingEngine -> output g...' lacks file reference or test command
+- Task 'e.2' acceptance_criteria[4] may produce unsatisfied reconciliation: 'processBlock pushes spectrum frames into the lock-free SPSC ...' lacks file reference or test command
+- Task 'e.2' acceptance_criteria[5] may produce unsatisfied reconciliation: 'createEditor remains the generic/existing editor path and do...' lacks file reference or test command
+- Task 'e.2' acceptance_criteria[6] may produce unsatisfied reconciliation: 'cmake -B cmake-build-debug -G Ninja succeeds...' lacks file reference or test command
+- Task 'e.2' acceptance_criteria[7] may produce unsatisfied reconciliation: 'cmake --build cmake-build-debug --target AuralMaximizerPro_S...' lacks file reference or test command
+- Task 'e.2' acceptance_criteria[10] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'e.3' acceptance_criteria[5] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.1_declare_customlookandfeel_header_and_palette.json] allowed_write_paths entry 'Source/GUI/CustomLookAndFeel.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.1_declare_customlookandfeel_header_and_palette.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.1_declare_customlookandfeel_header_and_palette.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.2_implement_rotary_combobox_and_toggle_drawing.json] allowed_write_paths entry 'Source/GUI/CustomLookAndFeel.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.2_implement_rotary_combobox_and_toggle_drawing.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.2_implement_rotary_combobox_and_toggle_drawing.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.2_implement_rotary_combobox_and_toggle_drawing.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.2_implement_rotary_combobox_and_toggle_drawing.json] acceptance_criteria[4] contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.3_record_phase_f_lookandfeel_verification.json] allowed_write_paths entry 'docs/verification/phase_f_lookandfeel.md' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.3_record_phase_f_lookandfeel_verification.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.3_record_phase_f_lookandfeel_verification.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.3_record_phase_f_lookandfeel_verification.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.3_record_phase_f_lookandfeel_verification.json] description contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.3_record_phase_f_lookandfeel_verification.json] acceptance_criteria[2] contains broad word: all
+- Task 'f.2' depends on 'f.1' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'f.3' depends on 'f.2' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'f.1' acceptance_criteria[4] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'f.2' acceptance_criteria[3] may produce unsatisfied reconciliation: 'cmake -B cmake-build-debug -G Ninja && cmake --build cmake-b...' lacks file reference or test command
+- Task 'f.2' acceptance_criteria[6] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'f.3' acceptance_criteria[5] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.1_declare_spectrumvisualizer_header_and_ring_buffer.json] allowed_write_paths entry 'Source/GUI/SpectrumVisualizer.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.1_declare_spectrumvisualizer_header_and_ring_buffer.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.1_declare_spectrumvisualizer_header_and_ring_buffer.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.1_declare_spectrumvisualizer_header_and_ring_buffer.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.1_declare_spectrumvisualizer_header_and_ring_buffer.json] description contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.2_implement_fft_visualizer_timer_and_paint.json] allowed_write_paths entry 'Source/GUI/SpectrumVisualizer.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.2_implement_fft_visualizer_timer_and_paint.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.2_implement_fft_visualizer_timer_and_paint.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.2_implement_fft_visualizer_timer_and_paint.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.2_implement_fft_visualizer_timer_and_paint.json] description contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.2_implement_fft_visualizer_timer_and_paint.json] acceptance_criteria[6] contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.3_declare_metercomponent_header.json] allowed_write_paths entry 'Source/GUI/MeterComponent.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.3_declare_metercomponent_header.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.3_declare_metercomponent_header.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.4_implement_l_r_peak_meter_rendering.json] allowed_write_paths entry 'Source/GUI/MeterComponent.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.4_implement_l_r_peak_meter_rendering.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.4_implement_l_r_peak_meter_rendering.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.4_implement_l_r_peak_meter_rendering.json] description contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.4_implement_l_r_peak_meter_rendering.json] acceptance_criteria[5] contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.5_record_phase_g_gui_components_verification.json] allowed_write_paths entry 'docs/verification/phase_g_gui_components.md' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.5_record_phase_g_gui_components_verification.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.5_record_phase_g_gui_components_verification.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.5_record_phase_g_gui_components_verification.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.5_record_phase_g_gui_components_verification.json] description contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.5_record_phase_g_gui_components_verification.json] acceptance_criteria[3] contains broad word: all
+- Task 'g.2' depends on 'g.1' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'g.4' depends on 'g.3' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'g.5' depends on 'g.2' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'g.5' depends on 'g.4' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'g.1' acceptance_criteria[5] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'g.2' acceptance_criteria[4] may produce unsatisfied reconciliation: 'cmake -B cmake-build-debug -G Ninja configures successfully...' lacks file reference or test command
+- Task 'g.2' acceptance_criteria[5] may produce unsatisfied reconciliation: 'cmake --build cmake-build-debug --target AuralMaximizerPro_S...' lacks file reference or test command
+- Task 'g.2' acceptance_criteria[8] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'g.3' acceptance_criteria[5] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'g.4' acceptance_criteria[3] may produce unsatisfied reconciliation: 'cmake -B cmake-build-debug -G Ninja configures successfully...' lacks file reference or test command
+- Task 'g.4' acceptance_criteria[4] may produce unsatisfied reconciliation: 'cmake --build cmake-build-debug --target AuralMaximizerPro_S...' lacks file reference or test command
+- Task 'g.4' acceptance_criteria[7] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'g.5' acceptance_criteria[6] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.1_declare_plugineditor_header_and_attachments.json] allowed_write_paths entry 'Source/PluginEditor.h' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.1_declare_plugineditor_header_and_attachments.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.1_declare_plugineditor_header_and_attachments.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.1_declare_plugineditor_header_and_attachments.json] description contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.1_declare_plugineditor_header_and_attachments.json] description contains broad word: every
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.1_declare_plugineditor_header_and_attachments.json] acceptance_criteria[2] contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.2_implement_split_screen_layout_and_apvts_bindings.json] allowed_write_paths entry 'Source/PluginEditor.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.2_implement_split_screen_layout_and_apvts_bindings.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.2_implement_split_screen_layout_and_apvts_bindings.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.2_implement_split_screen_layout_and_apvts_bindings.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.2_implement_split_screen_layout_and_apvts_bindings.json] description contains broad word: every
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.2_implement_split_screen_layout_and_apvts_bindings.json] acceptance_criteria[2] contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.2_implement_split_screen_layout_and_apvts_bindings.json] acceptance_criteria[5] contains broad word: all
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.3_wire_processor_createeditor_to_real_editor.json] allowed_write_paths entry 'Source/PluginProcessor.cpp' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.3_wire_processor_createeditor_to_real_editor.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.3_wire_processor_createeditor_to_real_editor.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.3_wire_processor_createeditor_to_real_editor.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.4_record_phase_h_editor_verification.json] allowed_write_paths entry 'docs/verification/phase_h_editor.md' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.4_record_phase_h_editor_verification.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.4_record_phase_h_editor_verification.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.4_record_phase_h_editor_verification.json] description contains broad word: full
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.4_record_phase_h_editor_verification.json] description contains broad word: all
+- Task 'h.2' depends on 'h.1' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'h.3' depends on 'h.2' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'h.4' depends on 'h.3' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'h.1' acceptance_criteria[4] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'h.2' acceptance_criteria[1] may produce unsatisfied reconciliation: 'Editor uses fixed size 920x540 and split-screen layout with ...' lacks file reference or test command
+- Task 'h.2' acceptance_criteria[2] may produce unsatisfied reconciliation: 'All knobs/combos/toggles bind via APVTS SliderAttachment / C...' lacks file reference or test command
+- Task 'h.2' acceptance_criteria[3] may produce unsatisfied reconciliation: 'SpectrumVisualizer and MeterComponent are constructed and la...' lacks file reference or test command
+- Task 'h.2' acceptance_criteria[4] may produce unsatisfied reconciliation: 'cmake -B cmake-build-debug -G Ninja && cmake --build cmake-b...' lacks file reference or test command
+- Task 'h.2' acceptance_criteria[7] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'h.3' acceptance_criteria[2] may produce unsatisfied reconciliation: 'No APVTS, DSP, or processBlock logic is changed beyond creat...' lacks file reference or test command
+- Task 'h.3' acceptance_criteria[3] may produce unsatisfied reconciliation: 'cmake -B cmake-build-debug -G Ninja && cmake --build cmake-b...' lacks file reference or test command
+- Task 'h.3' acceptance_criteria[5] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'h.4' acceptance_criteria[4] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/i/task_i.1_author_multi_format_build_helper_script.json] allowed_write_paths entry 'scripts/build_all.sh' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/i/task_i.1_author_multi_format_build_helper_script.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/i/task_i.1_author_multi_format_build_helper_script.json] acceptance_criteria item length > 120 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/i/task_i.1_author_multi_format_build_helper_script.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/i/task_i.2_record_phase_i_build_targets_verification.json] allowed_write_paths entry 'docs/verification/phase_i_build_targets.md' does not exist in working root
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/i/task_i.2_record_phase_i_build_targets_verification.json] acceptance_criteria list length > 5
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/i/task_i.2_record_phase_i_build_targets_verification.json] description field length > 300 characters
+- [/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/i/task_i.2_record_phase_i_build_targets_verification.json] description contains broad word: full
+- Task 'i.2' depends on 'i.1' but their allowed_write_paths are disjoint; dependency may be unnecessary
+- Task 'i.1' acceptance_criteria[5] may produce unsatisfied reconciliation: 'If CLAP is deferred, script builds Standalone+VST3+LV2 and m...' lacks file reference or test command
+- Task 'i.1' acceptance_criteria[6] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+- Task 'i.2' acceptance_criteria[5] may produce unsatisfied reconciliation: 'No file outside the task's allowed_write_paths is created or...' lacks file reference or test command
+
+## Lint Results
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.1_author_root_cmakelists.txt_build_config.json: 0 errors, 4 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.2_stub_pluginprocessor_with_generic_editor.json: 0 errors, 3 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.3_stub_plugineditor_component.json: 0 errors, 3 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.4_stub_sonicmaximizer_class.json: 0 errors, 3 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.5_stub_auralexciter_class.json: 0 errors, 3 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.6_stub_routingengine_class.json: 0 errors, 3 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.7_stub_customlookandfeel_class.json: 0 errors, 3 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.8_stub_spectrumvisualizer_component.json: 0 errors, 3 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.9_stub_metercomponent_component.json: 0 errors, 3 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/a/task_a.10_record_phase_a_build_skeleton_verification.json: 0 errors, 4 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.1_declare_sonicmaximizer_header_and_pre_allocated_state.json: 0 errors, 5 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.2_implement_apf_cascades_and_dynamic_low_contour.json: 0 errors, 5 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/b/task_b.3_record_phase_b_sonic_maximizer_verification.json: 0 errors, 5 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.1_declare_auralexciter_header_with_svf_and_oversampler.json: 0 errors, 3 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.2_implement_wave_shapers_oversampling_and_air_eq.json: 0 errors, 4 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.3_record_phase_c_aural_exciter_verification.json: 0 errors, 3 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/d/task_d.1_declare_routingengine_header_and_scratch_buffers.json: 0 errors, 3 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/d/task_d.2_implement_serial_and_parallel_matrix_crossfade.json: 0 errors, 6 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/d/task_d.3_record_phase_d_routing_engine_verification.json: 0 errors, 3 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.1_declare_pluginprocessor_header_apvts_and_fifo.json: 0 errors, 5 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.2_implement_apvts_layout_processblock_and_latency.json: 0 errors, 7 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/e/task_e.3_record_phase_e_processor_apvts_verification.json: 0 errors, 5 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.1_declare_customlookandfeel_header_and_palette.json: 0 errors, 3 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.2_implement_rotary_combobox_and_toggle_drawing.json: 0 errors, 5 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.3_record_phase_f_lookandfeel_verification.json: 0 errors, 6 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.1_declare_spectrumvisualizer_header_and_ring_buffer.json: 0 errors, 5 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.2_implement_fft_visualizer_timer_and_paint.json: 0 errors, 6 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.3_declare_metercomponent_header.json: 0 errors, 3 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.4_implement_l_r_peak_meter_rendering.json: 0 errors, 5 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/g/task_g.5_record_phase_g_gui_components_verification.json: 0 errors, 6 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.1_declare_plugineditor_header_and_attachments.json: 0 errors, 6 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.2_implement_split_screen_layout_and_apvts_bindings.json: 0 errors, 7 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.3_wire_processor_createeditor_to_real_editor.json: 0 errors, 4 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.4_record_phase_h_editor_verification.json: 0 errors, 5 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/i/task_i.1_author_multi_format_build_helper_script.json: 0 errors, 4 warnings
+- /home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/i/task_i.2_record_phase_i_build_targets_verification.json: 0 errors, 4 warnings
+
+## Summary
+- Total errors: 0
+- Total warnings: 260
+- Linted files: 36

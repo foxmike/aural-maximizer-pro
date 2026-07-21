@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "task_id": "d.2",
+  "phase": "D",
+  "phase_id": "d",
+  "title": "Implement serial and parallel matrix crossfade",
+  "description": "Create Source/DSP/RoutingEngine.cpp only (Wave 2). Implement the API declared in Source/DSP/RoutingEngine.h.\n\nRequirements:\n- prepareToPlay/prepare path: size/pre-allocate all scratch buffers for parallel path to samplesPerBlock x channel count; reset juce::SmoothedValue for PARALLEL_BLEND; never allocate inside process().\n- process path real-time-safe: no heap allocation, no locks, prefer ScopedNoDenormals at the entry if consistent with sibling modules.\n- ROUTING_MODE Serial Maximizer -> Exciter: S_E(S_M(x)).\n- ROUTING_MODE Serial Exciter -> Maximizer: S_M(S_E(x)).\n- ROUTING_MODE Parallel Matrix Blend: y = (1-K)*S_M(x) + K*S_E(x) where K is PARALLEL_BLEND advanced via SmoothedValue each sample or block-consistent smoothing to avoid clicks; use pre-sized scratch for intermediate S_M/S_E outputs.\n- Engine owns module call order and crossfade summing only; do not reimplement Maximizer/Exciter internals.\n- Runtime mode/blend changes must not reallocate; only retarget smoothing / branch selection.\n\nBefore editing, inspect:\n- Source/DSP/RoutingEngine.h (from d.1)\n- Source/DSP Maximizer and Exciter .h/.cpp prepare/process contracts\n- Sibling DSP .cpp files for RT-safety and buffer handling patterns\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/RoutingEngine.cpp.",
+  "acceptance_criteria": [
+    "Source/DSP/RoutingEngine.cpp exists and implements RoutingEngine prepare and process",
+    "Serial Maximizer->Exciter and Serial Exciter->Maximizer paths call modules in the correct order",
+    "Parallel path implements y = (1-K)*S_M(x) + K*S_E(x) with K from juce::SmoothedValue PARALLEL_BLEND and pre-allocated scratch buffers",
+    "process() performs no heap allocation and no locking",
+    "cmake -B cmake-build-debug -G Ninja configures successfully when run from project root",
+    "cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone passes",
+    "cppcheck --enable=all Source/DSP/RoutingEngine.cpp Source/DSP/RoutingEngine.h completes without error exit",
+    "clang-format --dry-run --Werror Source/DSP/RoutingEngine.cpp Source/DSP/RoutingEngine.h passes",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "antigravity_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/DSP/RoutingEngine.cpp"
+  ],
+  "forbidden_changes": [
+    "modify Source/DSP/RoutingEngine.h",
+    "modify Source/PluginProcessor.cpp or Source/PluginEditor.*",
+    "modify Maximizer or Exciter module files",
+    "allocate inside process()",
+    "use mutexes or blocking locks on the audio path",
+    "add new third-party dependencies",
+    "change CMakeLists.txt",
+    "use make for verification"
+  ],
+  "allowed_symbols": [
+    "RoutingEngine",
+    "prepare",
+    "process"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "implement three routing modes per header contract",
+      "use scratch buffers only sized in prepare",
+      "smooth PARALLEL_BLEND with juce::SmoothedValue"
+    ],
+    "forbidden": [
+      "change header public API beyond what d.1 already allows without editing the header (do not edit header)",
+      "introduce FFT or new DSP stages inside the router",
+      "wire parameters in PluginProcessor in this task"
+    ]
+  },
+  "dependencies": [
+    "d.1"
+  ],
+  "task_timeout_seconds": 1200,
+  "verification_commands": []
+}

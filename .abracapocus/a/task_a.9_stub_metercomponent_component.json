@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "task_id": "a.9",
+  "phase": "A",
+  "phase_id": "a",
+  "title": "Stub MeterComponent component",
+  "description": "Create empty MeterComponent stubs in Source/GUI/MeterComponent.h and Source/GUI/MeterComponent.cpp as a bare juce::Component with empty paint/resized and no metering logic yet.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: Source/GUI layout and CMake expected path Source/GUI/MeterComponent.*",
+  "acceptance_criteria": [
+    "Source/GUI/MeterComponent.h exists",
+    "Source/GUI/MeterComponent.cpp exists",
+    "MeterComponent class is declared in the header",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/GUI/MeterComponent.h",
+    "Source/GUI/MeterComponent.cpp"
+  ],
+  "forbidden_changes": [
+    "implement real level metering",
+    "modify CMakeLists.txt",
+    "modify PluginEditor or other components",
+    "modify DSP files"
+  ],
+  "allowed_symbols": [
+    "MeterComponent",
+    "paint",
+    "resized"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "minimal juce::Component stub"
+    ],
+    "forbidden": [
+      "full meter ballistics",
+      "editor integration"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "model": "openrouter/z-ai/glm-5.2",
+  "verification_commands": []
+}

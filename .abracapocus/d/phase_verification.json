@@ -1,0 +1,53 @@
+{
+  "verification": {
+    "checks": [
+      {
+        "name": "cmake_configure_ninja",
+        "command": [
+          "cmake",
+          "-B",
+          "cmake-build-debug",
+          "-G",
+          "Ninja"
+        ]
+      },
+      {
+        "name": "build_standalone",
+        "command": [
+          "cmake",
+          "--build",
+          "cmake-build-debug",
+          "--target",
+          "AuralMaximizerPro_Standalone"
+        ]
+      },
+      {
+        "name": "cppcheck_routing_engine",
+        "command": [
+          "cppcheck",
+          "--enable=all",
+          "Source/DSP/RoutingEngine.h",
+          "Source/DSP/RoutingEngine.cpp"
+        ]
+      },
+      {
+        "name": "clang_format_routing_engine",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/DSP/RoutingEngine.h",
+          "Source/DSP/RoutingEngine.cpp"
+        ]
+      },
+      {
+        "name": "phase_d_verification_doc_exists",
+        "command": [
+          "test",
+          "-f",
+          "docs/verification/phase_d_routing_engine.md"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "task_id": "h.2",
+  "phase": "H",
+  "phase_id": "h",
+  "title": "Implement split screen layout and APVTS bindings",
+  "description": "Create or replace Source/PluginEditor.cpp only, implementing the class declared in Source/PluginEditor.h.\n\nRequirements:\n- setSize(920, 540) in the constructor; keep the fixed 46:27 frame.\n- Apply CustomLookAndFeel; assign accent colours: left Sonic Maximizer region cyan, right Aural Exciter region amber (include FFT/SpectrumVisualizer), bottom master routing/matrix/I-O region green.\n- Lay out the split-screen wireframe in resized(): left maximizer controls, right exciter controls plus spectrum, bottom master/routing/matrix/I-O and meters.\n- Bind every control with juce::AudioProcessorValueTreeState::SliderAttachment / ComboBoxAttachment / ButtonAttachment using the exact 19 parameter IDs from the processor APVTS (mismatch will assert at construction).\n- Forward audio-to-UI display data into SpectrumVisualizer and MeterComponent only via existing lock-free/UI-safe APIs; do not allocate or lock on the audio thread from the editor.\n- paint() draws section backgrounds/labels consistent with the three accent regions.\n\nBefore editing, inspect:\n- Source/PluginEditor.h (h.1)\n- Source/PluginProcessor.h and Source/PluginProcessor.cpp (APVTS IDs, editor factory stub)\n- Source/GUI/* headers and any existing visualizer/meter APIs\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/PluginEditor.cpp. Do not touch PluginEditor.h, PluginProcessor.*, or verification docs.",
+  "acceptance_criteria": [
+    "Source/PluginEditor.cpp implements PluginEditor constructor, destructor, paint, and resized",
+    "Editor uses fixed size 920x540 and split-screen layout with cyan/amber/green accent regions",
+    "All knobs/combos/toggles bind via APVTS SliderAttachment / ComboBoxAttachment / ButtonAttachment to the exact 19 parameter IDs",
+    "SpectrumVisualizer and MeterComponent are constructed and laid out in the editor",
+    "cmake -B cmake-build-debug -G Ninja && cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone completes with exit code 0",
+    "cppcheck --enable=all Source/PluginEditor.cpp reports no error-level issues blocking the build",
+    "clang-format --dry-run --Werror Source/PluginEditor.cpp passes",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/PluginEditor.cpp"
+  ],
+  "forbidden_changes": [
+    "modify Source/PluginEditor.h",
+    "modify Source/PluginProcessor.cpp or Source/PluginProcessor.h",
+    "modify DSP modules or CMakeLists.txt",
+    "change APVTS parameter layout or IDs",
+    "use make instead of cmake/Ninja",
+    "add heap allocation or locks on the audio thread path"
+  ],
+  "allowed_symbols": [
+    "PluginEditor"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "implement split-screen layout coordinates within 920x540",
+      "bind attachments to existing APVTS parameter IDs",
+      "set section accent colours cyan/amber/green"
+    ],
+    "forbidden": [
+      "alter processor createEditor wiring",
+      "rename or add APVTS parameters",
+      "change plugin formats or CMake targets",
+      "introduce new GUI frameworks"
+    ]
+  },
+  "dependencies": [
+    "h.1"
+  ],
+  "task_timeout_seconds": 1200,
+  "verification_commands": []
+}

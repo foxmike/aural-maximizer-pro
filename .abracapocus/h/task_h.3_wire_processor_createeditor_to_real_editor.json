@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "task_id": "h.3",
+  "phase": "H",
+  "phase_id": "h",
+  "title": "Wire processor createEditor to real editor",
+  "description": "Modify Source/PluginProcessor.cpp only.\n\nMinimal change: update createEditor() so it returns the real PluginEditor (e.g. return std::make_unique<PluginEditor>(*this);) instead of a generic juce::GenericAudioProcessorEditor or temporary stub. Add #include \"PluginEditor.h\" if missing. Do not change processBlock, APVTS layout, prepareToPlay, state save/restore, or any other processor logic.\n\nBefore editing, inspect:\n- Source/PluginProcessor.cpp (current createEditor implementation from phases a/e)\n- Source/PluginProcessor.h\n- Source/PluginEditor.h (constructor signature from h.1)\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/PluginProcessor.cpp. Keep the diff minimal \u2014 createEditor swap and necessary include only.",
+  "acceptance_criteria": [
+    "Source/PluginProcessor.cpp createEditor() returns PluginEditor for this processor",
+    "Source/PluginProcessor.cpp includes PluginEditor.h",
+    "No APVTS, DSP, or processBlock logic is changed beyond createEditor wiring",
+    "cmake -B cmake-build-debug -G Ninja && cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone completes with exit code 0",
+    "clang-format --dry-run --Werror Source/PluginProcessor.cpp passes",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/PluginProcessor.cpp"
+  ],
+  "forbidden_changes": [
+    "modify Source/PluginProcessor.h",
+    "modify Source/PluginEditor.h or Source/PluginEditor.cpp",
+    "change createParameterLayout or any parameter IDs",
+    "edit processBlock, prepareToPlay, or bus layouts",
+    "use make instead of cmake/Ninja",
+    "broad refactors of PluginProcessor.cpp"
+  ],
+  "allowed_symbols": [
+    "createEditor",
+    "PluginEditor"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "swap createEditor return type to PluginEditor",
+      "add PluginEditor.h include"
+    ],
+    "forbidden": [
+      "redesign processor architecture",
+      "touch editor layout or attachments",
+      "change CMake or plugin formats"
+    ]
+  },
+  "dependencies": [
+    "h.2"
+  ],
+  "task_timeout_seconds": 900,
+  "model": "openrouter/z-ai/glm-5.2",
+  "verification_commands": []
+}

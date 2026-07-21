@@ -1,0 +1,69 @@
+{
+  "verification": {
+    "checks": [
+      {
+        "name": "cmake_configure_ninja",
+        "command": [
+          "cmake",
+          "-B",
+          "cmake-build-debug",
+          "-G",
+          "Ninja"
+        ]
+      },
+      {
+        "name": "cmake_build_standalone",
+        "command": [
+          "cmake",
+          "--build",
+          "cmake-build-debug",
+          "--target",
+          "AuralMaximizerPro_Standalone"
+        ]
+      },
+      {
+        "name": "cppcheck_source",
+        "command": [
+          "cppcheck",
+          "--enable=all",
+          "Source/"
+        ]
+      },
+      {
+        "name": "clang_format_plugin_editor_h",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/PluginEditor.h"
+        ]
+      },
+      {
+        "name": "clang_format_plugin_editor_cpp",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/PluginEditor.cpp"
+        ]
+      },
+      {
+        "name": "clang_format_plugin_processor_cpp",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/PluginProcessor.cpp"
+        ]
+      },
+      {
+        "name": "phase_h_verification_doc_exists",
+        "command": [
+          "test",
+          "-f",
+          "docs/verification/phase_h_editor.md"
+        ]
+      }
+    ]
+  }
+}

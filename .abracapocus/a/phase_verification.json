@@ -1,0 +1,59 @@
+{
+  "verification": {
+    "checks": [
+      {
+        "name": "cmake_configure",
+        "command": [
+          "cmake",
+          "-B",
+          "cmake-build-debug",
+          "-G",
+          "Ninja"
+        ]
+      },
+      {
+        "name": "cmake_build_standalone",
+        "command": [
+          "cmake",
+          "--build",
+          "cmake-build-debug",
+          "--target",
+          "AuralMaximizerPro_Standalone"
+        ]
+      },
+      {
+        "name": "cppcheck",
+        "command": [
+          "cppcheck",
+          "--enable=all",
+          "Source/"
+        ]
+      },
+      {
+        "name": "clang_format",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "CMakeLists.txt",
+          "Source/PluginProcessor.h",
+          "Source/PluginProcessor.cpp",
+          "Source/PluginEditor.h",
+          "Source/PluginEditor.cpp",
+          "Source/DSP/SonicMaximizer.h",
+          "Source/DSP/SonicMaximizer.cpp",
+          "Source/DSP/AuralExciter.h",
+          "Source/DSP/AuralExciter.cpp",
+          "Source/DSP/RoutingEngine.h",
+          "Source/DSP/RoutingEngine.cpp",
+          "Source/GUI/CustomLookAndFeel.h",
+          "Source/GUI/CustomLookAndFeel.cpp",
+          "Source/GUI/SpectrumVisualizer.h",
+          "Source/GUI/SpectrumVisualizer.cpp",
+          "Source/GUI/MeterComponent.h",
+          "Source/GUI/MeterComponent.cpp"
+        ]
+      }
+    ]
+  }
+}

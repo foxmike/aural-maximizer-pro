@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "task_id": "g.3",
+  "phase": "G",
+  "phase_id": "g",
+  "title": "Declare MeterComponent header",
+  "description": "Create Source/GUI/MeterComponent.h only. Declare a juce::Component that renders real-time L/R peak and RMS LED-style meter bars, updated on a capped juce::Timer on the message thread. Meter levels must be supplied via a lock-free or atomics-friendly path from the processor (SPSC/atomics), never by calling into the audio thread from the component.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/GUI/MeterComponent.h.\n\nBefore editing, inspect:\n- Source/PluginProcessor.h\n- Source/PluginProcessor.cpp (peak/RMS or meter level fields from earlier phases)\n- Source/GUI/SpectrumVisualizer.h (Timer/FIFO patterns for consistency)\n- Source/GUI/ (existing GUI headers)\n\nHeader requirements:\n- Class MeterComponent : public juce::Component, private juce::Timer\n- Public API for the editor to host left/right meters (constructor/destructor, paint, resized as needed)\n- setLevels / pushLevels / or atomic level readers for L/R peak and RMS that are safe for the processor to update lock-free\n- Timer cadence capped at 30-60 Hz stated as a named constant\n- No audio-thread callbacks on this component; message-thread Timer only for UI refresh\n- Include guards / #pragma once and minimal JUCE includes\n- Declarations only; no out-of-line method bodies\n\nDo not implement .cpp, SpectrumVisualizer, PluginEditor, or PluginProcessor in this task.",
+  "acceptance_criteria": [
+    "Source/GUI/MeterComponent.h exists",
+    "Source/GUI/MeterComponent.h declares class MeterComponent deriving from juce::Component and juce::Timer",
+    "Source/GUI/MeterComponent.h declares L/R peak and RMS level inputs or atomics suitable for lock-free processor updates",
+    "Source/GUI/MeterComponent.h declares a Timer cadence constant in the 30-60 Hz range",
+    "clang-format --dry-run --Werror Source/GUI/MeterComponent.h exits 0",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/GUI/MeterComponent.h"
+  ],
+  "forbidden_changes": [
+    "modify Source/GUI/MeterComponent.cpp",
+    "modify Source/GUI/SpectrumVisualizer.h",
+    "modify Source/GUI/SpectrumVisualizer.cpp",
+    "modify Source/PluginProcessor.cpp",
+    "modify Source/PluginProcessor.h",
+    "modify Source/PluginEditor.h",
+    "modify Source/PluginEditor.cpp",
+    "modify CMakeLists.txt",
+    "add third-party dependencies",
+    "call repaint() from any audio-thread API",
+    "allocate on the audio thread"
+  ],
+  "allowed_symbols": [
+    "MeterComponent"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "declare MeterComponent header API",
+      "declare lock-free or atomic L/R peak and RMS level storage",
+      "declare capped Timer-driven UI refresh"
+    ],
+    "forbidden": [
+      "implement .cpp bodies",
+      "wire the component into PluginEditor",
+      "change processor metering push logic",
+      "touch SpectrumVisualizer files"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "model": "openrouter/google/gemma-4-31b-it",
+  "verification_commands": []
+}

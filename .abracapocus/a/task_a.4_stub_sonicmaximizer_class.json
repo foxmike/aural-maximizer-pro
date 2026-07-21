@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task_id": "a.4",
+  "phase": "A",
+  "phase_id": "a",
+  "title": "Stub SonicMaximizer class",
+  "description": "Create empty SonicMaximizer class stubs in Source/DSP/SonicMaximizer.h and Source/DSP/SonicMaximizer.cpp that compile against JUCE with no real DSP yet (declaration-only or empty method bodies as needed).\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: Source/DSP directory existence and naming expected by CMakeLists target_sources.",
+  "acceptance_criteria": [
+    "Source/DSP/SonicMaximizer.h exists",
+    "Source/DSP/SonicMaximizer.cpp exists",
+    "SonicMaximizer class is declared in the header",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/DSP/SonicMaximizer.h",
+    "Source/DSP/SonicMaximizer.cpp"
+  ],
+  "forbidden_changes": [
+    "implement real maximizer DSP algorithms",
+    "modify CMakeLists.txt",
+    "modify PluginProcessor or other DSP classes",
+    "add third-party dependencies"
+  ],
+  "allowed_symbols": [
+    "SonicMaximizer"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "empty class stub with prepare/process placeholders if needed for compile"
+    ],
+    "forbidden": [
+      "real-time-unsafe heap/locks in audio path stubs beyond empty placeholders",
+      "wire into processor APVTS"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "model": "openrouter/z-ai/glm-5.2",
+  "verification_commands": []
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "task_id": "e.1",
+  "phase": "E",
+  "phase_id": "e",
+  "title": "Declare PluginProcessor header APVTS and FIFO",
+  "description": "Rewrite Source/PluginProcessor.h (phase-a stub re-author; single owner in this phase) as the PluginProcessor class header for APVTS + DSP integration.\n\nHeader must declare:\n- juce::AudioProcessorValueTreeState (APVTS) member and static/createParameterLayout declaration\n- owned DSP instances: SonicMaximizer, AuralExciter, RoutingEngine\n- lock-free SPSC audio-to-UI spectrum transfer: juce::AbstractFifo + std::array<float, N> (N sized for spectrum frames)\n- latency state members used with setLatencySamples based on oversampling\n- prepareToPlay / processBlock / releaseResources (and related) signatures matching the JUCE AudioProcessor contract used by this project\n- atomic/SmoothedValue parameter handles or raw atomic pointers as needed by the .cpp (declare only; no bodies)\n- createEditor still returning the generic/editor stub path (do not declare real custom editor wiring beyond existing JUCE signatures)\n\nInclude what exists for DSP headers (SonicMaximizer, AuralExciter, RoutingEngine) and JUCE modules already used by the phase-a stub. Prefer forward declares only where the existing style already does; keep includes minimal and consistent with neighboring Source headers.\n\nDo NOT implement .cpp bodies here. Do NOT modify PluginEditor.* or any DSP .cpp.\n\nBefore editing, inspect:\n- Source/PluginProcessor.h (phase-a stub)\n- Source/PluginProcessor.cpp (phase-a stub signatures only; do not write this file)\n- Source headers for SonicMaximizer, AuralExciter, RoutingEngine\n- CMakeLists.txt / target name AuralMaximizerPro_Standalone\n- Any parameter-spec or design doc under docs/ that lists the 19 APVTS parameter IDs\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in this task's allowed_write_paths.",
+  "acceptance_criteria": [
+    "Source/PluginProcessor.h exists and declares APVTS member and createParameterLayout",
+    "Source/PluginProcessor.h declares owned SonicMaximizer, AuralExciter, and RoutingEngine members",
+    "Source/PluginProcessor.h declares lock-free SPSC spectrum FIFO via juce::AbstractFifo and std::array<float, N>",
+    "Source/PluginProcessor.h declares prepareToPlay/processBlock signatures and latency-related state",
+    "cmake -B cmake-build-debug -G Ninja succeeds",
+    "cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone succeeds after this header change (may still use prior .cpp stub)",
+    "cppcheck --enable=all Source/PluginProcessor.h reports no error-level issues blocking the build",
+    "clang-format --dry-run --Werror Source/PluginProcessor.h passes",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "antigravity_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/PluginProcessor.h"
+  ],
+  "forbidden_changes": [
+    "modify Source/PluginProcessor.cpp",
+    "modify Source/PluginEditor.h or Source/PluginEditor.cpp",
+    "modify any DSP implementation under Source/",
+    "wire a real custom PluginEditor in createEditor",
+    "add new third-party dependencies",
+    "change CMakeLists.txt or plugin formats",
+    "use heap allocation or locks on the declared audio-path API surface"
+  ],
+  "allowed_symbols": [
+    "AuralMaximizerProAudioProcessor",
+    "PluginProcessor",
+    "createParameterLayout",
+    "apvts",
+    "sonicMaximizer",
+    "auralExciter",
+    "routingEngine",
+    "spectrumFifo",
+    "spectrumBuffer",
+    "prepareToPlay",
+    "processBlock",
+    "getLatencySamples",
+    "setLatencySamples"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "re-author phase-a PluginProcessor.h stub with APVTS/DSP/FIFO/latency declarations",
+      "choose N for spectrum std::array consistent with existing spectrum frame size",
+      "match existing JUCE AudioProcessor subclass naming in the repo"
+    ],
+    "forbidden": [
+      "implement processBlock or createParameterLayout bodies in the header",
+      "introduce a second parameter system outside APVTS",
+      "change plugin format targets or CMake layout",
+      "wire real PluginEditor"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "verification_commands": []
+}

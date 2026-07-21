@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "task_id": "a.8",
+  "phase": "A",
+  "phase_id": "a",
+  "title": "Stub SpectrumVisualizer component",
+  "description": "Create empty SpectrumVisualizer component stubs in Source/GUI/SpectrumVisualizer.h and Source/GUI/SpectrumVisualizer.cpp as a bare juce::Component with empty paint/resized and no FFT yet.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: Source/GUI layout and CMake expected path Source/GUI/SpectrumVisualizer.*",
+  "acceptance_criteria": [
+    "Source/GUI/SpectrumVisualizer.h exists",
+    "Source/GUI/SpectrumVisualizer.cpp exists",
+    "SpectrumVisualizer class is declared in the header",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/GUI/SpectrumVisualizer.h",
+    "Source/GUI/SpectrumVisualizer.cpp"
+  ],
+  "forbidden_changes": [
+    "implement FFT spectrum rendering",
+    "modify CMakeLists.txt",
+    "modify PluginEditor or other components",
+    "add audio-thread heap allocation for visualization buffers beyond stubs"
+  ],
+  "allowed_symbols": [
+    "SpectrumVisualizer",
+    "paint",
+    "resized"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "minimal juce::Component stub"
+    ],
+    "forbidden": [
+      "real FFT pipeline",
+      "SPSC lock-free ring buffer implementation this phase"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "model": "openrouter/z-ai/glm-5.2",
+  "verification_commands": []
+}

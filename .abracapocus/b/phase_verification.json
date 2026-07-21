@@ -1,0 +1,52 @@
+{
+  "verification": {
+    "checks": [
+      {
+        "name": "cmake_configure_ninja",
+        "command": [
+          "cmake",
+          "-B",
+          "cmake-build-debug",
+          "-G",
+          "Ninja"
+        ]
+      },
+      {
+        "name": "cmake_build_standalone",
+        "command": [
+          "cmake",
+          "--build",
+          "cmake-build-debug",
+          "--target",
+          "AuralMaximizerPro_Standalone"
+        ]
+      },
+      {
+        "name": "cppcheck_dsp",
+        "command": [
+          "cppcheck",
+          "--enable=all",
+          "Source/DSP"
+        ]
+      },
+      {
+        "name": "clang_format_sonic_maximizer_h",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/DSP/SonicMaximizer.h"
+        ]
+      },
+      {
+        "name": "clang_format_sonic_maximizer_cpp",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/DSP/SonicMaximizer.cpp"
+        ]
+      }
+    ]
+  }
+}

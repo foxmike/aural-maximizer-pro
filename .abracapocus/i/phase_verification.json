@@ -1,0 +1,29 @@
+{
+  "verification": {
+    "checks": [
+      {
+        "name": "build_all_formats",
+        "command": [
+          "bash",
+          "scripts/build_all.sh"
+        ]
+      },
+      {
+        "name": "cppcheck_source",
+        "command": [
+          "cppcheck",
+          "--enable=all",
+          "Source/"
+        ]
+      },
+      {
+        "name": "clang_format_build_script",
+        "command": [
+          "bash",
+          "-c",
+          "test -f scripts/build_all.sh && test -f docs/verification/phase_i_build_targets.md"
+        ]
+      }
+    ]
+  }
+}

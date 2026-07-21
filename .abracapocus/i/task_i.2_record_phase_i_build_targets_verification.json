@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "task_id": "i.2",
+  "phase": "I",
+  "phase_id": "i",
+  "title": "Record phase i build targets verification",
+  "description": "Write docs/verification/phase_i_build_targets.md recording the clean multi-format build result for phase i.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_i_build_targets.md.\n\nBefore editing, inspect:\n- scripts/build_all.sh from task i.1\n- prior docs/verification/phase_* artifacts for tone and structure\n\nDocument must record:\n1. That verification used scripts/build_all.sh (cmake -B cmake-build-debug -G Ninja + multi-target cmake --build), never make\n2. Results for AuralMaximizerPro_Standalone, AuralMaximizerPro_VST3, AuralMaximizerPro_CLAP, AuralMaximizerPro_LV2\n3. Any undefined references or target-discovery failures\n4. If CLAP is deferred/pending, state Standalone+VST3+LV2 status and mark CLAP pending explicitly\n5. That this phase is the only gate for the full four-format matrix\n\nDepends on i.1. Do not edit the build script in this task.",
+  "acceptance_criteria": [
+    "docs/verification/phase_i_build_targets.md exists",
+    "docs/verification/phase_i_build_targets.md references scripts/build_all.sh and cmake -B cmake-build-debug -G Ninja",
+    "docs/verification/phase_i_build_targets.md records build outcome for Standalone, VST3, CLAP, and LV2 targets",
+    "docs/verification/phase_i_build_targets.md states verification does not use make",
+    "If CLAP is pending, docs/verification/phase_i_build_targets.md marks CLAP pending and records Standalone+VST3+LV2",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "docs/verification/phase_i_build_targets.md"
+  ],
+  "forbidden_changes": [
+    "modify scripts/build_all.sh",
+    "modify Source/",
+    "modify CMakeLists.txt",
+    "claim make-based verification",
+    "add new third-party dependencies"
+  ],
+  "allowed_symbols": [],
+  "decision_budget": {
+    "allowed": [
+      "write phase i verification markdown from observed or expected multi-format build outcomes",
+      "document deferred CLAP pending status when applicable"
+    ],
+    "forbidden": [
+      "change build system or Source code",
+      "require full four-format success wording when CLAP is deferred without marking pending"
+    ]
+  },
+  "dependencies": [
+    "i.1"
+  ],
+  "task_timeout_seconds": 900,
+  "model": "openrouter/deepseek/deepseek-v4-pro",
+  "verification_commands": []
+}

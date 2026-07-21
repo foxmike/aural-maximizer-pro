@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task_id": "a.5",
+  "phase": "A",
+  "phase_id": "a",
+  "title": "Stub AuralExciter class",
+  "description": "Create empty AuralExciter class stubs in Source/DSP/AuralExciter.h and Source/DSP/AuralExciter.cpp that compile against JUCE with no real exciter DSP yet.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: Source/DSP layout and CMake expected path Source/DSP/AuralExciter.*",
+  "acceptance_criteria": [
+    "Source/DSP/AuralExciter.h exists",
+    "Source/DSP/AuralExciter.cpp exists",
+    "AuralExciter class is declared in the header",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/DSP/AuralExciter.h",
+    "Source/DSP/AuralExciter.cpp"
+  ],
+  "forbidden_changes": [
+    "implement real exciter DSP",
+    "modify CMakeLists.txt",
+    "modify other DSP or processor files",
+    "add third-party dependencies"
+  ],
+  "allowed_symbols": [
+    "AuralExciter"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "empty class stub with optional process placeholders"
+    ],
+    "forbidden": [
+      "full harmonic-generation algorithm",
+      "processor integration"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "model": "openrouter/z-ai/glm-5.2",
+  "verification_commands": []
+}

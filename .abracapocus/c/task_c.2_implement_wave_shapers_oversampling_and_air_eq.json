@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "task_id": "c.2",
+  "phase": "C",
+  "phase_id": "c",
+  "title": "Implement wave-shapers oversampling and air EQ",
+  "description": "Implement Source/DSP/AuralExciter.cpp only, matching Source/DSP/AuralExciter.h from c.1.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/AuralExciter.cpp.\n\nBefore editing, inspect:\n- Source/DSP/AuralExciter.h (API, members, modes \u2014 implement exactly)\n- Other Source/DSP/*.cpp for prepare/process, ScopedNoDenormals, smoothing, buffer handling patterns\n- JUCE Oversampling usage patterns already in the tree if any\n\nImplementation requirements (real-time safe):\n- prepareToPlay/prepare: construct/configure juce::dsp::Oversampling<float> (2x/4x polyphase FIR selectable), query latency, size any pre-allocated buffers; never construct oversampler in process()\n- High-pass sidechain: 2nd-order juce::dsp SVF, cutoff EXC_TUNE clamped to [800 Hz, 10 kHz]\n- Non-linear stage on high-passed signal inside oversampled domain, modes:\n  1) Cubic Soft Clipping with piecewise 2/3 and 4/3 thresholds\n  2) Asymmetric Tube: y = tanh(G*x + delta) + gamma*(G*x)^2 with delta \u2248 0.15 (even harmonics), gamma from EXC_HARMONICS\n  3) Tape: y = (2/pi)*arctan(G*x)\n- Post-saturation high-shelf Air EQ above 10 kHz from EXC_AIR_GAIN\n- Smooth drive gain G, delta, and gamma off the raw per-sample parameter path (no zipper noise)\n- process(): juce::ScopedNoDenormals; no heap allocation, no locks, no filesystem/UI\n- Dry/wet or blend policy only if already declared in the header; do not invent new public API beyond the header\n\nVerification intent for this task: compile Standalone only after this file exists:\ncmake -B cmake-build-debug -G Ninja && cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone\nplus cppcheck on Source/DSP and clang-format on the cpp file when run by the executor.\n\nDo not edit the header, processor, editor, or docs.",
+  "acceptance_criteria": [
+    "Source/DSP/AuralExciter.cpp exists and implements the API declared in Source/DSP/AuralExciter.h",
+    "AuralExciter prepares Oversampling and SVF in prepare, not in process",
+    "Wave-shapers implement Cubic Soft Clip, Asymmetric Tube, and Tape as specified",
+    "Air EQ high-shelf above 10 kHz is driven by EXC_AIR_GAIN",
+    "Drive G, delta, and gamma use smoothed values in the audio path",
+    "cmake -B cmake-build-debug -G Ninja succeeds",
+    "cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone succeeds",
+    "cppcheck --enable=all Source/DSP passes or reports no errors in AuralExciter.cpp",
+    "clang-format --dry-run --Werror Source/DSP/AuralExciter.cpp passes",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/DSP/AuralExciter.cpp"
+  ],
+  "forbidden_changes": [
+    "modify Source/DSP/AuralExciter.h",
+    "modify Source/PluginProcessor.cpp",
+    "modify Source/PluginEditor.cpp",
+    "modify CMakeLists.txt",
+    "add third-party dependencies",
+    "heap allocate or lock in process()",
+    "construct Oversampling in process()",
+    "use make as the build command"
+  ],
+  "allowed_symbols": [
+    "AuralExciter",
+    "prepare",
+    "reset",
+    "process",
+    "WaveShaperMode"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "implement wave-shaper math and oversampled process path per header",
+      "use juce::SmoothedValue or project-equivalent smoothers for G/delta/gamma",
+      "local anonymous-namespace helpers for clip/tube/tape"
+    ],
+    "forbidden": [
+      "change public header API",
+      "wire into PluginProcessor or GUI",
+      "introduce FFT libraries or non-JUCE DSP frameworks",
+      "full multi-format plugin build targets in this task"
+    ]
+  },
+  "dependencies": [
+    "c.1"
+  ],
+  "task_timeout_seconds": 1200,
+  "verification_commands": []
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "task_id": "b.1",
+  "phase": "B",
+  "phase_id": "b",
+  "title": "Declare SonicMaximizer header and pre-allocated state",
+  "description": "Create Source/DSP/SonicMaximizer.h only for Module A (Sonic Maximizer): phase alignment and dynamic low contour.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.h.\n\nBefore editing, inspect:\n- Source/ for existing JUCE/DSP headers, PluginProcessor prepare/process patterns, and any MAX_LOW_FREQ / MAX_HIGH_FREQ constants\n- CMakeLists.txt target layout (do not modify)\n- phase goal: 3-band split, APF cascades, envelope follower, dynamic low boost; all audio state pre-allocated in prepareToPlay\n\nHeader requirements:\n- Declare class SonicMaximizer (or equivalent name matching project style) with publicly callable prepare(double sampleRate, int samplesPerBlock) and process(...) suitable for real-time use from the audio thread\n- Pre-allocated state members only (no heap ownership that reallocates in process):\n  - 3-band split via juce::dsp::IIR::Filter cascades (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ)\n  - Cascaded 1st/2nd-order allpass filter state: 4x APF on low, 2x on mid, 0x on high\n  - Envelope follower state e and alpha\n  - Cached APF coefficient a and contour parameter storage (LoContour); coefficients/constants updated only in prepare or on parameter change helpers, never implied as per-sample raw param math in the header contract\n- Document in comments near process that process must perform: no new/delete/resize, no locks, no juce::String work; use ScopedNoDenormals at call site or inside process as appropriate\n- Include only necessary JUCE DSP headers; keep the type complete for a later .cpp implementation\n- Provide clear member names for band filters, APF arrays, envelope, sampleRate cache, and parameter targets\n\nDo not implement DSP math in this task; declarations and state layout only.",
+  "acceptance_criteria": [
+    "Source/DSP/SonicMaximizer.h exists",
+    "Source/DSP/SonicMaximizer.h declares prepare and process entry points and pre-allocated band/APF/envelope state members",
+    "Source/DSP/SonicMaximizer.h references 3-band split (MAX_LOW_FREQ / MAX_HIGH_FREQ), APF cascade sizing (4 low / 2 mid / 0 high), and envelope/LoContour-related state",
+    "clang-format --dry-run --Werror Source/DSP/SonicMaximizer.h passes",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "antigravity_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/DSP/SonicMaximizer.h"
+  ],
+  "forbidden_changes": [
+    "modify Source/DSP/SonicMaximizer.cpp",
+    "modify Source/PluginProcessor.cpp",
+    "modify Source/PluginEditor.cpp",
+    "modify CMakeLists.txt or build scripts",
+    "add third-party dependencies",
+    "use globs or write outside allowed_write_paths",
+    "implement process() DSP math bodies in the header beyond inline trivial accessors if required by style"
+  ],
+  "allowed_symbols": [
+    "SonicMaximizer",
+    "prepare",
+    "process",
+    "MAX_LOW_FREQ",
+    "MAX_HIGH_FREQ"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "declare juce::dsp::IIR filter and APF state members",
+      "choose private member names and include guards consistent with Source/",
+      "document real-time constraints in header comments"
+    ],
+    "forbidden": [
+      "wire processor or editor in this task",
+      "introduce non-JUCE DSP frameworks",
+      "heap-allocate audio buffers as owning dynamic containers required in process",
+      "change plugin formats or CMake targets"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "verification_commands": []
+}

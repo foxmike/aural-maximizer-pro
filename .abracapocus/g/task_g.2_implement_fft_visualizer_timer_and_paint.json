@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "task_id": "g.2",
+  "phase": "G",
+  "phase_id": "g",
+  "title": "Implement FFT visualizer timer and paint",
+  "description": "Implement Source/GUI/SpectrumVisualizer.cpp only, matching Source/GUI/SpectrumVisualizer.h. Consume FFT frames from the lock-free AbstractFifo on a juce::Timer at about 30 Hz on the message thread; run juce::dsp::FFT analysis/display on the message thread only; paint the spectrum. Never touch the audio thread; never call repaint() from audio code; never allocate in audio callbacks (there should be none here).\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/GUI/SpectrumVisualizer.cpp.\n\nBefore editing, inspect:\n- Source/GUI/SpectrumVisualizer.h\n- Source/PluginProcessor.h\n- Source/PluginProcessor.cpp (FIFO push side and FFT/bin sizes from phase e)\n\nImplementation requirements:\n- Include SpectrumVisualizer.h and implement all declared methods\n- Timer::timerCallback pulls available frames from the SPSC FIFO then triggers paint/repaint on the message thread only; cap at 30-60 Hz as declared in the header\n- FFT size and ring capacity must match the header and processor phase-e buffers\n- paint() renders spectrum bars/path from the latest consumed magnitudes without blocking or locking the audio thread\n- No std::mutex / CriticalSection on the audio path; use only the lock-free FIFO already declared\n- No heap allocation inside timerCallback/paint beyond what JUCE Graphics already does on the message thread; pre-size working buffers in the constructor/prepare path\n\nDo not modify the header, MeterComponent, or processor/editor in this task.",
+  "acceptance_criteria": [
+    "Source/GUI/SpectrumVisualizer.cpp exists and implements SpectrumVisualizer from Source/GUI/SpectrumVisualizer.h",
+    "Source/GUI/SpectrumVisualizer.cpp uses juce::Timer to pull from the AbstractFifo/SPSC ring at about 30 Hz on the message thread",
+    "Source/GUI/SpectrumVisualizer.cpp uses juce::dsp::FFT consistent with header FFT size",
+    "Source/GUI/SpectrumVisualizer.cpp does not call straightforward audio-thread entry points and does not push work onto the audio thread",
+    "cmake -B cmake-build-debug -G Ninja configures successfully",
+    "cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone exits 0",
+    "cppcheck --enable=all Source/GUI/SpectrumVisualizer.cpp exits 0",
+    "clang-format --dry-run --Werror Source/GUI/SpectrumVisualizer.cpp exits 0",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/GUI/SpectrumVisualizer.cpp"
+  ],
+  "forbidden_changes": [
+    "modify Source/GUI/SpectrumVisualizer.h",
+    "modify Source/GUI/MeterComponent.h",
+    "modify Source/GUI/MeterComponent.cpp",
+    "modify Source/PluginProcessor.cpp",
+    "modify Source/PluginProcessor.h",
+    "modify Source/PluginEditor.h",
+    "modify Source/PluginEditor.cpp",
+    "modify CMakeLists.txt",
+    "add third-party dependencies",
+    "call repaint() from the audio thread",
+    "use blocking locks for audio-to-UI transfer",
+    "allocate on the audio thread"
+  ],
+  "allowed_symbols": [
+    "SpectrumVisualizer",
+    "SpectrumVisualizer::timerCallback",
+    "SpectrumVisualizer::paint",
+    "SpectrumVisualizer::resized"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "implement SpectrumVisualizer.cpp against the existing header",
+      "pull FIFO frames on Timer and paint spectrum on the message thread",
+      "preallocate FFT/working buffers in constructor or prepare"
+    ],
+    "forbidden": [
+      "change header API beyond what cpp needs without editing the header file",
+      "edit the header file",
+      "wire into PluginEditor",
+      "change processor FIFO push logistics",
+      "introduce GL/OpenGL or new UI frameworks"
+    ]
+  },
+  "dependencies": [
+    "g.1"
+  ],
+  "task_timeout_seconds": 1200,
+  "verification_commands": []
+}

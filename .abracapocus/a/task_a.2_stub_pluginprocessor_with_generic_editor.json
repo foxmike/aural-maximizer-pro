@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "task_id": "a.2",
+  "phase": "A",
+  "phase_id": "a",
+  "title": "Stub PluginProcessor with generic editor",
+  "description": "Create minimal JUCE AudioProcessor stubs in Source/PluginProcessor.h and Source/PluginProcessor.cpp. createEditor must return a juce::GenericAudioProcessorEditor. Do NOT include PluginEditor.h. No real DSP, APVTS, or layout yet\u2014empty prepareToPlay/processBlock/releaseResources that compile.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: JUCE AudioProcessor API expectations and CMake target_sources name for the processor.",
+  "acceptance_criteria": [
+    "Source/PluginProcessor.h exists",
+    "Source/PluginProcessor.cpp exists",
+    "Processor createEditor returns juce::GenericAudioProcessorEditor",
+    "Source/PluginProcessor.cpp does not include PluginEditor.h",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend:": "opencode_cli",
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/PluginProcessor.h",
+    "Source/PluginProcessor.cpp"
+  ],
+  "forbidden_changes": [
+    "include PluginEditor.h",
+    "modify CMakeLists.txt",
+    "modify Source/PluginEditor.h or Source/PluginEditor.cpp",
+    "implement real DSP or APVTS",
+    "heap allocate on the audio thread beyond JUCE base requirements"
+  ],
+  "allowed_symbols": [
+    "PluginProcessor",
+    "createEditor",
+    "prepareToPlay",
+    "processBlock",
+    "releaseResources"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "minimal juce::AudioProcessor subclass stub",
+      "GenericAudioProcessorEditor for createEditor"
+    ],
+    "forbidden": [
+      "wire custom PluginEditor",
+      "add business DSP logic",
+      "change build system"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "model": "openrouter/z-ai/glm-5.2",
+  "verification_commands": []
+}

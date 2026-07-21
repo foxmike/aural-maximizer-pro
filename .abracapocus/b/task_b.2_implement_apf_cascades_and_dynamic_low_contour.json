@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "task_id": "b.2",
+  "phase": "B",
+  "phase_id": "b",
+  "title": "Implement APF cascades and dynamic low contour",
+  "description": "Implement Source/DSP/SonicMaximizer.cpp only, matching Source/DSP/SonicMaximizer.h.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.cpp.\n\nBefore editing, inspect:\n- Source/DSP/SonicMaximizer.h (authoritative API and state layout from b.1)\n- Existing Source/ DSP .cpp files for prepare/process style if present\n\nImplementation requirements (real-time-safe):\n- prepare(sampleRate, samplesPerBlock): pre-allocate/reset all filter and envelope state; compute band IIR coefficients; compute APF coefficient a = (tan(pi*fc/fs) - 1)/(tan(pi*fc/fs) + 1); set envelope alpha = exp(-1/(0.05*sampleRate)); never allocate in process\n- process: 3-band split (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ) using juce::dsp::IIR::Filter cascades; apply cascaded allpass group-delay (4x APF low, 2x mid, 0x high); envelope e[n] = (1-alpha)*|x_low[n]| + alpha*e[n-1]; dynamic boost G_low[n] = 1 + LoContour*(e[n]/(1+e[n])); recombine bands; use ScopedNoDenormals; no new/delete/resize, no locks, no juce::String\n- Recompute APF/envelope constants only in prepare or explicit parameter-change path, never per-sample from unsmoothed raw parameter reads\n- Include the header and implement all declared methods\n\nDepend on header task b.1 completing first.",
+  "acceptance_criteria": [
+    "Source/DSP/SonicMaximizer.cpp exists and implements prepare and process from Source/DSP/SonicMaximizer.h",
+    "cmake -B cmake-build-debug -G Ninja succeeds",
+    "cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone succeeds",
+    "cppcheck --enable=all Source/DSP reports no error-level issues on SonicMaximizer.cpp",
+    "clang-format --dry-run --Werror Source/DSP/SonicMaximizer.cpp passes",
+    "process path has no heap allocation, locks, or juce::String work (reviewable in Source/DSP/SonicMaximizer.cpp)",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/DSP/SonicMaximizer.cpp"
+  ],
+  "forbidden_changes": [
+    "modify Source/DSP/SonicMaximizer.h",
+    "modify Source/PluginProcessor.cpp",
+    "modify Source/PluginEditor.cpp",
+    "modify CMakeLists.txt",
+    "add third-party dependencies",
+    "allocate or resize in process",
+    "use mutexes or locks on the audio path",
+    "use juce::String on the audio path"
+  ],
+  "allowed_symbols": [
+    "SonicMaximizer",
+    "prepare",
+    "process"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "implement IIR band split and APF cascade math per header state",
+      "implement envelope follower and G_low boost formula",
+      "use ScopedNoDenormals and smoothed/cached coefficients from prepare"
+    ],
+    "forbidden": [
+      "change public header API except via b.1 already done",
+      "introduce FFT or other maximizer modules",
+      "add unit-test frameworks or Python verification",
+      "build all plugin formats (VST3/CLAP/LV2) in this task"
+    ]
+  },
+  "dependencies": [
+    "b.1"
+  ],
+  "task_timeout_seconds": 1200,
+  "verification_commands": []
+}

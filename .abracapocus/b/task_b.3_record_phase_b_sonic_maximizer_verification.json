@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "task_id": "b.3",
+  "phase": "B",
+  "phase_id": "b",
+  "title": "Record phase b sonic maximizer verification",
+  "description": "Write docs/verification/phase_b_sonic_maximizer.md only. Record deterministic verification evidence for phase b (Sonic Maximizer).\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_b_sonic_maximizer.md.\n\nBefore editing, inspect:\n- docs/verification/phase_a_cli_smoke.md for report tone/structure\n- Source/DSP/SonicMaximizer.h and Source/DSP/SonicMaximizer.cpp existence and real-time constraints\n\nDocument:\n- Commands run: cmake -B cmake-build-debug -G Ninja; cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone; cppcheck --enable=all Source/DSP; clang-format --dry-run --Werror on Source/DSP/SonicMaximizer.h and Source/DSP/SonicMaximizer.cpp\n- Pass/fail outcomes and any residual risks (RT safety, coefficient update sites)\n- Changed files list for the phase: Source/DSP/SonicMaximizer.h, Source/DSP/SonicMaximizer.cpp, this verification doc\n\nDo not modify source or build files.",
+  "acceptance_criteria": [
+    "docs/verification/phase_b_sonic_maximizer.md exists",
+    "docs/verification/phase_b_sonic_maximizer.md records cmake Ninja configure and AuralMaximizerPro_Standalone build commands",
+    "docs/verification/phase_b_sonic_maximizer.md records cppcheck --enable=all Source/DSP and clang-format checks on SonicMaximizer.h/cpp",
+    "docs/verification/phase_b_sonic_maximizer.md lists phase changed files Source/DSP/SonicMaximizer.h and Source/DSP/SonicMaximizer.cpp",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "docs/verification/phase_b_sonic_maximizer.md"
+  ],
+  "forbidden_changes": [
+    "modify Source/DSP/SonicMaximizer.h",
+    "modify Source/DSP/SonicMaximizer.cpp",
+    "modify any Source/ file",
+    "modify CMakeLists.txt",
+    "claim verification passed without recording the actual commands"
+  ],
+  "allowed_symbols": [],
+  "decision_budget": {
+    "allowed": [
+      "structure markdown verification report with command sections and outcomes"
+    ],
+    "forbidden": [
+      "change DSP implementation",
+      "add new verification tooling dependencies"
+    ]
+  },
+  "dependencies": [
+    "b.2"
+  ],
+  "task_timeout_seconds": 600,
+  "model": "openrouter/deepseek/deepseek-v4-pro",
+  "verification_commands": []
+}

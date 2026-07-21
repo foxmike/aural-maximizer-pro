@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "task_id": "g.5",
+  "phase": "G",
+  "phase_id": "g",
+  "title": "Record phase g gui components verification",
+  "description": "Write docs/verification/phase_g_gui_components.md only. Record that phase g GUI components (SpectrumVisualizer and MeterComponent) were implemented and verified with the plan's CMake/Ninja Standalone stack plus cppcheck and clang-format \u2014 not make.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_g_gui_components.md.\n\nBefore editing, inspect:\n- Source/GUI/SpectrumVisualizer.h\n- Source/GUI/SpectrumVisualizer.cpp\n- Source/GUI/MeterComponent.h\n- Source/GUI/MeterComponent.cpp\n- docs/verification/ (prior phase verification notes if present)\n\nDocument must include:\n- Phase id g and goal summary (FFT SpectrumVisualizer + L/R MeterComponent)\n- Changed files list matching the four GUI sources\n- Verification commands actually required:\n  - cmake -B cmake-build-debug -G Ninja\n  - cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone\n  - cppcheck --enable=all Source/\n  - clang-format --dry-run --Werror on Source/GUI/SpectrumVisualizer.h Source/GUI/SpectrumVisualizer.cpp Source/GUI/MeterComponent.h Source/GUI/MeterComponent.cpp\n- Real-time safety notes: Timer capped 30-60 Hz; FIFO/atomics consume on message thread only; no audio-thread repaint; no audio-thread heap/locks; FFT/FIFO sizes match processor phase e\n- Explicit statement that make was not used as the build verifier\n- Pass/fail checklist placeholders or recorded results for build, cppcheck, and clang-format\n\nDo not modify any Source/ files in this task.",
+  "acceptance_criteria": [
+    "docs/verification/phase_g_gui_components.md exists",
+    "docs/verification/phase_g_gui_components.md lists Source/GUI/SpectrumVisualizer.h Source/GUI/SpectrumVisualizer.cpp Source/GUI/MeterComponent.h Source/GUI/MeterComponent.cpp",
+    "docs/verification/phase_g_gui_components.md records cmake -B cmake-build-debug -G Ninja and cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone",
+    "docs/verification/phase_g_gui_components.md records cppcheck --enable=all Source/ and clang-format --dry-run --Werror on the four GUI files",
+    "docs/verification/phase_g_gui_components.md states make is not the phase verifier",
+    "docs/verification/phase_g_gui_components.md notes Timer-capped 30-60 Hz message-thread FIFO/atomics consume and no audio-thread repaint",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "docs/verification/phase_g_gui_components.md"
+  ],
+  "forbidden_changes": [
+    "modify Source/GUI/SpectrumVisualizer.h",
+    "modify Source/GUI/SpectrumVisualizer.cpp",
+    "modify Source/GUI/MeterComponent.h",
+    "modify Source/GUI/MeterComponent.cpp",
+    "modify Source/PluginProcessor.cpp",
+    "modify Source/PluginEditor.cpp",
+    "modify CMakeLists.txt",
+    "add third-party dependencies",
+    "change any C++ source or header"
+  ],
+  "allowed_symbols": [],
+  "decision_budget": {
+    "allowed": [
+      "write phase g verification markdown summarizing build and RT-safety checks"
+    ],
+    "forbidden": [
+      "edit Source/ files",
+      "claim VST3/CLAP/LV2 full matrix build as this phase gate",
+      "use make as the recorded build command"
+    ]
+  },
+  "dependencies": [
+    "g.2",
+    "g.4"
+  ],
+  "task_timeout_seconds": 600,
+  "model": "openrouter/deepseek/deepseek-v4-pro",
+  "verification_commands": []
+}

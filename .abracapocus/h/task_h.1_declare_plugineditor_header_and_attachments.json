@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "task_id": "h.1",
+  "phase": "H",
+  "phase_id": "h",
+  "title": "Declare PluginEditor header and attachments",
+  "description": "Create Source/PluginEditor.h only.\n\nDeclare class PluginEditor : public juce::AudioProcessorEditor with:\n- Fixed editor size 920x540 (46:27).\n- Owned CustomLookAndFeel instance.\n- All knobs/sliders, combo boxes, and toggles required by the phase-e APVTS layout.\n- Embedded SpectrumVisualizer and MeterComponent members.\n- juce::AudioProcessorValueTreeState::SliderAttachment / ComboBoxAttachment / ButtonAttachment members for every parameter (exact 19 parameter IDs from the processor APVTS).\n- Constructor taking AuralMaximizerProAudioProcessor& (or the project's processor type), destructor, paint, resized declarations as needed by the implementation task.\n- No inline layout math beyond what belongs in a header; no .cpp bodies.\n\nBefore editing, inspect:\n- Source/PluginProcessor.h\n- Source/PluginProcessor.cpp (APVTS createParameterLayout / parameter IDs from phase e)\n- Source/GUI/ (CustomLookAndFeel, SpectrumVisualizer, MeterComponent headers)\n- Source/PluginEditor.h if a stub exists from phase a\n- CMakeLists.txt target wiring for the editor sources\n\nDo not infer parameter IDs or component APIs from this description alone. Read the phase-e APVTS layout and existing GUI headers first, then declare members against the real IDs and types.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in this task's allowed_write_paths. Do NOT modify PluginEditor.cpp, PluginProcessor.*, DSP sources, CMakeLists, or docs.",
+  "acceptance_criteria": [
+    "Source/PluginEditor.h exists and declares PluginEditor as juce::AudioProcessorEditor",
+    "Source/PluginEditor.h declares fixed size 920x540",
+    "Source/PluginEditor.h declares CustomLookAndFeel, SpectrumVisualizer, MeterComponent, all controls, and APVTS attachment members for the 19 parameter IDs",
+    "clang-format --dry-run --Werror Source/PluginEditor.h passes",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "antigravity_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/PluginEditor.h"
+  ],
+  "forbidden_changes": [
+    "modify Source/PluginEditor.cpp",
+    "modify Source/PluginProcessor.h or Source/PluginProcessor.cpp",
+    "modify DSP or other GUI implementation files",
+    "change CMakeLists.txt or add dependencies",
+    "implement method bodies in the header beyond trivial inline necessities",
+    "use make as verification"
+  ],
+  "allowed_symbols": [
+    "PluginEditor"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "declare editor members and attachments matching phase-e APVTS IDs",
+      "include existing project GUI and processor headers"
+    ],
+    "forbidden": [
+      "redesign window size away from 920x540",
+      "invent parameter IDs not present in phase-e APVTS",
+      "implement layout or paint logic outside the header contract",
+      "wire createEditor in the processor"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "verification_commands": []
+}

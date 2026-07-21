@@ -1,0 +1,10 @@
+# e
+
+## Goal
+
+Integrate the DSP into PluginProcessor and stand up the APVTS. Header first, then implementation (both re-write the phase-a stub, single-owner within this phase). The header declares the APVTS member, owned SonicMaximizer / AuralExciter / RoutingEngine instances, a lock-free SPSC ring buffer (juce::AbstractFifo + std::array<float,N>) for audio-to-UI spectrum transfer, latency state, and prepare/process declarations. The implementation builds createParameterLayout() with all 19 parameters exactly as specified (MAX_ENABLE, MAX_PROCESS, MAX_CONTOUR, MAX_LOW_FREQ, MAX_HIGH_FREQ, MAX_PHASE_MODE, EXC_ENABLE, EXC_TUNE, EXC_DRIVE, EXC_MIX, EXC_MODE, EXC_HARMONICS, EXC_AIR_GAIN, ROUTING_MODE, PARALLEL_BLEND, MASTER_IN_GAIN, MASTER_OUT_GAIN, MASTER_MIX, OVERSAMPLING) with their ranges/defaults/skews; pre-allocates everything in prepareToPlay; runs processBlock with juce::ScopedNoDenormals at the top, input gain -> RoutingEngine -> output gain/dry-wet, atomic/SmoothedValue parameter reads, and pushes spectrum frames into the FIFO; and reports latency via setLatencySamples() based on the oversampling factor. Keep createEditor returning the generic editor for now (the real editor is wired in a later phase).
+
+## Notes
+
+- Async: Wave 1: e.1 writes Source/PluginProcessor.h only (APVTS, DSP members, SPSC FIFO, latency, signatures). Wave 2: e.2 writes Source/PluginProcessor.cpp only and depends on e.1. Final wave: e.3 writes docs/verification/phase_e_processor_apvts.md and depends on e.2. No same-file overlap; PluginProcessor.{h,cpp} were last written in phase a and are re-authored here as single owner.
+- Risk: Verification: cmake/Ninja Standalone build plus cppcheck and clang-format on the two files; not make. ScopedNoDenormals must be the first statement in processBlock. All 19 parameter IDs/ranges/defaults must match the specification table exactly or downstream editor attachments break. Latency reporting must track the selected oversampling factor. Do NOT wire the real PluginEditor here (later fan-in phase) to keep createEditor stable.

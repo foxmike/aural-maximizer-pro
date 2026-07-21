@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "task_id": "e.2",
+  "phase": "E",
+  "phase_id": "e",
+  "title": "Implement APVTS layout processBlock and latency",
+  "description": "Rewrite Source/PluginProcessor.cpp only (depends on e.1 header). Single owner for this file in phase e.\n\nImplement:\n1) createParameterLayout() with all 19 parameters exactly as specified by the project parameter table/IDs:\n   MAX_ENABLE, MAX_PROCESS, MAX_CONTOUR, MAX_LOW_FREQ, MAX_HIGH_FREQ, MAX_PHASE_MODE,\n   EXC_ENABLE, EXC_TUNE, EXC_DRIVE, EXC_MIX, EXC_MODE, EXC_HARMONICS, EXC_AIR_GAIN,\n   ROUTING_MODE, PARALLEL_BLEND, MASTER_IN_GAIN, MASTER_OUT_GAIN, MASTER_MIX, OVERSAMPLING\n   \u2014 ranges, defaults, skews, and choice options must match the specification table exactly so later editor attachments do not break.\n2) Constructor/destructor: construct APVTS with createParameterLayout(); own DSP instances; init AbstractFifo/spectrum buffer; cache atomic/SmoothedValue parameter pointers.\n3) prepareToPlay: pre-allocate all DSP/oversampling/buffers; no allocations later on the audio thread; reset smoothers; compute and call setLatencySamples() from the selected oversampling factor.\n4) processBlock: first statement must be juce::ScopedNoDenormals; then master input gain -> RoutingEngine (SonicMaximizer / AuralExciter path per routing) -> master output gain and dry/wet (MASTER_MIX); read parameters via atomics/SmoothedValue only (no locks, no heap, no freestore on the audio thread); push spectrum frames into the SPSC FIFO for UI.\n5) releaseResources / reset as needed for owned DSP.\n6) createEditor: keep returning the generic/existing editor path for now \u2014 do NOT wire the real split-screen PluginEditor (later phase).\n7) Latency: whenever oversampling changes or in prepareToPlay, report latency via setLatencySamples() tracking the oversampling factor.\n\nReal-time safety is mandatory on the audio path.\n\nBefore editing, inspect:\n- Source/PluginProcessor.h (from e.1)\n- Source/PluginProcessor.cpp (phase-a stub)\n- SonicMaximizer / AuralExciter / RoutingEngine headers and APIs\n- parameter specification table (19 IDs/ranges/defaults/skews)\n- JUCE APVTS patterns already used in the tree if any\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in this task's allowed_write_paths.",
+  "acceptance_criteria": [
+    "Source/PluginProcessor.cpp implements createParameterLayout with all 19 parameter IDs: MAX_ENABLE, MAX_PROCESS, MAX_CONTOUR, MAX_LOW_FREQ, MAX_HIGH_FREQ, MAX_PHASE_MODE, EXC_ENABLE, EXC_TUNE, EXC_DRIVE, EXC_MIX, EXC_MODE, EXC_HARMONICS, EXC_AIR_GAIN, ROUTING_MODE, PARALLEL_BLEND, MASTER_IN_GAIN, MASTER_OUT_GAIN, MASTER_MIX, OVERSAMPLING",
+    "prepareToPlay pre-allocates DSP/oversampling state and reports latency via setLatencySamples based on oversampling factor",
+    "processBlock begins with juce::ScopedNoDenormals as the first statement",
+    "processBlock applies input gain -> RoutingEngine -> output gain/dry-wet using atomic or SmoothedValue parameter reads only",
+    "processBlock pushes spectrum frames into the lock-free SPSC FIFO (AbstractFifo + array)",
+    "createEditor remains the generic/existing editor path and does not wire the real PluginEditor",
+    "cmake -B cmake-build-debug -G Ninja succeeds",
+    "cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone succeeds",
+    "cppcheck --enable=all Source/PluginProcessor.cpp reports no error-level issues blocking the build",
+    "clang-format --dry-run --Werror Source/PluginProcessor.cpp passes",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/PluginProcessor.cpp"
+  ],
+  "forbidden_changes": [
+    "modify Source/PluginProcessor.h",
+    "modify Source/PluginEditor.h or Source/PluginEditor.cpp",
+    "modify DSP module files under Source/",
+    "wire the real PluginEditor in createEditor",
+    "heap allocation locks or blocking I/O inside processBlock",
+    "use make as the build system",
+    "add new third-party dependencies",
+    "change CMakeLists.txt or multi-format targets (VST3/CLAP/LV2)"
+  ],
+  "allowed_symbols": [
+    "createParameterLayout",
+    "prepareToPlay",
+    "processBlock",
+    "releaseResources",
+    "createEditor",
+    "setLatencySamples",
+    "ScopedNoDenormals",
+    "AudioProcessorValueTreeState",
+    "AbstractFifo",
+    "SonicMaximizer",
+    "AuralExciter",
+    "RoutingEngine"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "implement full APVTS layout and audio path in PluginProcessor.cpp against e.1 header",
+      "use juce::SmoothedValue and atomic parameter pointers for RT-safe reads",
+      "derive setLatencySamples from oversampling factor API already present on owned DSP"
+    ],
+    "forbidden": [
+      "rename any of the 19 parameter IDs",
+      "introduce mutexes or std::vector growth on the audio thread",
+      "wire real PluginEditor",
+      "build all plugin formats; Standalone target only"
+    ]
+  },
+  "dependencies": [
+    "e.1"
+  ],
+  "task_timeout_seconds": 1200,
+  "verification_commands": []
+}

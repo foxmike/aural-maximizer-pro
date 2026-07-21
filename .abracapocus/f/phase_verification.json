@@ -1,0 +1,45 @@
+{
+  "verification": {
+    "checks": [
+      {
+        "name": "cmake_configure",
+        "command": [
+          "cmake",
+          "-B",
+          "cmake-build-debug",
+          "-G",
+          "Ninja"
+        ]
+      },
+      {
+        "name": "compile_standalone",
+        "command": [
+          "cmake",
+          "--build",
+          "cmake-build-debug",
+          "--target",
+          "AuralMaximizerPro_Standalone"
+        ]
+      },
+      {
+        "name": "cppcheck_lookandfeel",
+        "command": [
+          "cppcheck",
+          "--enable=all",
+          "Source/GUI/CustomLookAndFeel.h",
+          "Source/GUI/CustomLookAndFeel.cpp"
+        ]
+      },
+      {
+        "name": "clang_format_lookandfeel",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/GUI/CustomLookAndFeel.h",
+          "Source/GUI/CustomLookAndFeel.cpp"
+        ]
+      }
+    ]
+  }
+}

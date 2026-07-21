@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "task_id": "a.3",
+  "phase": "A",
+  "phase_id": "a",
+  "title": "Stub PluginEditor component",
+  "description": "Create a bare juce::AudioProcessorEditor stub in Source/PluginEditor.h and Source/PluginEditor.cpp. No real layout, look-and-feel wiring, or meters yet\u2014empty paint/resized that compile.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: JUCE AudioProcessorEditor ctor/destruction patterns; do not edit PluginProcessor files.",
+  "acceptance_criteria": [
+    "Source/PluginEditor.h exists",
+    "Source/PluginEditor.cpp exists",
+    "PluginEditor subclasses juce::AudioProcessorEditor",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/PluginEditor.h",
+    "Source/PluginEditor.cpp"
+  ],
+  "forbidden_changes": [
+    "modify Source/PluginProcessor.h or Source/PluginProcessor.cpp",
+    "modify CMakeLists.txt",
+    "implement split-screen layout or real GUI controls",
+    "modify DSP stub files"
+  ],
+  "allowed_symbols": [
+    "PluginEditor",
+    "paint",
+    "resized"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "minimal AudioProcessorEditor stub"
+    ],
+    "forbidden": [
+      "full UI implementation",
+      "change processor createEditor wiring"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "model": "openrouter/z-ai/glm-5.2",
+  "verification_commands": []
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task_id": "a.6",
+  "phase": "A",
+  "phase_id": "a",
+  "title": "Stub RoutingEngine class",
+  "description": "Create empty RoutingEngine class stubs in Source/DSP/RoutingEngine.h and Source/DSP/RoutingEngine.cpp that compile against JUCE with no real routing logic yet.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: Source/DSP layout and CMake expected path Source/DSP/RoutingEngine.*",
+  "acceptance_criteria": [
+    "Source/DSP/RoutingEngine.h exists",
+    "Source/DSP/RoutingEngine.cpp exists",
+    "RoutingEngine class is declared in the header",
+    "No file outside the task's allowed_write_paths is created or modified"
+  ],
+  "selected_backend": "opencode_cli",
+  "verification_profile": "focused",
+  "allowed_write_paths": [
+    "Source/DSP/RoutingEngine.h",
+    "Source/DSP/RoutingEngine.cpp"
+  ],
+  "forbidden_changes": [
+    "implement real routing graph logic",
+    "modify CMakeLists.txt",
+    "modify other DSP or processor files",
+    "add third-party dependencies"
+  ],
+  "allowed_symbols": [
+    "RoutingEngine"
+  ],
+  "decision_budget": {
+    "allowed": [
+      "empty class stub"
+    ],
+    "forbidden": [
+      "processor APVTS wiring",
+      "non-lock-free UI communication design"
+    ]
+  },
+  "dependencies": [],
+  "task_timeout_seconds": 900,
+  "model": "openrouter/z-ai/glm-5.2",
+  "verification_commands": []
+}

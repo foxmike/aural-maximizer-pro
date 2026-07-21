@@ -1,0 +1,61 @@
+{
+  "verification": {
+    "checks": [
+      {
+        "name": "cmake_configure_ninja",
+        "command": [
+          "cmake",
+          "-B",
+          "cmake-build-debug",
+          "-G",
+          "Ninja"
+        ]
+      },
+      {
+        "name": "cmake_build_standalone",
+        "command": [
+          "cmake",
+          "--build",
+          "cmake-build-debug",
+          "--target",
+          "AuralMaximizerPro_Standalone"
+        ]
+      },
+      {
+        "name": "cppcheck_processor",
+        "command": [
+          "cppcheck",
+          "--enable=all",
+          "Source/PluginProcessor.h",
+          "Source/PluginProcessor.cpp"
+        ]
+      },
+      {
+        "name": "clang_format_processor_h",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/PluginProcessor.h"
+        ]
+      },
+      {
+        "name": "clang_format_processor_cpp",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/PluginProcessor.cpp"
+        ]
+      },
+      {
+        "name": "phase_e_verification_doc_exists",
+        "command": [
+          "test",
+          "-f",
+          "docs/verification/phase_e_processor_apvts.md"
+        ]
+      }
+    ]
+  }
+}
