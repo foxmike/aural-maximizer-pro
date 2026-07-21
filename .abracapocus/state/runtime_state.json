@@ -9,9 +9,9 @@
       "task_id": "a.10",
       "title": "Record phase a build skeleton verification",
       "phase": "A",
-      "status": "planned",
+      "status": "completed",
       "backend": "pi_cli",
-      "last_run": null,
+      "last_run": "2026-07-21T23:54:57.719363",
       "notes": ""
     }
   ],
@@ -87,6 +87,15 @@
       "reviewer_status": "approved",
       "verifier_status": "passed",
       "timestamp": "2026-07-21T23:53:33.752543"
+    },
+    {
+      "run_id": "9a4cc85c-480f-4b02-8193-7c3438ee639c",
+      "task_id": "a.10",
+      "backend": "pi_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-21T23:54:57.719569"
     }
   ],
   "operator_overrides": {},
