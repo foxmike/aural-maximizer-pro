@@ -1,0 +1,111 @@
+[
+  {
+    "created_at": "2026-07-21T23:43:15.730448",
+    "project_name": "aural-maximizer-pro",
+    "goal": "Create the root CMakeLists.txt for AuralMaximizerPro: JUCE subdirectory, C++20, juce_add_plugin with COMPANY_NAME nSpace / CODE Axpr, FORMATS Standalone VST3 CLAP LV2, link juce_audio_utils juce_audio_processors juce_dsp juce_gui_basics juce_gui_extra, juce_generate_juce_header, and target_sources listing every Source/ stub path from the phase expected files.\n\nSTRICT FILE SCOPE: Create or modify ONLY CMakeLists.txt.\n\nBefore editing, inspect: existing repo root for JUCE layout, any legacy build files, and expected Source/ paths listed in the phase goal.",
+    "plan_template": {
+      "project_name": "aural-maximizer-pro",
+      "summary": "Task run: Author root CMakeLists.txt build config",
+      "phases": [
+        {
+          "name": "A",
+          "objective": "Create the root CMakeLists.txt for AuralMaximizerPro: JUCE subdirectory, C++20, juce_add_plugin with COMPANY_NAME nSpace / CODE Axpr, FORMATS Standalone VST3 CLAP LV2, link juce_audio_utils juce_audio_processors juce_dsp juce_gui_basics juce_gui_extra, juce_generate_juce_header, and target_sources listing every Source/ stub path from the phase expected files.\n\nSTRICT FILE SCOPE: Create or modify ONLY CMakeLists.txt.\n\nBefore editing, inspect: existing repo root for JUCE layout, any legacy build files, and expected Source/ paths listed in the phase goal.",
+          "status": "blocked",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "a.1",
+                "title": "Author root CMakeLists.txt build config",
+                "description": "Create the root CMakeLists.txt for AuralMaximizerPro: JUCE subdirectory, C++20, juce_add_plugin with COMPANY_NAME nSpace / CODE Axpr, FORMATS Standalone VST3 CLAP LV2, link juce_audio_utils juce_audio_processors juce_dsp juce_gui_basics juce_gui_extra, juce_generate_juce_header, and target_sources listing every Source/ stub path from the phase expected files.\n\nSTRICT FILE SCOPE: Create or modify ONLY CMakeLists.txt.\n\nBefore editing, inspect: existing repo root for JUCE layout, any legacy build files, and expected Source/ paths listed in the phase goal.",
+                "phase": "A",
+                "dependencies": [],
+                "exclusivity_category": null,
+                "max_in_category": null,
+                "status": "completed",
+                "acceptance_criteria": [
+                  "CMakeLists.txt exists",
+                  "CMakeLists.txt sets C++20 and juce_add_plugin with COMPANY_NAME nSpace CODE Axpr",
+                  "CMakeLists.txt includes FORMATS Standalone VST3 CLAP LV2",
+                  "CMakeLists.txt target_sources references PluginProcessor PluginEditor and all DSP/GUI stub paths",
+                  "No file outside the task's allowed_write_paths is created or modified"
+                ],
+                "created_at": "2026-07-21T23:42:02.597646",
+                "selected_backend": "codex_cli",
+                "model": null,
+                "task_timeout_seconds": 900.0,
+                "verification_profile": "focused",
+                "verification_commands": [],
+                "allowed_write_paths": [
+                  "CMakeLists.txt"
+                ],
+                "forbidden_patterns_override": null
+              },
+              "dependencies": [],
+              "status": "completed"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-a.1",
+      "created_at": "2026-07-21T23:42:02.807467"
+    }
+  },
+  {
+    "created_at": "2026-07-21T23:44:16.302055",
+    "project_name": "aural-maximizer-pro",
+    "goal": "Create minimal JUCE AudioProcessor stubs in Source/PluginProcessor.h and Source/PluginProcessor.cpp. createEditor must return a juce::GenericAudioProcessorEditor. Do NOT include PluginEditor.h. No real DSP, APVTS, or layout yet\u2014empty prepareToPlay/processBlock/releaseResources that compile.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: JUCE AudioProcessor API expectations and CMake target_sources name for the processor.",
+    "plan_template": {
+      "project_name": "aural-maximizer-pro",
+      "summary": "Task run: Stub PluginProcessor with generic editor",
+      "phases": [
+        {
+          "name": "A",
+          "objective": "Create minimal JUCE AudioProcessor stubs in Source/PluginProcessor.h and Source/PluginProcessor.cpp. createEditor must return a juce::GenericAudioProcessorEditor. Do NOT include PluginEditor.h. No real DSP, APVTS, or layout yet\u2014empty prepareToPlay/processBlock/releaseResources that compile.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: JUCE AudioProcessor API expectations and CMake target_sources name for the processor.",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "a.2",
+                "title": "Stub PluginProcessor with generic editor",
+                "description": "Create minimal JUCE AudioProcessor stubs in Source/PluginProcessor.h and Source/PluginProcessor.cpp. createEditor must return a juce::GenericAudioProcessorEditor. Do NOT include PluginEditor.h. No real DSP, APVTS, or layout yet\u2014empty prepareToPlay/processBlock/releaseResources that compile.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: JUCE AudioProcessor API expectations and CMake target_sources name for the processor.",
+                "phase": "A",
+                "dependencies": [],
+                "exclusivity_category": null,
+                "max_in_category": null,
+                "status": "completed",
+                "acceptance_criteria": [
+                  "Source/PluginProcessor.h exists",
+                  "Source/PluginProcessor.cpp exists",
+                  "Processor createEditor returns juce::GenericAudioProcessorEditor",
+                  "Source/PluginProcessor.cpp does not include PluginEditor.h",
+                  "No file outside the task's allowed_write_paths is created or modified"
+                ],
+                "created_at": "2026-07-21T23:43:15.769482",
+                "selected_backend": "antigravity_cli",
+                "model": "",
+                "task_timeout_seconds": 900.0,
+                "verification_profile": "focused",
+                "verification_commands": [],
+                "allowed_write_paths": [
+                  "Source/PluginProcessor.h",
+                  "Source/PluginProcessor.cpp"
+                ],
+                "forbidden_patterns_override": null
+              },
+              "dependencies": [],
+              "status": "completed"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-07-21T23:44:16.245675",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-a.2",
+      "created_at": "2026-07-21T23:43:15.917999"
+    }
+  }
+]

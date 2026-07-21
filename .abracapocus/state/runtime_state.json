@@ -1,0 +1,34 @@
+{
+  "project_name": "aural-maximizer-pro",
+  "plan_version": "task-a.3",
+  "active_phase": "A",
+  "default_backend": "codex_cli",
+  "routing_mode": "manual",
+  "tasks": [
+    {
+      "task_id": "a.3",
+      "title": "Stub PluginEditor component",
+      "phase": "A",
+      "status": "planned",
+      "backend": "antigravity_cli",
+      "last_run": null,
+      "notes": ""
+    }
+  ],
+  "history": [
+    {
+      "run_id": "81d4c5c6-a0b1-4af3-9209-fa920d86c1fd",
+      "task_id": "a.2",
+      "backend": "antigravity_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-21T23:44:16.270828"
+    }
+  ],
+  "operator_overrides": {},
+  "completed_phases": [],
+  "remaining_phases": [
+    "A"
+  ]
+}

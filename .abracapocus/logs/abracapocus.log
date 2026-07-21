@@ -1,0 +1,6 @@
+2026-07-21 19:43:15 | INFO | abracapocus.backends.codex_cli | backend=codex_cli retry_count=0
+2026-07-21 19:43:15 | INFO | abracapocus | run=d93e485c-9712-471e-91a1-6c03ba7d2584 phase=A adaptive_gate=blocked reason=task outcome at index 0 is not accepted (unverified)
+2026-07-21 19:43:15 | INFO | abracapocus | run=d93e485c-9712-471e-91a1-6c03ba7d2584 phases=1 verification=passed
+2026-07-21 19:44:16 | INFO | abracapocus.backends.antigravity_cli | backend=antigravity_cli retry_count=0
+2026-07-21 19:44:16 | INFO | abracapocus | run=81d4c5c6-a0b1-4af3-9209-fa920d86c1fd phases=1 verification=passed
+2026-07-21 19:44:49 | INFO | abracapocus.backends.antigravity_cli | backend=antigravity_cli retry_count=0

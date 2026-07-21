@@ -9,7 +9,7 @@
 class PluginEditor  : public juce::AudioProcessorEditor
 {
 public:
-    PluginEditor (PluginProcessor&);
+    explicit PluginEditor (PluginProcessor&);
     ~PluginEditor() override;
 
     //==============================================================================
