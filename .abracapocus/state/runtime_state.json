@@ -9,9 +9,9 @@
       "task_id": "i.2",
       "title": "Record phase i build targets verification",
       "phase": "I",
-      "status": "planned",
+      "status": "completed",
       "backend": "pi_cli",
-      "last_run": null,
+      "last_run": "2026-07-22T00:44:54.744127",
       "notes": ""
     }
   ],
@@ -321,6 +321,15 @@
       "reviewer_status": "approved",
       "verifier_status": "passed",
       "timestamp": "2026-07-22T00:40:04.338382"
+    },
+    {
+      "run_id": "a51bf4a2-50af-468e-a952-2a3156ad8243",
+      "task_id": "i.2",
+      "backend": "pi_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-22T00:44:54.744607"
     }
   ],
   "operator_overrides": {},
