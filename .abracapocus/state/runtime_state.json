@@ -9,9 +9,9 @@
       "task_id": "f.3",
       "title": "Record phase f lookandfeel verification",
       "phase": "F",
-      "status": "planned",
+      "status": "completed",
       "backend": "pi_cli",
-      "last_run": null,
+      "last_run": "2026-07-22T00:27:02.910009",
       "notes": ""
     }
   ],
@@ -231,6 +231,15 @@
       "reviewer_status": "approved",
       "verifier_status": "passed",
       "timestamp": "2026-07-22T00:24:55.515660"
+    },
+    {
+      "run_id": "d17cf9a0-6407-485c-9cba-15dac8e33071",
+      "task_id": "f.3",
+      "backend": "pi_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-22T00:27:02.910285"
     }
   ],
   "operator_overrides": {},
