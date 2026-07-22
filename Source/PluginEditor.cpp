@@ -1,12 +1,10 @@
-#include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "PluginProcessor.h"
 
 //==============================================================================
 PluginEditor::PluginEditor (PluginProcessor& p)
     : AudioProcessorEditor (p), audioProcessor (p)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
     setSize (400, 300);
 }
 
@@ -23,3 +21,4 @@ void PluginEditor::paint (juce::Graphics& g)
 void PluginEditor::resized()
 {
 }
+
