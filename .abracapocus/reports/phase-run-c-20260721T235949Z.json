@@ -1,0 +1,136 @@
+{
+  "run_at": "2026-07-21T23:59:49.607580",
+  "phase_dir": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c",
+  "status": "passed",
+  "counts": {
+    "passed": 3,
+    "blocked": 0,
+    "skipped": 0
+  },
+  "tasks": [
+    {
+      "task_id": "c.1",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.1_declare_auralexciter_header_with_svf_and_oversampler.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "ac4c9202-01a8-4526-b20d-60edb7ef47b7",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "c.1:Review complete"
+    },
+    {
+      "task_id": "c.2",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.2_implement_wave_shapers_oversampling_and_air_eq.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "c1746088-a57e-4f21-83e5-dad7434d04e6",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "c.2:Review complete"
+    },
+    {
+      "task_id": "c.3",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/c/task_c.3_record_phase_c_aural_exciter_verification.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "46d64482-5a90-4977-9a30-6c66b608bd53",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "c.3:Review complete"
+    }
+  ],
+  "phase_verification": {
+    "status": "failed",
+    "checks": [
+      {
+        "name": "cmake_configure_ninja",
+        "status": "failed",
+        "detail": "[Errno 2] No such file or directory: 'cmake'",
+        "command": [
+          "cmake",
+          "-B",
+          "cmake-build-debug",
+          "-G",
+          "Ninja"
+        ],
+        "exit_code": 127
+      },
+      {
+        "name": "build_standalone",
+        "status": "failed",
+        "detail": "[Errno 2] No such file or directory: 'cmake'",
+        "command": [
+          "cmake",
+          "--build",
+          "cmake-build-debug",
+          "--target",
+          "AuralMaximizerPro_Standalone"
+        ],
+        "exit_code": 127
+      },
+      {
+        "name": "cppcheck_dsp",
+        "status": "failed",
+        "detail": "[Errno 2] No such file or directory: 'cppcheck'",
+        "command": [
+          "cppcheck",
+          "--enable=all",
+          "Source/DSP"
+        ],
+        "exit_code": 127
+      },
+      {
+        "name": "clang_format_aural_exciter_h",
+        "status": "failed",
+        "detail": "[Errno 2] No such file or directory: 'clang-format'",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/DSP/AuralExciter.h"
+        ],
+        "exit_code": 127
+      },
+      {
+        "name": "clang_format_aural_exciter_cpp",
+        "status": "failed",
+        "detail": "[Errno 2] No such file or directory: 'clang-format'",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/DSP/AuralExciter.cpp"
+        ],
+        "exit_code": 127
+      },
+      {
+        "name": "phase_verification_doc_exists",
+        "status": "passed",
+        "detail": "",
+        "command": [
+          "test",
+          "-f",
+          "docs/verification/phase_c_aural_exciter.md"
+        ],
+        "exit_code": 0
+      }
+    ],
+    "notes": "phase verification complete",
+    "run_when": "all_tasks_pass"
+  }
+}
