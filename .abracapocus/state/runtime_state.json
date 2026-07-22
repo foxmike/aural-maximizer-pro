@@ -9,9 +9,9 @@
       "task_id": "a.1",
       "title": "Author root CMakeLists.txt build config",
       "phase": "A",
-      "status": "planned",
+      "status": "completed",
       "backend": "codex_cli",
-      "last_run": null,
+      "last_run": "2026-07-22T01:03:42.392962",
       "notes": ""
     }
   ],
@@ -330,6 +330,15 @@
       "reviewer_status": "approved",
       "verifier_status": "passed",
       "timestamp": "2026-07-22T00:44:54.744607"
+    },
+    {
+      "run_id": "b68683a4-82f5-4c40-bc65-011ceaefef5b",
+      "task_id": "a.1",
+      "backend": "codex_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-22T01:03:42.393388"
     }
   ],
   "operator_overrides": {},
