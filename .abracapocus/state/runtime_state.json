@@ -1,17 +1,17 @@
 {
   "project_name": "aural-maximizer-pro",
-  "plan_version": "task-f.2",
+  "plan_version": "task-f.3",
   "active_phase": "F",
   "default_backend": "codex_cli",
   "routing_mode": "manual",
   "tasks": [
     {
-      "task_id": "f.2",
-      "title": "Implement rotary combobox and toggle drawing",
+      "task_id": "f.3",
+      "title": "Record phase f lookandfeel verification",
       "phase": "F",
-      "status": "completed",
-      "backend": "antigravity_cli",
-      "last_run": "2026-07-22T00:24:55.513085",
+      "status": "planned",
+      "backend": "pi_cli",
+      "last_run": null,
       "notes": ""
     }
   ],
