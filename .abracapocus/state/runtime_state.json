@@ -1,14 +1,14 @@
 {
   "project_name": "aural-maximizer-pro",
-  "plan_version": "task-a.3",
-  "active_phase": "A",
+  "plan_version": "task-f.1",
+  "active_phase": "F",
   "default_backend": "codex_cli",
   "routing_mode": "manual",
   "tasks": [
     {
-      "task_id": "a.3",
-      "title": "Stub PluginEditor component",
-      "phase": "A",
+      "task_id": "f.1",
+      "title": "Declare CustomLookAndFeel header and palette",
+      "phase": "F",
       "status": "planned",
       "backend": "antigravity_cli",
       "last_run": null,
@@ -218,6 +218,6 @@
   "operator_overrides": {},
   "completed_phases": [],
   "remaining_phases": [
-    "A"
+    "F"
   ]
 }
