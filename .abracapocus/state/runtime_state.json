@@ -9,9 +9,9 @@
       "task_id": "e.3",
       "title": "Record phase e processor apvts verification",
       "phase": "E",
-      "status": "planned",
+      "status": "completed",
       "backend": "pi_cli",
-      "last_run": null,
+      "last_run": "2026-07-22T00:08:17.160727",
       "notes": ""
     }
   ],
@@ -195,6 +195,15 @@
       "reviewer_status": "approved",
       "verifier_status": "passed",
       "timestamp": "2026-07-22T00:04:31.126485"
+    },
+    {
+      "run_id": "2aa8e736-4141-4101-bd2d-33c1764f7555",
+      "task_id": "e.3",
+      "backend": "pi_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-22T00:08:17.160997"
     }
   ],
   "operator_overrides": {},
