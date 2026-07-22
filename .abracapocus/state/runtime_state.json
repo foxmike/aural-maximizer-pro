@@ -1,17 +1,17 @@
 {
   "project_name": "aural-maximizer-pro",
-  "plan_version": "task-h.3",
+  "plan_version": "task-h.4",
   "active_phase": "H",
   "default_backend": "codex_cli",
   "routing_mode": "manual",
   "tasks": [
     {
-      "task_id": "h.3",
-      "title": "Wire processor createEditor to real editor",
+      "task_id": "h.4",
+      "title": "Record phase h editor verification",
       "phase": "H",
-      "status": "completed",
-      "backend": "antigravity_cli",
-      "last_run": "2026-07-22T00:36:51.047112",
+      "status": "planned",
+      "backend": "pi_cli",
+      "last_run": null,
       "notes": ""
     }
   ],
