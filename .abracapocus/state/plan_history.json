@@ -1,59 +1,5 @@
 [
   {
-    "created_at": "2026-07-21T23:55:25.573454",
-    "project_name": "aural-maximizer-pro",
-    "goal": "Create Source/DSP/SonicMaximizer.h only for Module A (Sonic Maximizer): phase alignment and dynamic low contour.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.h.\n\nBefore editing, inspect:\n- Source/ for existing JUCE/DSP headers, PluginProcessor prepare/process patterns, and any MAX_LOW_FREQ / MAX_HIGH_FREQ constants\n- CMakeLists.txt target layout (do not modify)\n- phase goal: 3-band split, APF cascades, envelope follower, dynamic low boost; all audio state pre-allocated in prepareToPlay\n\nHeader requirements:\n- Declare class SonicMaximizer (or equivalent name matching project style) with publicly callable prepare(double sampleRate, int samplesPerBlock) and process(...) suitable for real-time use from the audio thread\n- Pre-allocated state members only (no heap ownership that reallocates in process):\n  - 3-band split via juce::dsp::IIR::Filter cascades (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ)\n  - Cascaded 1st/2nd-order allpass filter state: 4x APF on low, 2x on mid, 0x on high\n  - Envelope follower state e and alpha\n  - Cached APF coefficient a and contour parameter storage (LoContour); coefficients/constants updated only in prepare or on parameter change helpers, never implied as per-sample raw param math in the header contract\n- Document in comments near process that process must perform: no new/delete/resize, no locks, no juce::String work; use ScopedNoDenormals at call site or inside process as appropriate\n- Include only necessary JUCE DSP headers; keep the type complete for a later .cpp implementation\n- Provide clear member names for band filters, APF arrays, envelope, sampleRate cache, and parameter targets\n\nDo not implement DSP math in this task; declarations and state layout only.",
-    "plan_template": {
-      "project_name": "aural-maximizer-pro",
-      "summary": "Task run: Declare SonicMaximizer header and pre-allocated state",
-      "phases": [
-        {
-          "name": "B",
-          "objective": "Create Source/DSP/SonicMaximizer.h only for Module A (Sonic Maximizer): phase alignment and dynamic low contour.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.h.\n\nBefore editing, inspect:\n- Source/ for existing JUCE/DSP headers, PluginProcessor prepare/process patterns, and any MAX_LOW_FREQ / MAX_HIGH_FREQ constants\n- CMakeLists.txt target layout (do not modify)\n- phase goal: 3-band split, APF cascades, envelope follower, dynamic low boost; all audio state pre-allocated in prepareToPlay\n\nHeader requirements:\n- Declare class SonicMaximizer (or equivalent name matching project style) with publicly callable prepare(double sampleRate, int samplesPerBlock) and process(...) suitable for real-time use from the audio thread\n- Pre-allocated state members only (no heap ownership that reallocates in process):\n  - 3-band split via juce::dsp::IIR::Filter cascades (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ)\n  - Cascaded 1st/2nd-order allpass filter state: 4x APF on low, 2x on mid, 0x on high\n  - Envelope follower state e and alpha\n  - Cached APF coefficient a and contour parameter storage (LoContour); coefficients/constants updated only in prepare or on parameter change helpers, never implied as per-sample raw param math in the header contract\n- Document in comments near process that process must perform: no new/delete/resize, no locks, no juce::String work; use ScopedNoDenormals at call site or inside process as appropriate\n- Include only necessary JUCE DSP headers; keep the type complete for a later .cpp implementation\n- Provide clear member names for band filters, APF arrays, envelope, sampleRate cache, and parameter targets\n\nDo not implement DSP math in this task; declarations and state layout only.",
-          "status": "completed",
-          "tasks": [
-            {
-              "task": {
-                "task_id": "b.1",
-                "title": "Declare SonicMaximizer header and pre-allocated state",
-                "description": "Create Source/DSP/SonicMaximizer.h only for Module A (Sonic Maximizer): phase alignment and dynamic low contour.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.h.\n\nBefore editing, inspect:\n- Source/ for existing JUCE/DSP headers, PluginProcessor prepare/process patterns, and any MAX_LOW_FREQ / MAX_HIGH_FREQ constants\n- CMakeLists.txt target layout (do not modify)\n- phase goal: 3-band split, APF cascades, envelope follower, dynamic low boost; all audio state pre-allocated in prepareToPlay\n\nHeader requirements:\n- Declare class SonicMaximizer (or equivalent name matching project style) with publicly callable prepare(double sampleRate, int samplesPerBlock) and process(...) suitable for real-time use from the audio thread\n- Pre-allocated state members only (no heap ownership that reallocates in process):\n  - 3-band split via juce::dsp::IIR::Filter cascades (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ)\n  - Cascaded 1st/2nd-order allpass filter state: 4x APF on low, 2x on mid, 0x on high\n  - Envelope follower state e and alpha\n  - Cached APF coefficient a and contour parameter storage (LoContour); coefficients/constants updated only in prepare or on parameter change helpers, never implied as per-sample raw param math in the header contract\n- Document in comments near process that process must perform: no new/delete/resize, no locks, no juce::String work; use ScopedNoDenormals at call site or inside process as appropriate\n- Include only necessary JUCE DSP headers; keep the type complete for a later .cpp implementation\n- Provide clear member names for band filters, APF arrays, envelope, sampleRate cache, and parameter targets\n\nDo not implement DSP math in this task; declarations and state layout only.",
-                "phase": "B",
-                "dependencies": [],
-                "exclusivity_category": null,
-                "max_in_category": null,
-                "status": "completed",
-                "acceptance_criteria": [
-                  "Source/DSP/SonicMaximizer.h exists",
-                  "Source/DSP/SonicMaximizer.h declares prepare and process entry points and pre-allocated band/APF/envelope state members",
-                  "Source/DSP/SonicMaximizer.h references 3-band split (MAX_LOW_FREQ / MAX_HIGH_FREQ), APF cascade sizing (4 low / 2 mid / 0 high), and envelope/LoContour-related state",
-                  "clang-format --dry-run --Werror Source/DSP/SonicMaximizer.h passes",
-                  "No file outside the task's allowed_write_paths is created or modified"
-                ],
-                "created_at": "2026-07-21T23:54:59.432619",
-                "selected_backend": "codex_cli",
-                "model": null,
-                "task_timeout_seconds": 900.0,
-                "verification_profile": "focused",
-                "verification_commands": [],
-                "allowed_write_paths": [
-                  "Source/DSP/SonicMaximizer.h"
-                ],
-                "forbidden_patterns_override": null
-              },
-              "dependencies": [],
-              "status": "completed"
-            }
-          ],
-          "completed": true,
-          "completed_at": "2026-07-21T23:55:25.500543",
-          "human_checkpoint": null
-        }
-      ],
-      "version": "task-b.1",
-      "created_at": "2026-07-21T23:54:59.635334"
-    }
-  },
-  {
     "created_at": "2026-07-21T23:55:55.845107",
     "project_name": "aural-maximizer-pro",
     "goal": "Implement Source/DSP/SonicMaximizer.cpp only, matching Source/DSP/SonicMaximizer.h.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.cpp.\n\nBefore editing, inspect:\n- Source/DSP/SonicMaximizer.h (authoritative API and state layout from b.1)\n- Existing Source/ DSP .cpp files for prepare/process style if present\n\nImplementation requirements (real-time-safe):\n- prepare(sampleRate, samplesPerBlock): pre-allocate/reset all filter and envelope state; compute band IIR coefficients; compute APF coefficient a = (tan(pi*fc/fs) - 1)/(tan(pi*fc/fs) + 1); set envelope alpha = exp(-1/(0.05*sampleRate)); never allocate in process\n- process: 3-band split (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ) using juce::dsp::IIR::Filter cascades; apply cascaded allpass group-delay (4x APF low, 2x mid, 0x high); envelope e[n] = (1-alpha)*|x_low[n]| + alpha*e[n-1]; dynamic boost G_low[n] = 1 + LoContour*(e[n]/(1+e[n])); recombine bands; use ScopedNoDenormals; no new/delete/resize, no locks, no juce::String\n- Recompute APF/envelope constants only in prepare or explicit parameter-change path, never per-sample from unsmoothed raw parameter reads\n- Include the header and implement all declared methods\n\nDepend on header task b.1 completing first.",
@@ -1132,6 +1078,65 @@
       ],
       "version": "task-g.3",
       "created_at": "2026-07-22T00:28:35.762273"
+    }
+  },
+  {
+    "created_at": "2026-07-22T00:31:08.118182",
+    "project_name": "aural-maximizer-pro",
+    "goal": "Implement Source/GUI/MeterComponent.cpp only, matching Source/GUI/MeterComponent.h. Render L/R peak and RMS LED-style bars on the message thread via a capped juce::Timer. Pull or snapshot levels that the processor publishes lock-free; never call into the audio thread; never allocate on an audio path.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/GUI/MeterComponent.cpp.\n\nBefore editing, inspect:\n- Source/GUI/MeterComponent.h\n- Source/PluginProcessor.h (meter level fields / atomics)\n- Source/GUI/SpectrumVisualizer.cpp (Timer paint pattern for consistency)\n\nImplementation requirements:\n- Include MeterComponent.h and implement all declared methods\n- timerCallback at the header's 30-60 Hz cap snapshots L/R peak and RMS and calls repaint on the message thread only\n- paint() draws separate L and R vertical (or project-consistent) LED/bar meters for peak and RMS with sensible dB scaling and clamp\n- Decay/hold may run on the message thread only\n- No mutex-based audio-to-UI transfer; use header atomics/lock-free levels only\n- Pre-size any path/geometry work outside the audio thread\n\nDo not modify the header, SpectrumVisualizer, or processor/editor in this task.",
+    "plan_template": {
+      "project_name": "aural-maximizer-pro",
+      "summary": "Task run: Implement L R peak meter rendering",
+      "phases": [
+        {
+          "name": "G",
+          "objective": "Implement Source/GUI/MeterComponent.cpp only, matching Source/GUI/MeterComponent.h. Render L/R peak and RMS LED-style bars on the message thread via a capped juce::Timer. Pull or snapshot levels that the processor publishes lock-free; never call into the audio thread; never allocate on an audio path.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/GUI/MeterComponent.cpp.\n\nBefore editing, inspect:\n- Source/GUI/MeterComponent.h\n- Source/PluginProcessor.h (meter level fields / atomics)\n- Source/GUI/SpectrumVisualizer.cpp (Timer paint pattern for consistency)\n\nImplementation requirements:\n- Include MeterComponent.h and implement all declared methods\n- timerCallback at the header's 30-60 Hz cap snapshots L/R peak and RMS and calls repaint on the message thread only\n- paint() draws separate L and R vertical (or project-consistent) LED/bar meters for peak and RMS with sensible dB scaling and clamp\n- Decay/hold may run on the message thread only\n- No mutex-based audio-to-UI transfer; use header atomics/lock-free levels only\n- Pre-size any path/geometry work outside the audio thread\n\nDo not modify the header, SpectrumVisualizer, or processor/editor in this task.",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "g.4",
+                "title": "Implement L R peak meter rendering",
+                "description": "Implement Source/GUI/MeterComponent.cpp only, matching Source/GUI/MeterComponent.h. Render L/R peak and RMS LED-style bars on the message thread via a capped juce::Timer. Pull or snapshot levels that the processor publishes lock-free; never call into the audio thread; never allocate on an audio path.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/GUI/MeterComponent.cpp.\n\nBefore editing, inspect:\n- Source/GUI/MeterComponent.h\n- Source/PluginProcessor.h (meter level fields / atomics)\n- Source/GUI/SpectrumVisualizer.cpp (Timer paint pattern for consistency)\n\nImplementation requirements:\n- Include MeterComponent.h and implement all declared methods\n- timerCallback at the header's 30-60 Hz cap snapshots L/R peak and RMS and calls repaint on the message thread only\n- paint() draws separate L and R vertical (or project-consistent) LED/bar meters for peak and RMS with sensible dB scaling and clamp\n- Decay/hold may run on the message thread only\n- No mutex-based audio-to-UI transfer; use header atomics/lock-free levels only\n- Pre-size any path/geometry work outside the audio thread\n\nDo not modify the header, SpectrumVisualizer, or processor/editor in this task.",
+                "phase": "G",
+                "dependencies": [
+                  "g.3"
+                ],
+                "exclusivity_category": null,
+                "max_in_category": null,
+                "status": "completed",
+                "acceptance_criteria": [
+                  "Source/GUI/MeterComponent.cpp exists and implements MeterComponent from Source/GUI/MeterComponent.h",
+                  "Source/GUI/MeterComponent.cpp timerCallback refreshes L/R peak and RMS at a capped 30-60 Hz rate on the message thread",
+                  "Source/GUI/MeterComponent.cpp paint draws distinct L and R peak/RMS meter bars",
+                  "cmake -B cmake-build-debug -G Ninja configures successfully",
+                  "cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone exits 0",
+                  "cppcheck --enable=all Source/GUI/MeterComponent.cpp exits 0",
+                  "clang-format --dry-run --Werror Source/GUI/MeterComponent.cpp exits 0",
+                  "No file outside the task's allowed_write_paths is created or modified"
+                ],
+                "created_at": "2026-07-22T00:29:27.356139",
+                "selected_backend": "antigravity_cli",
+                "model": "",
+                "task_timeout_seconds": 1200.0,
+                "verification_profile": "focused",
+                "verification_commands": [],
+                "allowed_write_paths": [
+                  "Source/GUI/MeterComponent.cpp"
+                ],
+                "forbidden_patterns_override": null
+              },
+              "dependencies": [],
+              "status": "completed"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-07-22T00:31:08.033503",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-g.4",
+      "created_at": "2026-07-22T00:29:27.544178"
     }
   }
 ]
