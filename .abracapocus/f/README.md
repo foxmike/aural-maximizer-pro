@@ -7,4 +7,4 @@ Implement the CustomLookAndFeel theme. Header first, then implementation (re-wri
 ## Notes
 
 - Async: Wave 1: f.1 writes Source/GUI/CustomLookAndFeel.h only (palette constants, override declarations). Wave 2: f.2 writes Source/GUI/CustomLookAndFeel.cpp only and depends on f.1. Final wave: f.3 writes docs/verification/phase_f_lookandfeel.md and depends on f.2. No same-file overlap.
-- Risk: Verification: cmake/Ninja Standalone build plus cppcheck and clang-format on the two files; not make. Colour constants must match the design hex values exactly so accent routing (cyan/amber/green) is correct when the editor assigns them per module. JUCE 8 changes some Font constructors; if pinned to JUCE 8 the drawText paths may need the newer API (see operator_questions).
+- Risk: Verification: cmake/Ninja Standalone build plus cppcheck and clang-format on the two files; not make. Colour constants must match the design hex values exactly so accent routing (cyan/amber/green) is correct when the editor assigns them per module. The pinned JUCE 8.0.13 checkout changes some Font constructors, so drawText paths may need the newer API.

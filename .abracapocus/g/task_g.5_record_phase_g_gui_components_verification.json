@@ -37,7 +37,7 @@
     ],
     "forbidden": [
       "edit Source/ files",
-      "claim VST3/CLAP/LV2 full matrix build as this phase gate",
+      "claim VST3/LV2 full matrix build as this phase gate",
       "use make as the recorded build command"
     ]
   },

@@ -44,7 +44,7 @@
       "change public header API except via b.1 already done",
       "introduce FFT or other maximizer modules",
       "add unit-test frameworks or Python verification",
-      "build all plugin formats (VST3/CLAP/LV2) in this task"
+      "build all plugin formats (VST3/LV2) in this task"
     ]
   },
   "dependencies": [

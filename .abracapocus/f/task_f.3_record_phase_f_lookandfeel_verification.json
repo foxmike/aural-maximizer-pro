@@ -34,7 +34,7 @@
     "forbidden": [
       "change source code",
       "use make as the build command",
-      "claim full VST3/CLAP/LV2 multi-format success from this phase"
+      "claim full VST3/LV2 multi-format success from this phase"
     ]
   },
   "dependencies": [

@@ -4,14 +4,13 @@
   "phase": "I",
   "phase_id": "i",
   "title": "Author multi-format build helper script",
-  "description": "Create scripts/build_all.sh: a deterministic, paste-safe multi-format build helper for AuralMaximizerPro.\n\nSTRICT FILE SCOPE: Create or modify ONLY scripts/build_all.sh.\n\nBefore editing, inspect:\n- CMakeLists.txt / existing cmake-build-debug usage if present\n- Any prior phase verification docs under docs/verification/ for target names\n- Source/ layout only as needed to confirm project name AuralMaximizerPro\n\nScript requirements:\n1. Configure with: cmake -B cmake-build-debug -G Ninja\n2. Build these targets via cmake --build cmake-build-debug --target <name>:\n   - AuralMaximizerPro_Standalone\n   - AuralMaximizerPro_VST3\n   - AuralMaximizerPro_CLAP\n   - AuralMaximizerPro_LV2\n3. Do NOT use set -e\n4. Do NOT use exit 0 (or any unconditional exit that would close an interactive paste session)\n5. Report undefined references and target-discovery failures clearly in stdout/stderr\n6. If CLAP cannot be built (missing CLAP extension / deferred), build Standalone+VST3+LV2, print a clear pending/skipped message for CLAP, and do not treat deferred CLAP as a hard script crash solely via set -e\n7. Prefer sequential explicit target builds so failures are attributable per format\n8. Never invoke make; only cmake/Ninja\n\nWave 1 only: this task writes the script; it does not write docs/verification/.",
+  "description": "Create scripts/build_all.sh: a deterministic, paste-safe multi-format build helper for AuralMaximizerPro.\n\nSTRICT FILE SCOPE: Create or modify ONLY scripts/build_all.sh.\n\nBefore editing, inspect:\n- CMakeLists.txt / existing cmake-build-debug usage if present\n- Any prior phase verification docs under docs/verification/ for target names\n- Source/ layout only as needed to confirm project name AuralMaximizerPro\n\nScript requirements:\n1. Configure with: cmake -B cmake-build-debug -G Ninja\n2. Build these targets via cmake --build cmake-build-debug --target <name>:\n   - AuralMaximizerPro_Standalone\n   - AuralMaximizerPro_VST3\n   - AuralMaximizerPro_LV2\n3. Do NOT use set -e\n4. Do NOT use exit 0 (or any unconditional exit that would close an interactive paste session)\n5. Report undefined references and target-discovery failures clearly in stdout/stderr\n6. Prefer sequential explicit target builds so failures are attributable per format\n7. Never invoke make; only cmake/Ninja\n\nWave 1 only: this task writes the script; it does not write docs/verification/.",
   "acceptance_criteria": [
     "scripts/build_all.sh exists and is a runnable shell script",
     "scripts/build_all.sh configures with cmake -B cmake-build-debug -G Ninja",
-    "scripts/build_all.sh builds AuralMaximizerPro_Standalone, AuralMaximizerPro_VST3, AuralMaximizerPro_CLAP, and AuralMaximizerPro_LV2 via cmake --build cmake-build-debug",
+    "scripts/build_all.sh builds AuralMaximizerPro_Standalone, AuralMaximizerPro_VST3, and AuralMaximizerPro_LV2 via cmake --build cmake-build-debug",
     "scripts/build_all.sh does not use set -e and does not use exit 0",
     "scripts/build_all.sh does not invoke make",
-    "If CLAP is deferred, script builds Standalone+VST3+LV2 and marks CLAP pending rather than silently succeeding with empty CLAP coverage",
     "No file outside the task's allowed_write_paths is created or modified"
   ],
   "selected_backend": "codex_cli",
@@ -31,8 +30,7 @@
   "allowed_symbols": [],
   "decision_budget": {
     "allowed": [
-      "author paste-safe bash helper with cmake/Ninja configure and per-target builds",
-      "print explicit skip/pending messaging for deferred CLAP"
+      "author paste-safe bash helper with cmake/Ninja configure and per-target builds"
     ],
     "forbidden": [
       "switch verification default to make",

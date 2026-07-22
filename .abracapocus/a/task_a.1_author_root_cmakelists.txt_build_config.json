@@ -4,11 +4,11 @@
   "phase": "A",
   "phase_id": "a",
   "title": "Author root CMakeLists.txt build config",
-  "description": "Create the root CMakeLists.txt for AuralMaximizerPro: JUCE subdirectory, C++20, juce_add_plugin with COMPANY_NAME nSpace / CODE Axpr, FORMATS Standalone VST3 CLAP LV2, link juce_audio_utils juce_audio_processors juce_dsp juce_gui_basics juce_gui_extra, juce_generate_juce_header, and target_sources listing every Source/ stub path from the phase expected files.\n\nSTRICT FILE SCOPE: Create or modify ONLY CMakeLists.txt.\n\nBefore editing, inspect: existing repo root for JUCE layout, any legacy build files, and expected Source/ paths listed in the phase goal.",
+  "description": "Create the root CMakeLists.txt for AuralMaximizerPro: use the existing JUCE 8.0.13 checkout at ./JUCE through the normal repository-relative integration add_subdirectory(JUCE), set C++20, juce_add_plugin with COMPANY_NAME nSpace / CODE Axpr, FORMATS Standalone VST3 LV2, link juce_audio_utils juce_audio_processors juce_dsp juce_gui_basics juce_gui_extra, juce_generate_juce_header, and target_sources listing every Source/ stub path from the phase expected files. Do not use FetchContent, package-manager installation, another JUCE copy, or another external dependency.\n\nSTRICT FILE SCOPE: Create or modify ONLY CMakeLists.txt.\n\nBefore editing, inspect: existing repo root for JUCE layout, any legacy build files, and expected Source/ paths listed in the phase goal.",
   "acceptance_criteria": [
     "CMakeLists.txt exists",
     "CMakeLists.txt sets C++20 and juce_add_plugin with COMPANY_NAME nSpace CODE Axpr",
-    "CMakeLists.txt includes FORMATS Standalone VST3 CLAP LV2",
+    "CMakeLists.txt includes FORMATS Standalone VST3 LV2",
     "CMakeLists.txt target_sources references PluginProcessor PluginEditor and all DSP/GUI stub paths",
     "No file outside the task's allowed_write_paths is created or modified"
   ],
@@ -20,7 +20,7 @@
   "forbidden_changes": [
     "modify any Source/ file",
     "modify docs/",
-    "add third-party dependencies beyond JUCE/clap-juce-extensions already implied by the plan",
+    "add third-party dependencies beyond the existing JUCE submodule",
     "change default verification to make"
   ],
   "allowed_symbols": [

@@ -32,7 +32,7 @@
     ],
     "forbidden": [
       "change product code",
-      "claim four-format VST3/CLAP/LV2 build was gated in this phase"
+      "claim full VST3/LV2 multi-format build was gated in this phase"
     ]
   },
   "dependencies": [

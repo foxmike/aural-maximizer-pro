@@ -20,7 +20,7 @@
   "forbidden_changes": [
     "modify Source/ files",
     "modify CMakeLists.txt",
-    "claim full VST3 CLAP LV2 build gate for this phase",
+    "claim full VST3/LV2 multi-format build gate for this phase",
     "document make as the primary build command"
   ],
   "allowed_symbols": [],

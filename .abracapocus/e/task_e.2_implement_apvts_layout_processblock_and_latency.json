@@ -31,7 +31,7 @@
     "heap allocation locks or blocking I/O inside processBlock",
     "use make as the build system",
     "add new third-party dependencies",
-    "change CMakeLists.txt or multi-format targets (VST3/CLAP/LV2)"
+    "change CMakeLists.txt or multi-format targets (VST3/LV2)"
   ],
   "allowed_symbols": [
     "createParameterLayout",
