@@ -1,17 +1,17 @@
 {
   "project_name": "aural-maximizer-pro",
-  "plan_version": "task-g.5",
-  "active_phase": "G",
+  "plan_version": "task-h.1",
+  "active_phase": "H",
   "default_backend": "codex_cli",
   "routing_mode": "manual",
   "tasks": [
     {
-      "task_id": "g.5",
-      "title": "Record phase g gui components verification",
-      "phase": "G",
-      "status": "completed",
-      "backend": "pi_cli",
-      "last_run": "2026-07-22T00:34:10.510482",
+      "task_id": "h.1",
+      "title": "Declare PluginEditor header and attachments",
+      "phase": "H",
+      "status": "planned",
+      "backend": "antigravity_cli",
+      "last_run": null,
       "notes": ""
     }
   ],
@@ -290,6 +290,6 @@
   "operator_overrides": {},
   "completed_phases": [],
   "remaining_phases": [
-    "G"
+    "H"
   ]
 }

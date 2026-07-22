@@ -1,0 +1,14 @@
+{
+  "run_id": "3c360e5b-9693-4921-ab07-1f3bf83c06ab",
+  "task_id": "h.1",
+  "phase": "H",
+  "subtype": "context_completeness",
+  "mode": "advisory",
+  "reason_codes": [
+    "unresolved_phase_reference",
+    "empty_context_package"
+  ],
+  "detail": "Unresolved phase references: phase-e ContextPackage.files or ContextPackage.summaries must be non-empty.",
+  "blocking": false,
+  "created_at": "2026-07-22T00:34:12.320654"
+}

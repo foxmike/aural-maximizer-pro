@@ -1,63 +1,5 @@
 [
   {
-    "created_at": "2026-07-21T23:55:55.845107",
-    "project_name": "aural-maximizer-pro",
-    "goal": "Implement Source/DSP/SonicMaximizer.cpp only, matching Source/DSP/SonicMaximizer.h.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.cpp.\n\nBefore editing, inspect:\n- Source/DSP/SonicMaximizer.h (authoritative API and state layout from b.1)\n- Existing Source/ DSP .cpp files for prepare/process style if present\n\nImplementation requirements (real-time-safe):\n- prepare(sampleRate, samplesPerBlock): pre-allocate/reset all filter and envelope state; compute band IIR coefficients; compute APF coefficient a = (tan(pi*fc/fs) - 1)/(tan(pi*fc/fs) + 1); set envelope alpha = exp(-1/(0.05*sampleRate)); never allocate in process\n- process: 3-band split (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ) using juce::dsp::IIR::Filter cascades; apply cascaded allpass group-delay (4x APF low, 2x mid, 0x high); envelope e[n] = (1-alpha)*|x_low[n]| + alpha*e[n-1]; dynamic boost G_low[n] = 1 + LoContour*(e[n]/(1+e[n])); recombine bands; use ScopedNoDenormals; no new/delete/resize, no locks, no juce::String\n- Recompute APF/envelope constants only in prepare or explicit parameter-change path, never per-sample from unsmoothed raw parameter reads\n- Include the header and implement all declared methods\n\nDepend on header task b.1 completing first.",
-    "plan_template": {
-      "project_name": "aural-maximizer-pro",
-      "summary": "Task run: Implement APF cascades and dynamic low contour",
-      "phases": [
-        {
-          "name": "B",
-          "objective": "Implement Source/DSP/SonicMaximizer.cpp only, matching Source/DSP/SonicMaximizer.h.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.cpp.\n\nBefore editing, inspect:\n- Source/DSP/SonicMaximizer.h (authoritative API and state layout from b.1)\n- Existing Source/ DSP .cpp files for prepare/process style if present\n\nImplementation requirements (real-time-safe):\n- prepare(sampleRate, samplesPerBlock): pre-allocate/reset all filter and envelope state; compute band IIR coefficients; compute APF coefficient a = (tan(pi*fc/fs) - 1)/(tan(pi*fc/fs) + 1); set envelope alpha = exp(-1/(0.05*sampleRate)); never allocate in process\n- process: 3-band split (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ) using juce::dsp::IIR::Filter cascades; apply cascaded allpass group-delay (4x APF low, 2x mid, 0x high); envelope e[n] = (1-alpha)*|x_low[n]| + alpha*e[n-1]; dynamic boost G_low[n] = 1 + LoContour*(e[n]/(1+e[n])); recombine bands; use ScopedNoDenormals; no new/delete/resize, no locks, no juce::String\n- Recompute APF/envelope constants only in prepare or explicit parameter-change path, never per-sample from unsmoothed raw parameter reads\n- Include the header and implement all declared methods\n\nDepend on header task b.1 completing first.",
-          "status": "completed",
-          "tasks": [
-            {
-              "task": {
-                "task_id": "b.2",
-                "title": "Implement APF cascades and dynamic low contour",
-                "description": "Implement Source/DSP/SonicMaximizer.cpp only, matching Source/DSP/SonicMaximizer.h.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.cpp.\n\nBefore editing, inspect:\n- Source/DSP/SonicMaximizer.h (authoritative API and state layout from b.1)\n- Existing Source/ DSP .cpp files for prepare/process style if present\n\nImplementation requirements (real-time-safe):\n- prepare(sampleRate, samplesPerBlock): pre-allocate/reset all filter and envelope state; compute band IIR coefficients; compute APF coefficient a = (tan(pi*fc/fs) - 1)/(tan(pi*fc/fs) + 1); set envelope alpha = exp(-1/(0.05*sampleRate)); never allocate in process\n- process: 3-band split (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ) using juce::dsp::IIR::Filter cascades; apply cascaded allpass group-delay (4x APF low, 2x mid, 0x high); envelope e[n] = (1-alpha)*|x_low[n]| + alpha*e[n-1]; dynamic boost G_low[n] = 1 + LoContour*(e[n]/(1+e[n])); recombine bands; use ScopedNoDenormals; no new/delete/resize, no locks, no juce::String\n- Recompute APF/envelope constants only in prepare or explicit parameter-change path, never per-sample from unsmoothed raw parameter reads\n- Include the header and implement all declared methods\n\nDepend on header task b.1 completing first.",
-                "phase": "B",
-                "dependencies": [
-                  "b.1"
-                ],
-                "exclusivity_category": null,
-                "max_in_category": null,
-                "status": "completed",
-                "acceptance_criteria": [
-                  "Source/DSP/SonicMaximizer.cpp exists and implements prepare and process from Source/DSP/SonicMaximizer.h",
-                  "cmake -B cmake-build-debug -G Ninja succeeds",
-                  "cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone succeeds",
-                  "cppcheck --enable=all Source/DSP reports no error-level issues on SonicMaximizer.cpp",
-                  "clang-format --dry-run --Werror Source/DSP/SonicMaximizer.cpp passes",
-                  "process path has no heap allocation, locks, or juce::String work (reviewable in Source/DSP/SonicMaximizer.cpp)",
-                  "No file outside the task's allowed_write_paths is created or modified"
-                ],
-                "created_at": "2026-07-21T23:55:25.637924",
-                "selected_backend": "codex_cli",
-                "model": null,
-                "task_timeout_seconds": 1200.0,
-                "verification_profile": "focused",
-                "verification_commands": [],
-                "allowed_write_paths": [
-                  "Source/DSP/SonicMaximizer.cpp"
-                ],
-                "forbidden_patterns_override": null
-              },
-              "dependencies": [],
-              "status": "completed"
-            }
-          ],
-          "completed": true,
-          "completed_at": "2026-07-21T23:55:55.775757",
-          "human_checkpoint": null
-        }
-      ],
-      "version": "task-b.2",
-      "created_at": "2026-07-21T23:55:25.843495"
-    }
-  },
-  {
     "created_at": "2026-07-21T23:57:13.794287",
     "project_name": "aural-maximizer-pro",
     "goal": "Write docs/verification/phase_b_sonic_maximizer.md only. Record deterministic verification evidence for phase b (Sonic Maximizer).\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_b_sonic_maximizer.md.\n\nBefore editing, inspect:\n- docs/verification/phase_a_cli_smoke.md for report tone/structure\n- Source/DSP/SonicMaximizer.h and Source/DSP/SonicMaximizer.cpp existence and real-time constraints\n\nDocument:\n- Commands run: cmake -B cmake-build-debug -G Ninja; cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone; cppcheck --enable=all Source/DSP; clang-format --dry-run --Werror on Source/DSP/SonicMaximizer.h and Source/DSP/SonicMaximizer.cpp\n- Pass/fail outcomes and any residual risks (RT safety, coefficient update sites)\n- Changed files list for the phase: Source/DSP/SonicMaximizer.h, Source/DSP/SonicMaximizer.cpp, this verification doc\n\nDo not modify source or build files.",
@@ -1137,6 +1079,65 @@
       ],
       "version": "task-g.4",
       "created_at": "2026-07-22T00:29:27.544178"
+    }
+  },
+  {
+    "created_at": "2026-07-22T00:34:10.597498",
+    "project_name": "aural-maximizer-pro",
+    "goal": "Write docs/verification/phase_g_gui_components.md only. Record that phase g GUI components (SpectrumVisualizer and MeterComponent) were implemented and verified with the plan's CMake/Ninja Standalone stack plus cppcheck and clang-format \u2014 not make.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_g_gui_components.md.\n\nBefore editing, inspect:\n- Source/GUI/SpectrumVisualizer.h\n- Source/GUI/SpectrumVisualizer.cpp\n- Source/GUI/MeterComponent.h\n- Source/GUI/MeterComponent.cpp\n- docs/verification/ (prior phase verification notes if present)\n\nDocument must include:\n- Phase id g and goal summary (FFT SpectrumVisualizer + L/R MeterComponent)\n- Changed files list matching the four GUI sources\n- Verification commands actually required:\n  - cmake -B cmake-build-debug -G Ninja\n  - cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone\n  - cppcheck --enable=all Source/\n  - clang-format --dry-run --Werror on Source/GUI/SpectrumVisualizer.h Source/GUI/SpectrumVisualizer.cpp Source/GUI/MeterComponent.h Source/GUI/MeterComponent.cpp\n- Real-time safety notes: Timer capped 30-60 Hz; FIFO/atomics consume on message thread only; no audio-thread repaint; no audio-thread heap/locks; FFT/FIFO sizes match processor phase e\n- Explicit statement that make was not used as the build verifier\n- Pass/fail checklist placeholders or recorded results for build, cppcheck, and clang-format\n\nDo not modify any Source/ files in this task.",
+    "plan_template": {
+      "project_name": "aural-maximizer-pro",
+      "summary": "Task run: Record phase g gui components verification",
+      "phases": [
+        {
+          "name": "G",
+          "objective": "Write docs/verification/phase_g_gui_components.md only. Record that phase g GUI components (SpectrumVisualizer and MeterComponent) were implemented and verified with the plan's CMake/Ninja Standalone stack plus cppcheck and clang-format \u2014 not make.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_g_gui_components.md.\n\nBefore editing, inspect:\n- Source/GUI/SpectrumVisualizer.h\n- Source/GUI/SpectrumVisualizer.cpp\n- Source/GUI/MeterComponent.h\n- Source/GUI/MeterComponent.cpp\n- docs/verification/ (prior phase verification notes if present)\n\nDocument must include:\n- Phase id g and goal summary (FFT SpectrumVisualizer + L/R MeterComponent)\n- Changed files list matching the four GUI sources\n- Verification commands actually required:\n  - cmake -B cmake-build-debug -G Ninja\n  - cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone\n  - cppcheck --enable=all Source/\n  - clang-format --dry-run --Werror on Source/GUI/SpectrumVisualizer.h Source/GUI/SpectrumVisualizer.cpp Source/GUI/MeterComponent.h Source/GUI/MeterComponent.cpp\n- Real-time safety notes: Timer capped 30-60 Hz; FIFO/atomics consume on message thread only; no audio-thread repaint; no audio-thread heap/locks; FFT/FIFO sizes match processor phase e\n- Explicit statement that make was not used as the build verifier\n- Pass/fail checklist placeholders or recorded results for build, cppcheck, and clang-format\n\nDo not modify any Source/ files in this task.",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "g.5",
+                "title": "Record phase g gui components verification",
+                "description": "Write docs/verification/phase_g_gui_components.md only. Record that phase g GUI components (SpectrumVisualizer and MeterComponent) were implemented and verified with the plan's CMake/Ninja Standalone stack plus cppcheck and clang-format \u2014 not make.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_g_gui_components.md.\n\nBefore editing, inspect:\n- Source/GUI/SpectrumVisualizer.h\n- Source/GUI/SpectrumVisualizer.cpp\n- Source/GUI/MeterComponent.h\n- Source/GUI/MeterComponent.cpp\n- docs/verification/ (prior phase verification notes if present)\n\nDocument must include:\n- Phase id g and goal summary (FFT SpectrumVisualizer + L/R MeterComponent)\n- Changed files list matching the four GUI sources\n- Verification commands actually required:\n  - cmake -B cmake-build-debug -G Ninja\n  - cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone\n  - cppcheck --enable=all Source/\n  - clang-format --dry-run --Werror on Source/GUI/SpectrumVisualizer.h Source/GUI/SpectrumVisualizer.cpp Source/GUI/MeterComponent.h Source/GUI/MeterComponent.cpp\n- Real-time safety notes: Timer capped 30-60 Hz; FIFO/atomics consume on message thread only; no audio-thread repaint; no audio-thread heap/locks; FFT/FIFO sizes match processor phase e\n- Explicit statement that make was not used as the build verifier\n- Pass/fail checklist placeholders or recorded results for build, cppcheck, and clang-format\n\nDo not modify any Source/ files in this task.",
+                "phase": "G",
+                "dependencies": [
+                  "g.2",
+                  "g.4"
+                ],
+                "exclusivity_category": null,
+                "max_in_category": null,
+                "status": "completed",
+                "acceptance_criteria": [
+                  "docs/verification/phase_g_gui_components.md exists",
+                  "docs/verification/phase_g_gui_components.md lists Source/GUI/SpectrumVisualizer.h Source/GUI/SpectrumVisualizer.cpp Source/GUI/MeterComponent.h Source/GUI/MeterComponent.cpp",
+                  "docs/verification/phase_g_gui_components.md records cmake -B cmake-build-debug -G Ninja and cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone",
+                  "docs/verification/phase_g_gui_components.md records cppcheck --enable=all Source/ and clang-format --dry-run --Werror on the four GUI files",
+                  "docs/verification/phase_g_gui_components.md states make is not the phase verifier",
+                  "docs/verification/phase_g_gui_components.md notes Timer-capped 30-60 Hz message-thread FIFO/atomics consume and no audio-thread repaint",
+                  "No file outside the task's allowed_write_paths is created or modified"
+                ],
+                "created_at": "2026-07-22T00:31:08.148652",
+                "selected_backend": "pi_cli",
+                "model": "openrouter/z-ai/glm-5.2",
+                "task_timeout_seconds": 600.0,
+                "verification_profile": "focused",
+                "verification_commands": [],
+                "allowed_write_paths": [
+                  "docs/verification/phase_g_gui_components.md"
+                ],
+                "forbidden_patterns_override": null
+              },
+              "dependencies": [],
+              "status": "completed"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-07-22T00:34:10.485733",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-g.5",
+      "created_at": "2026-07-22T00:31:08.288604"
     }
   }
 ]
