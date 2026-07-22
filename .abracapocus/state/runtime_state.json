@@ -9,9 +9,9 @@
       "task_id": "f.2",
       "title": "Implement rotary combobox and toggle drawing",
       "phase": "F",
-      "status": "planned",
+      "status": "completed",
       "backend": "antigravity_cli",
-      "last_run": null,
+      "last_run": "2026-07-22T00:24:55.513085",
       "notes": ""
     }
   ],
@@ -222,6 +222,15 @@
       "reviewer_status": "approved",
       "verifier_status": "passed",
       "timestamp": "2026-07-22T00:22:00.336498"
+    },
+    {
+      "run_id": "dca819dc-1d78-41bc-9673-f6adbc22f6a8",
+      "task_id": "f.2",
+      "backend": "antigravity_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-22T00:24:55.515660"
     }
   ],
   "operator_overrides": {},
