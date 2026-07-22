@@ -1,0 +1,163 @@
+{
+  "run_at": "2026-07-22T00:40:04.453402",
+  "phase_dir": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h",
+  "status": "passed",
+  "counts": {
+    "passed": 4,
+    "blocked": 0,
+    "skipped": 0
+  },
+  "tasks": [
+    {
+      "task_id": "h.1",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.1_declare_plugineditor_header_and_attachments.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "3c360e5b-9693-4921-ab07-1f3bf83c06ab",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "h.1:Review complete"
+    },
+    {
+      "task_id": "h.2",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.2_implement_split_screen_layout_and_apvts_bindings.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "e4b44ab6-30f4-4e1c-ba5f-23375bbf455f",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "h.2:Review complete"
+    },
+    {
+      "task_id": "h.3",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.3_wire_processor_createeditor_to_real_editor.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "7c294e7a-ec29-4a3e-8598-8418639280dd",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "h.3:Review complete"
+    },
+    {
+      "task_id": "h.4",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/h/task_h.4_record_phase_h_editor_verification.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "7450db84-4792-4dd6-a954-6587019f12b8",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "h.4:Review complete"
+    }
+  ],
+  "phase_verification": {
+    "status": "failed",
+    "checks": [
+      {
+        "name": "cmake_configure_ninja",
+        "status": "failed",
+        "detail": "[Errno 2] No such file or directory: 'cmake'",
+        "command": [
+          "cmake",
+          "-B",
+          "cmake-build-debug",
+          "-G",
+          "Ninja"
+        ],
+        "exit_code": 127
+      },
+      {
+        "name": "cmake_build_standalone",
+        "status": "failed",
+        "detail": "[Errno 2] No such file or directory: 'cmake'",
+        "command": [
+          "cmake",
+          "--build",
+          "cmake-build-debug",
+          "--target",
+          "AuralMaximizerPro_Standalone"
+        ],
+        "exit_code": 127
+      },
+      {
+        "name": "cppcheck_source",
+        "status": "failed",
+        "detail": "[Errno 2] No such file or directory: 'cppcheck'",
+        "command": [
+          "cppcheck",
+          "--enable=all",
+          "Source/"
+        ],
+        "exit_code": 127
+      },
+      {
+        "name": "clang_format_plugin_editor_h",
+        "status": "failed",
+        "detail": "[Errno 2] No such file or directory: 'clang-format'",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/PluginEditor.h"
+        ],
+        "exit_code": 127
+      },
+      {
+        "name": "clang_format_plugin_editor_cpp",
+        "status": "failed",
+        "detail": "[Errno 2] No such file or directory: 'clang-format'",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/PluginEditor.cpp"
+        ],
+        "exit_code": 127
+      },
+      {
+        "name": "clang_format_plugin_processor_cpp",
+        "status": "failed",
+        "detail": "[Errno 2] No such file or directory: 'clang-format'",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/PluginProcessor.cpp"
+        ],
+        "exit_code": 127
+      },
+      {
+        "name": "phase_h_verification_doc_exists",
+        "status": "failed",
+        "detail": "",
+        "command": [
+          "test",
+          "-f",
+          "docs/verification/phase_h_editor.md"
+        ],
+        "exit_code": 1
+      }
+    ],
+    "notes": "phase verification complete",
+    "run_when": "all_tasks_pass"
+  }
+}
