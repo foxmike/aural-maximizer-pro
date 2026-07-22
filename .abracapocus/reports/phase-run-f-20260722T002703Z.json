@@ -1,0 +1,115 @@
+{
+  "run_at": "2026-07-22T00:27:03.022573",
+  "phase_dir": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f",
+  "status": "passed",
+  "counts": {
+    "passed": 3,
+    "blocked": 0,
+    "skipped": 0
+  },
+  "tasks": [
+    {
+      "task_id": "f.1",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.1_declare_customlookandfeel_header_and_palette.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "3cf92177-9842-4bdb-9420-0933f6f4e7c4",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "f.1:Review complete"
+    },
+    {
+      "task_id": "f.2",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.2_implement_rotary_combobox_and_toggle_drawing.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "dca819dc-1d78-41bc-9673-f6adbc22f6a8",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "f.2:Review complete"
+    },
+    {
+      "task_id": "f.3",
+      "task_file": "/home/mike/dev/mike/music/plugins/aural-maximizer-pro/.abracapocus/f/task_f.3_record_phase_f_lookandfeel_verification.json",
+      "status": "passed",
+      "acceptance_status": "accepted",
+      "task_verification": {
+        "status": "passed",
+        "checks": [],
+        "owner": "task"
+      },
+      "run_id": "d17cf9a0-6407-485c-9cba-15dac8e33071",
+      "write_policy_violations": [],
+      "failure_classification": null,
+      "reviewer_summary": "f.3:Review complete"
+    }
+  ],
+  "phase_verification": {
+    "status": "failed",
+    "checks": [
+      {
+        "name": "cmake_configure",
+        "status": "failed",
+        "detail": "[Errno 2] No such file or directory: 'cmake'",
+        "command": [
+          "cmake",
+          "-B",
+          "cmake-build-debug",
+          "-G",
+          "Ninja"
+        ],
+        "exit_code": 127
+      },
+      {
+        "name": "compile_standalone",
+        "status": "failed",
+        "detail": "[Errno 2] No such file or directory: 'cmake'",
+        "command": [
+          "cmake",
+          "--build",
+          "cmake-build-debug",
+          "--target",
+          "AuralMaximizerPro_Standalone"
+        ],
+        "exit_code": 127
+      },
+      {
+        "name": "cppcheck_lookandfeel",
+        "status": "failed",
+        "detail": "[Errno 2] No such file or directory: 'cppcheck'",
+        "command": [
+          "cppcheck",
+          "--enable=all",
+          "Source/GUI/CustomLookAndFeel.h",
+          "Source/GUI/CustomLookAndFeel.cpp"
+        ],
+        "exit_code": 127
+      },
+      {
+        "name": "clang_format_lookandfeel",
+        "status": "failed",
+        "detail": "[Errno 2] No such file or directory: 'clang-format'",
+        "command": [
+          "clang-format",
+          "--dry-run",
+          "--Werror",
+          "Source/GUI/CustomLookAndFeel.h",
+          "Source/GUI/CustomLookAndFeel.cpp"
+        ],
+        "exit_code": 127
+      }
+    ],
+    "notes": "phase verification complete",
+    "run_when": "all_tasks_pass"
+  }
+}

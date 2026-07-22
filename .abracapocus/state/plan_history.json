@@ -1,167 +1,5 @@
 [
   {
-    "created_at": "2026-07-21T23:52:48.313868",
-    "project_name": "aural-maximizer-pro",
-    "goal": "Create empty CustomLookAndFeel stubs in Source/GUI/CustomLookAndFeel.h and Source/GUI/CustomLookAndFeel.cpp subclassing juce::LookAndFeel_V4 (or equivalent bare JUCE LookAndFeel) with no real skinning yet.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: Source/GUI directory expectations and JUCE LookAndFeel include patterns.",
-    "plan_template": {
-      "project_name": "aural-maximizer-pro",
-      "summary": "Task run: Stub CustomLookAndFeel class",
-      "phases": [
-        {
-          "name": "A",
-          "objective": "Create empty CustomLookAndFeel stubs in Source/GUI/CustomLookAndFeel.h and Source/GUI/CustomLookAndFeel.cpp subclassing juce::LookAndFeel_V4 (or equivalent bare JUCE LookAndFeel) with no real skinning yet.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: Source/GUI directory expectations and JUCE LookAndFeel include patterns.",
-          "status": "completed",
-          "tasks": [
-            {
-              "task": {
-                "task_id": "a.7",
-                "title": "Stub CustomLookAndFeel class",
-                "description": "Create empty CustomLookAndFeel stubs in Source/GUI/CustomLookAndFeel.h and Source/GUI/CustomLookAndFeel.cpp subclassing juce::LookAndFeel_V4 (or equivalent bare JUCE LookAndFeel) with no real skinning yet.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: Source/GUI directory expectations and JUCE LookAndFeel include patterns.",
-                "phase": "A",
-                "dependencies": [],
-                "exclusivity_category": null,
-                "max_in_category": null,
-                "status": "completed",
-                "acceptance_criteria": [
-                  "Source/GUI/CustomLookAndFeel.h exists",
-                  "Source/GUI/CustomLookAndFeel.cpp exists",
-                  "CustomLookAndFeel class is declared in the header",
-                  "No file outside the task's allowed_write_paths is created or modified"
-                ],
-                "created_at": "2026-07-21T23:52:33.165566",
-                "selected_backend": "antigravity_cli",
-                "model": "",
-                "task_timeout_seconds": 900.0,
-                "verification_profile": "focused",
-                "verification_commands": [],
-                "allowed_write_paths": [
-                  "Source/GUI/CustomLookAndFeel.h",
-                  "Source/GUI/CustomLookAndFeel.cpp"
-                ],
-                "forbidden_patterns_override": null
-              },
-              "dependencies": [],
-              "status": "completed"
-            }
-          ],
-          "completed": true,
-          "completed_at": "2026-07-21T23:52:48.267061",
-          "human_checkpoint": null
-        }
-      ],
-      "version": "task-a.7",
-      "created_at": "2026-07-21T23:52:33.375380"
-    }
-  },
-  {
-    "created_at": "2026-07-21T23:53:18.596868",
-    "project_name": "aural-maximizer-pro",
-    "goal": "Create empty SpectrumVisualizer component stubs in Source/GUI/SpectrumVisualizer.h and Source/GUI/SpectrumVisualizer.cpp as a bare juce::Component with empty paint/resized and no FFT yet.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: Source/GUI layout and CMake expected path Source/GUI/SpectrumVisualizer.*",
-    "plan_template": {
-      "project_name": "aural-maximizer-pro",
-      "summary": "Task run: Stub SpectrumVisualizer component",
-      "phases": [
-        {
-          "name": "A",
-          "objective": "Create empty SpectrumVisualizer component stubs in Source/GUI/SpectrumVisualizer.h and Source/GUI/SpectrumVisualizer.cpp as a bare juce::Component with empty paint/resized and no FFT yet.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: Source/GUI layout and CMake expected path Source/GUI/SpectrumVisualizer.*",
-          "status": "completed",
-          "tasks": [
-            {
-              "task": {
-                "task_id": "a.8",
-                "title": "Stub SpectrumVisualizer component",
-                "description": "Create empty SpectrumVisualizer component stubs in Source/GUI/SpectrumVisualizer.h and Source/GUI/SpectrumVisualizer.cpp as a bare juce::Component with empty paint/resized and no FFT yet.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: Source/GUI layout and CMake expected path Source/GUI/SpectrumVisualizer.*",
-                "phase": "A",
-                "dependencies": [],
-                "exclusivity_category": null,
-                "max_in_category": null,
-                "status": "completed",
-                "acceptance_criteria": [
-                  "Source/GUI/SpectrumVisualizer.h exists",
-                  "Source/GUI/SpectrumVisualizer.cpp exists",
-                  "SpectrumVisualizer class is declared in the header",
-                  "No file outside the task's allowed_write_paths is created or modified"
-                ],
-                "created_at": "2026-07-21T23:52:48.353396",
-                "selected_backend": "antigravity_cli",
-                "model": "",
-                "task_timeout_seconds": 900.0,
-                "verification_profile": "focused",
-                "verification_commands": [],
-                "allowed_write_paths": [
-                  "Source/GUI/SpectrumVisualizer.h",
-                  "Source/GUI/SpectrumVisualizer.cpp"
-                ],
-                "forbidden_patterns_override": null
-              },
-              "dependencies": [],
-              "status": "completed"
-            }
-          ],
-          "completed": true,
-          "completed_at": "2026-07-21T23:53:18.550925",
-          "human_checkpoint": null
-        }
-      ],
-      "version": "task-a.8",
-      "created_at": "2026-07-21T23:52:48.515917"
-    }
-  },
-  {
-    "created_at": "2026-07-21T23:53:33.794579",
-    "project_name": "aural-maximizer-pro",
-    "goal": "Create empty MeterComponent stubs in Source/GUI/MeterComponent.h and Source/GUI/MeterComponent.cpp as a bare juce::Component with empty paint/resized and no metering logic yet.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: Source/GUI layout and CMake expected path Source/GUI/MeterComponent.*",
-    "plan_template": {
-      "project_name": "aural-maximizer-pro",
-      "summary": "Task run: Stub MeterComponent component",
-      "phases": [
-        {
-          "name": "A",
-          "objective": "Create empty MeterComponent stubs in Source/GUI/MeterComponent.h and Source/GUI/MeterComponent.cpp as a bare juce::Component with empty paint/resized and no metering logic yet.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: Source/GUI layout and CMake expected path Source/GUI/MeterComponent.*",
-          "status": "completed",
-          "tasks": [
-            {
-              "task": {
-                "task_id": "a.9",
-                "title": "Stub MeterComponent component",
-                "description": "Create empty MeterComponent stubs in Source/GUI/MeterComponent.h and Source/GUI/MeterComponent.cpp as a bare juce::Component with empty paint/resized and no metering logic yet.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in allowed_write_paths.\n\nBefore editing, inspect: Source/GUI layout and CMake expected path Source/GUI/MeterComponent.*",
-                "phase": "A",
-                "dependencies": [],
-                "exclusivity_category": null,
-                "max_in_category": null,
-                "status": "completed",
-                "acceptance_criteria": [
-                  "Source/GUI/MeterComponent.h exists",
-                  "Source/GUI/MeterComponent.cpp exists",
-                  "MeterComponent class is declared in the header",
-                  "No file outside the task's allowed_write_paths is created or modified"
-                ],
-                "created_at": "2026-07-21T23:53:18.634828",
-                "selected_backend": "pi_cli",
-                "model": "openrouter/z-ai/glm-5.2",
-                "task_timeout_seconds": 900.0,
-                "verification_profile": "focused",
-                "verification_commands": [],
-                "allowed_write_paths": [
-                  "Source/GUI/MeterComponent.h",
-                  "Source/GUI/MeterComponent.cpp"
-                ],
-                "forbidden_patterns_override": null
-              },
-              "dependencies": [],
-              "status": "completed"
-            }
-          ],
-          "completed": true,
-          "completed_at": "2026-07-21T23:53:33.722252",
-          "human_checkpoint": null
-        }
-      ],
-      "version": "task-a.9",
-      "created_at": "2026-07-21T23:53:18.802587"
-    }
-  },
-  {
     "created_at": "2026-07-21T23:54:57.782393",
     "project_name": "aural-maximizer-pro",
     "goal": "Write docs/verification/phase_a_build_skeleton.md documenting that the phase skeletons exist and the Standalone target is the phase gate. Record the exact verification commands used: cmake -B cmake-build-debug -G Ninja; cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone; clang-format --dry-run --Werror on created sources. Do NOT use make.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_a_build_skeleton.md.\n\nBefore editing, inspect: CMakeLists.txt and all Source stub paths to list them accurately in the verification note.",
@@ -1131,6 +969,178 @@
       ],
       "version": "task-f.2",
       "created_at": "2026-07-22T00:22:00.705540"
+    }
+  },
+  {
+    "created_at": "2026-07-22T00:27:02.983112",
+    "project_name": "aural-maximizer-pro",
+    "goal": "Write docs/verification/phase_f_lookandfeel.md documenting phase F verification for CustomLookAndFeel only. Record commands run, exit outcomes, and file scope.\n\nRequired verification stack (do not use make):\n1) cmake -B cmake-build-debug -G Ninja\n2) cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone\n3) cppcheck --enable=all Source/GUI/CustomLookAndFeel.h Source/GUI/CustomLookAndFeel.cpp\n4) clang-format --dry-run --Werror Source/GUI/CustomLookAndFeel.h Source/GUI/CustomLookAndFeel.cpp\n\nDocument palette hex checklist (Background #121417, Panel #1A1D22, Border #2C3038, Maximizer #00D2FF, Exciter #FF9500, Master #34C759, Text #F2F2F7), that drawRotarySlider/ComboBox/ToggleButton are implemented, and that the phase touched only the two LookAndFeel sources plus this verification artifact. Do not implement product code in this task.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in this task's allowed_write_paths.\n\nBefore editing, inspect:\n- Source/GUI/CustomLookAndFeel.h\n- Source/GUI/CustomLookAndFeel.cpp\n- docs/verification/ for prior phase verification markdown format if present",
+    "plan_template": {
+      "project_name": "aural-maximizer-pro",
+      "summary": "Task run: Record phase f lookandfeel verification",
+      "phases": [
+        {
+          "name": "F",
+          "objective": "Write docs/verification/phase_f_lookandfeel.md documenting phase F verification for CustomLookAndFeel only. Record commands run, exit outcomes, and file scope.\n\nRequired verification stack (do not use make):\n1) cmake -B cmake-build-debug -G Ninja\n2) cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone\n3) cppcheck --enable=all Source/GUI/CustomLookAndFeel.h Source/GUI/CustomLookAndFeel.cpp\n4) clang-format --dry-run --Werror Source/GUI/CustomLookAndFeel.h Source/GUI/CustomLookAndFeel.cpp\n\nDocument palette hex checklist (Background #121417, Panel #1A1D22, Border #2C3038, Maximizer #00D2FF, Exciter #FF9500, Master #34C759, Text #F2F2F7), that drawRotarySlider/ComboBox/ToggleButton are implemented, and that the phase touched only the two LookAndFeel sources plus this verification artifact. Do not implement product code in this task.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in this task's allowed_write_paths.\n\nBefore editing, inspect:\n- Source/GUI/CustomLookAndFeel.h\n- Source/GUI/CustomLookAndFeel.cpp\n- docs/verification/ for prior phase verification markdown format if present",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "f.3",
+                "title": "Record phase f lookandfeel verification",
+                "description": "Write docs/verification/phase_f_lookandfeel.md documenting phase F verification for CustomLookAndFeel only. Record commands run, exit outcomes, and file scope.\n\nRequired verification stack (do not use make):\n1) cmake -B cmake-build-debug -G Ninja\n2) cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone\n3) cppcheck --enable=all Source/GUI/CustomLookAndFeel.h Source/GUI/CustomLookAndFeel.cpp\n4) clang-format --dry-run --Werror Source/GUI/CustomLookAndFeel.h Source/GUI/CustomLookAndFeel.cpp\n\nDocument palette hex checklist (Background #121417, Panel #1A1D22, Border #2C3038, Maximizer #00D2FF, Exciter #FF9500, Master #34C759, Text #F2F2F7), that drawRotarySlider/ComboBox/ToggleButton are implemented, and that the phase touched only the two LookAndFeel sources plus this verification artifact. Do not implement product code in this task.\n\nSTRICT FILE SCOPE: Create or modify ONLY the files listed in this task's allowed_write_paths.\n\nBefore editing, inspect:\n- Source/GUI/CustomLookAndFeel.h\n- Source/GUI/CustomLookAndFeel.cpp\n- docs/verification/ for prior phase verification markdown format if present",
+                "phase": "F",
+                "dependencies": [
+                  "f.2"
+                ],
+                "exclusivity_category": null,
+                "max_in_category": null,
+                "status": "completed",
+                "acceptance_criteria": [
+                  "docs/verification/phase_f_lookandfeel.md exists",
+                  "docs/verification/phase_f_lookandfeel.md records cmake -B cmake-build-debug -G Ninja and cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone",
+                  "docs/verification/phase_f_lookandfeel.md records cppcheck --enable=all on Source/GUI/CustomLookAndFeel.h and Source/GUI/CustomLookAndFeel.cpp",
+                  "docs/verification/phase_f_lookandfeel.md records clang-format --dry-run --Werror on Source/GUI/CustomLookAndFeel.h and Source/GUI/CustomLookAndFeel.cpp",
+                  "docs/verification/phase_f_lookandfeel.md lists exact palette hex values and confirms no make-based verification",
+                  "No file outside the task's allowed_write_paths is created or modified"
+                ],
+                "created_at": "2026-07-22T00:24:55.654702",
+                "selected_backend": "pi_cli",
+                "model": "openrouter/z-ai/glm-5.2",
+                "task_timeout_seconds": 600.0,
+                "verification_profile": "focused",
+                "verification_commands": [],
+                "allowed_write_paths": [
+                  "docs/verification/phase_f_lookandfeel.md"
+                ],
+                "forbidden_patterns_override": null
+              },
+              "dependencies": [],
+              "status": "completed"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-07-22T00:27:02.889496",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-f.3",
+      "created_at": "2026-07-22T00:24:55.906601"
+    }
+  },
+  {
+    "created_at": "2026-07-22T00:28:04.874235",
+    "project_name": "aural-maximizer-pro",
+    "goal": "Create Source/GUI/SpectrumVisualizer.h only. Declare a juce::Component subclass SpectrumVisualizer that consumes FFT magnitude frames from a lock-free juce::AbstractFifo / SPSC ring buffer on a juce::Timer (message thread only). It must never run on the audio thread and must never allocate in any path that could be audio-called.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/GUI/SpectrumVisualizer.h.\n\nBefore editing, inspect:\n- Source/PluginProcessor.h\n- Source/PluginProcessor.cpp\n- Source/GUI/ (existing GUI headers)\n- any FIFO / FFT size constants declared in phase e for the processor push side\n\nHeader requirements:\n- Class SpectrumVisualizer : public juce::Component, private juce::Timer\n- Public API enough for the editor to host it (constructor/destructor, paint, resized as needed)\n- Push/consume API that only reads frames the processor already pushed into the SPSC FIFO (no direct audio-thread coupling)\n- juce::dsp::FFT size and AbstractFifo / ring capacity constants must match the processor buffer sizes from phase e (do not invent divergent FFT sizes)\n- Timer interval intended for ~30 Hz (state the Hz constant in the header)\n- No heap allocation in documented audio-path surfaces; all audio-thread interaction is processor-side push into the lock-free FIFO only\n- Include guards / #pragma once and minimal JUCE includes\n- Method and member declarations only; no out-of-line implementations in this task\n\nDo not implement .cpp, MeterComponent, PluginEditor, or PluginProcessor in this task.",
+    "plan_template": {
+      "project_name": "aural-maximizer-pro",
+      "summary": "Task run: Declare SpectrumVisualizer header and ring buffer",
+      "phases": [
+        {
+          "name": "G",
+          "objective": "Create Source/GUI/SpectrumVisualizer.h only. Declare a juce::Component subclass SpectrumVisualizer that consumes FFT magnitude frames from a lock-free juce::AbstractFifo / SPSC ring buffer on a juce::Timer (message thread only). It must never run on the audio thread and must never allocate in any path that could be audio-called.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/GUI/SpectrumVisualizer.h.\n\nBefore editing, inspect:\n- Source/PluginProcessor.h\n- Source/PluginProcessor.cpp\n- Source/GUI/ (existing GUI headers)\n- any FIFO / FFT size constants declared in phase e for the processor push side\n\nHeader requirements:\n- Class SpectrumVisualizer : public juce::Component, private juce::Timer\n- Public API enough for the editor to host it (constructor/destructor, paint, resized as needed)\n- Push/consume API that only reads frames the processor already pushed into the SPSC FIFO (no direct audio-thread coupling)\n- juce::dsp::FFT size and AbstractFifo / ring capacity constants must match the processor buffer sizes from phase e (do not invent divergent FFT sizes)\n- Timer interval intended for ~30 Hz (state the Hz constant in the header)\n- No heap allocation in documented audio-path surfaces; all audio-thread interaction is processor-side push into the lock-free FIFO only\n- Include guards / #pragma once and minimal JUCE includes\n- Method and member declarations only; no out-of-line implementations in this task\n\nDo not implement .cpp, MeterComponent, PluginEditor, or PluginProcessor in this task.",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "g.1",
+                "title": "Declare SpectrumVisualizer header and ring buffer",
+                "description": "Create Source/GUI/SpectrumVisualizer.h only. Declare a juce::Component subclass SpectrumVisualizer that consumes FFT magnitude frames from a lock-free juce::AbstractFifo / SPSC ring buffer on a juce::Timer (message thread only). It must never run on the audio thread and must never allocate in any path that could be audio-called.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/GUI/SpectrumVisualizer.h.\n\nBefore editing, inspect:\n- Source/PluginProcessor.h\n- Source/PluginProcessor.cpp\n- Source/GUI/ (existing GUI headers)\n- any FIFO / FFT size constants declared in phase e for the processor push side\n\nHeader requirements:\n- Class SpectrumVisualizer : public juce::Component, private juce::Timer\n- Public API enough for the editor to host it (constructor/destructor, paint, resized as needed)\n- Push/consume API that only reads frames the processor already pushed into the SPSC FIFO (no direct audio-thread coupling)\n- juce::dsp::FFT size and AbstractFifo / ring capacity constants must match the processor buffer sizes from phase e (do not invent divergent FFT sizes)\n- Timer interval intended for ~30 Hz (state the Hz constant in the header)\n- No heap allocation in documented audio-path surfaces; all audio-thread interaction is processor-side push into the lock-free FIFO only\n- Include guards / #pragma once and minimal JUCE includes\n- Method and member declarations only; no out-of-line implementations in this task\n\nDo not implement .cpp, MeterComponent, PluginEditor, or PluginProcessor in this task.",
+                "phase": "G",
+                "dependencies": [],
+                "exclusivity_category": null,
+                "max_in_category": null,
+                "status": "completed",
+                "acceptance_criteria": [
+                  "Source/GUI/SpectrumVisualizer.h exists",
+                  "Source/GUI/SpectrumVisualizer.h declares class SpectrumVisualizer deriving from juce::Component and juce::Timer",
+                  "Source/GUI/SpectrumVisualizer.h declares juce::AbstractFifo (or equivalent SPSC ring) members and FFT size constants aligned with the processor FIFO from phase e",
+                  "Source/GUI/SpectrumVisualizer.h documents or declares a ~30 Hz timer cadence",
+                  "clang-format --dry-run --Werror Source/GUI/SpectrumVisualizer.h exits 0",
+                  "No file outside the task's allowed_write_paths is created or modified"
+                ],
+                "created_at": "2026-07-22T00:27:05.420100",
+                "selected_backend": "codex_cli",
+                "model": null,
+                "task_timeout_seconds": 900.0,
+                "verification_profile": "focused",
+                "verification_commands": [],
+                "allowed_write_paths": [
+                  "Source/GUI/SpectrumVisualizer.h"
+                ],
+                "forbidden_patterns_override": null
+              },
+              "dependencies": [],
+              "status": "completed"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-07-22T00:28:04.817429",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-g.1",
+      "created_at": "2026-07-22T00:27:05.613813"
+    }
+  },
+  {
+    "created_at": "2026-07-22T00:28:35.529995",
+    "project_name": "aural-maximizer-pro",
+    "goal": "Implement Source/GUI/SpectrumVisualizer.cpp only, matching Source/GUI/SpectrumVisualizer.h. Consume FFT frames from the lock-free AbstractFifo on a juce::Timer at about 30 Hz on the message thread; run juce::dsp::FFT analysis/display on the message thread only; paint the spectrum. Never touch the audio thread; never call repaint() from audio code; never allocate in audio callbacks (there should be none here).\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/GUI/SpectrumVisualizer.cpp.\n\nBefore editing, inspect:\n- Source/GUI/SpectrumVisualizer.h\n- Source/PluginProcessor.h\n- Source/PluginProcessor.cpp (FIFO push side and FFT/bin sizes from phase e)\n\nImplementation requirements:\n- Include SpectrumVisualizer.h and implement all declared methods\n- Timer::timerCallback pulls available frames from the SPSC FIFO then triggers paint/repaint on the message thread only; cap at 30-60 Hz as declared in the header\n- FFT size and ring capacity must match the header and processor phase-e buffers\n- paint() renders spectrum bars/path from the latest consumed magnitudes without blocking or locking the audio thread\n- No std::mutex / CriticalSection on the audio path; use only the lock-free FIFO already declared\n- No heap allocation inside timerCallback/paint beyond what JUCE Graphics already does on the message thread; pre-size working buffers in the constructor/prepare path\n\nDo not modify the header, MeterComponent, or processor/editor in this task.",
+    "plan_template": {
+      "project_name": "aural-maximizer-pro",
+      "summary": "Task run: Implement FFT visualizer timer and paint",
+      "phases": [
+        {
+          "name": "G",
+          "objective": "Implement Source/GUI/SpectrumVisualizer.cpp only, matching Source/GUI/SpectrumVisualizer.h. Consume FFT frames from the lock-free AbstractFifo on a juce::Timer at about 30 Hz on the message thread; run juce::dsp::FFT analysis/display on the message thread only; paint the spectrum. Never touch the audio thread; never call repaint() from audio code; never allocate in audio callbacks (there should be none here).\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/GUI/SpectrumVisualizer.cpp.\n\nBefore editing, inspect:\n- Source/GUI/SpectrumVisualizer.h\n- Source/PluginProcessor.h\n- Source/PluginProcessor.cpp (FIFO push side and FFT/bin sizes from phase e)\n\nImplementation requirements:\n- Include SpectrumVisualizer.h and implement all declared methods\n- Timer::timerCallback pulls available frames from the SPSC FIFO then triggers paint/repaint on the message thread only; cap at 30-60 Hz as declared in the header\n- FFT size and ring capacity must match the header and processor phase-e buffers\n- paint() renders spectrum bars/path from the latest consumed magnitudes without blocking or locking the audio thread\n- No std::mutex / CriticalSection on the audio path; use only the lock-free FIFO already declared\n- No heap allocation inside timerCallback/paint beyond what JUCE Graphics already does on the message thread; pre-size working buffers in the constructor/prepare path\n\nDo not modify the header, MeterComponent, or processor/editor in this task.",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "g.2",
+                "title": "Implement FFT visualizer timer and paint",
+                "description": "Implement Source/GUI/SpectrumVisualizer.cpp only, matching Source/GUI/SpectrumVisualizer.h. Consume FFT frames from the lock-free AbstractFifo on a juce::Timer at about 30 Hz on the message thread; run juce::dsp::FFT analysis/display on the message thread only; paint the spectrum. Never touch the audio thread; never call repaint() from audio code; never allocate in audio callbacks (there should be none here).\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/GUI/SpectrumVisualizer.cpp.\n\nBefore editing, inspect:\n- Source/GUI/SpectrumVisualizer.h\n- Source/PluginProcessor.h\n- Source/PluginProcessor.cpp (FIFO push side and FFT/bin sizes from phase e)\n\nImplementation requirements:\n- Include SpectrumVisualizer.h and implement all declared methods\n- Timer::timerCallback pulls available frames from the SPSC FIFO then triggers paint/repaint on the message thread only; cap at 30-60 Hz as declared in the header\n- FFT size and ring capacity must match the header and processor phase-e buffers\n- paint() renders spectrum bars/path from the latest consumed magnitudes without blocking or locking the audio thread\n- No std::mutex / CriticalSection on the audio path; use only the lock-free FIFO already declared\n- No heap allocation inside timerCallback/paint beyond what JUCE Graphics already does on the message thread; pre-size working buffers in the constructor/prepare path\n\nDo not modify the header, MeterComponent, or processor/editor in this task.",
+                "phase": "G",
+                "dependencies": [
+                  "g.1"
+                ],
+                "exclusivity_category": null,
+                "max_in_category": null,
+                "status": "completed",
+                "acceptance_criteria": [
+                  "Source/GUI/SpectrumVisualizer.cpp exists and implements SpectrumVisualizer from Source/GUI/SpectrumVisualizer.h",
+                  "Source/GUI/SpectrumVisualizer.cpp uses juce::Timer to pull from the AbstractFifo/SPSC ring at about 30 Hz on the message thread",
+                  "Source/GUI/SpectrumVisualizer.cpp uses juce::dsp::FFT consistent with header FFT size",
+                  "Source/GUI/SpectrumVisualizer.cpp does not call straightforward audio-thread entry points and does not push work onto the audio thread",
+                  "cmake -B cmake-build-debug -G Ninja configures successfully",
+                  "cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone exits 0",
+                  "cppcheck --enable=all Source/GUI/SpectrumVisualizer.cpp exits 0",
+                  "clang-format --dry-run --Werror Source/GUI/SpectrumVisualizer.cpp exits 0",
+                  "No file outside the task's allowed_write_paths is created or modified"
+                ],
+                "created_at": "2026-07-22T00:28:04.927044",
+                "selected_backend": "codex_cli",
+                "model": null,
+                "task_timeout_seconds": 1200.0,
+                "verification_profile": "focused",
+                "verification_commands": [],
+                "allowed_write_paths": [
+                  "Source/GUI/SpectrumVisualizer.cpp"
+                ],
+                "forbidden_patterns_override": null
+              },
+              "dependencies": [],
+              "status": "completed"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-07-22T00:28:35.472456",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-g.2",
+      "created_at": "2026-07-22T00:28:05.156645"
     }
   }
 ]

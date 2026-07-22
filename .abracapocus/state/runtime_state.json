@@ -1,17 +1,17 @@
 {
   "project_name": "aural-maximizer-pro",
-  "plan_version": "task-f.3",
-  "active_phase": "F",
+  "plan_version": "task-g.3",
+  "active_phase": "G",
   "default_backend": "codex_cli",
   "routing_mode": "manual",
   "tasks": [
     {
-      "task_id": "f.3",
-      "title": "Record phase f lookandfeel verification",
-      "phase": "F",
-      "status": "completed",
-      "backend": "pi_cli",
-      "last_run": "2026-07-22T00:27:02.910009",
+      "task_id": "g.3",
+      "title": "Declare MeterComponent header",
+      "phase": "G",
+      "status": "planned",
+      "backend": "antigravity_cli",
+      "last_run": null,
       "notes": ""
     }
   ],
@@ -240,11 +240,29 @@
       "reviewer_status": "approved",
       "verifier_status": "passed",
       "timestamp": "2026-07-22T00:27:02.910285"
+    },
+    {
+      "run_id": "c3e33f19-a759-4947-bb41-c41816f3ed5c",
+      "task_id": "g.1",
+      "backend": "codex_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-22T00:28:04.839154"
+    },
+    {
+      "run_id": "a88cddf0-3fc0-45d4-99ff-a2dc710c12cb",
+      "task_id": "g.2",
+      "backend": "codex_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-22T00:28:35.494256"
     }
   ],
   "operator_overrides": {},
   "completed_phases": [],
   "remaining_phases": [
-    "F"
+    "G"
   ]
 }
