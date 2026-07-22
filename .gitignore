@@ -1,8 +1,12 @@
 cmake-build-debug/
 cmake-build-release/
+cmake-build-*/
 build/
 *.o
 *.obj
 .DS_Store
 .vscode/
 .idea/
+.abracapocus/logs/
+.abracapocus/reports/
+.abracapocus/state/
