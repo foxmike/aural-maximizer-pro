@@ -1,69 +1,5 @@
 [
   {
-    "created_at": "2026-07-21T23:54:57.782393",
-    "project_name": "aural-maximizer-pro",
-    "goal": "Write docs/verification/phase_a_build_skeleton.md documenting that the phase skeletons exist and the Standalone target is the phase gate. Record the exact verification commands used: cmake -B cmake-build-debug -G Ninja; cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone; clang-format --dry-run --Werror on created sources. Do NOT use make.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_a_build_skeleton.md.\n\nBefore editing, inspect: CMakeLists.txt and all Source stub paths to list them accurately in the verification note.",
-    "plan_template": {
-      "project_name": "aural-maximizer-pro",
-      "summary": "Task run: Record phase a build skeleton verification",
-      "phases": [
-        {
-          "name": "A",
-          "objective": "Write docs/verification/phase_a_build_skeleton.md documenting that the phase skeletons exist and the Standalone target is the phase gate. Record the exact verification commands used: cmake -B cmake-build-debug -G Ninja; cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone; clang-format --dry-run --Werror on created sources. Do NOT use make.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_a_build_skeleton.md.\n\nBefore editing, inspect: CMakeLists.txt and all Source stub paths to list them accurately in the verification note.",
-          "status": "completed",
-          "tasks": [
-            {
-              "task": {
-                "task_id": "a.10",
-                "title": "Record phase a build skeleton verification",
-                "description": "Write docs/verification/phase_a_build_skeleton.md documenting that the phase skeletons exist and the Standalone target is the phase gate. Record the exact verification commands used: cmake -B cmake-build-debug -G Ninja; cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone; clang-format --dry-run --Werror on created sources. Do NOT use make.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_a_build_skeleton.md.\n\nBefore editing, inspect: CMakeLists.txt and all Source stub paths to list them accurately in the verification note.",
-                "phase": "A",
-                "dependencies": [
-                  "a.1",
-                  "a.2",
-                  "a.3",
-                  "a.4",
-                  "a.5",
-                  "a.6",
-                  "a.7",
-                  "a.8",
-                  "a.9"
-                ],
-                "exclusivity_category": null,
-                "max_in_category": null,
-                "status": "completed",
-                "acceptance_criteria": [
-                  "docs/verification/phase_a_build_skeleton.md exists",
-                  "docs/verification/phase_a_build_skeleton.md mentions AuralMaximizerPro_Standalone",
-                  "docs/verification/phase_a_build_skeleton.md documents cmake -B cmake-build-debug -G Ninja",
-                  "docs/verification/phase_a_build_skeleton.md documents cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone",
-                  "No file outside the task's allowed_write_paths is created or modified"
-                ],
-                "created_at": "2026-07-21T23:53:33.839607",
-                "selected_backend": "pi_cli",
-                "model": "openrouter/z-ai/glm-5.2",
-                "task_timeout_seconds": 900.0,
-                "verification_profile": "focused",
-                "verification_commands": [],
-                "allowed_write_paths": [
-                  "docs/verification/phase_a_build_skeleton.md"
-                ],
-                "forbidden_patterns_override": null
-              },
-              "dependencies": [],
-              "status": "completed"
-            }
-          ],
-          "completed": true,
-          "completed_at": "2026-07-21T23:54:57.693033",
-          "human_checkpoint": null
-        }
-      ],
-      "version": "task-a.10",
-      "created_at": "2026-07-21T23:53:34.099123"
-    }
-  },
-  {
     "created_at": "2026-07-21T23:55:25.573454",
     "project_name": "aural-maximizer-pro",
     "goal": "Create Source/DSP/SonicMaximizer.h only for Module A (Sonic Maximizer): phase alignment and dynamic low contour.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/SonicMaximizer.h.\n\nBefore editing, inspect:\n- Source/ for existing JUCE/DSP headers, PluginProcessor prepare/process patterns, and any MAX_LOW_FREQ / MAX_HIGH_FREQ constants\n- CMakeLists.txt target layout (do not modify)\n- phase goal: 3-band split, APF cascades, envelope follower, dynamic low boost; all audio state pre-allocated in prepareToPlay\n\nHeader requirements:\n- Declare class SonicMaximizer (or equivalent name matching project style) with publicly callable prepare(double sampleRate, int samplesPerBlock) and process(...) suitable for real-time use from the audio thread\n- Pre-allocated state members only (no heap ownership that reallocates in process):\n  - 3-band split via juce::dsp::IIR::Filter cascades (low < MAX_LOW_FREQ, mid, high > MAX_HIGH_FREQ)\n  - Cascaded 1st/2nd-order allpass filter state: 4x APF on low, 2x on mid, 0x on high\n  - Envelope follower state e and alpha\n  - Cached APF coefficient a and contour parameter storage (LoContour); coefficients/constants updated only in prepare or on parameter change helpers, never implied as per-sample raw param math in the header contract\n- Document in comments near process that process must perform: no new/delete/resize, no locks, no juce::String work; use ScopedNoDenormals at call site or inside process as appropriate\n- Include only necessary JUCE DSP headers; keep the type complete for a later .cpp implementation\n- Provide clear member names for band filters, APF arrays, envelope, sampleRate cache, and parameter targets\n\nDo not implement DSP math in this task; declarations and state layout only.",
@@ -1141,6 +1077,61 @@
       ],
       "version": "task-g.2",
       "created_at": "2026-07-22T00:28:05.156645"
+    }
+  },
+  {
+    "created_at": "2026-07-22T00:29:27.319748",
+    "project_name": "aural-maximizer-pro",
+    "goal": "Create Source/GUI/MeterComponent.h only. Declare a juce::Component that renders real-time L/R peak and RMS LED-style meter bars, updated on a capped juce::Timer on the message thread. Meter levels must be supplied via a lock-free or atomics-friendly path from the processor (SPSC/atomics), never by calling into the audio thread from the component.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/GUI/MeterComponent.h.\n\nBefore editing, inspect:\n- Source/PluginProcessor.h\n- Source/PluginProcessor.cpp (peak/RMS or meter level fields from earlier phases)\n- Source/GUI/SpectrumVisualizer.h (Timer/FIFO patterns for consistency)\n- Source/GUI/ (existing GUI headers)\n\nHeader requirements:\n- Class MeterComponent : public juce::Component, private juce::Timer\n- Public API for the editor to host left/right meters (constructor/destructor, paint, resized as needed)\n- setLevels / pushLevels / or atomic level readers for L/R peak and RMS that are safe for the processor to update lock-free\n- Timer cadence capped at 30-60 Hz stated as a named constant\n- No audio-thread callbacks on this component; message-thread Timer only for UI refresh\n- Include guards / #pragma once and minimal JUCE includes\n- Declarations only; no out-of-line method bodies\n\nDo not implement .cpp, SpectrumVisualizer, PluginEditor, or PluginProcessor in this task.",
+    "plan_template": {
+      "project_name": "aural-maximizer-pro",
+      "summary": "Task run: Declare MeterComponent header",
+      "phases": [
+        {
+          "name": "G",
+          "objective": "Create Source/GUI/MeterComponent.h only. Declare a juce::Component that renders real-time L/R peak and RMS LED-style meter bars, updated on a capped juce::Timer on the message thread. Meter levels must be supplied via a lock-free or atomics-friendly path from the processor (SPSC/atomics), never by calling into the audio thread from the component.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/GUI/MeterComponent.h.\n\nBefore editing, inspect:\n- Source/PluginProcessor.h\n- Source/PluginProcessor.cpp (peak/RMS or meter level fields from earlier phases)\n- Source/GUI/SpectrumVisualizer.h (Timer/FIFO patterns for consistency)\n- Source/GUI/ (existing GUI headers)\n\nHeader requirements:\n- Class MeterComponent : public juce::Component, private juce::Timer\n- Public API for the editor to host left/right meters (constructor/destructor, paint, resized as needed)\n- setLevels / pushLevels / or atomic level readers for L/R peak and RMS that are safe for the processor to update lock-free\n- Timer cadence capped at 30-60 Hz stated as a named constant\n- No audio-thread callbacks on this component; message-thread Timer only for UI refresh\n- Include guards / #pragma once and minimal JUCE includes\n- Declarations only; no out-of-line method bodies\n\nDo not implement .cpp, SpectrumVisualizer, PluginEditor, or PluginProcessor in this task.",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "g.3",
+                "title": "Declare MeterComponent header",
+                "description": "Create Source/GUI/MeterComponent.h only. Declare a juce::Component that renders real-time L/R peak and RMS LED-style meter bars, updated on a capped juce::Timer on the message thread. Meter levels must be supplied via a lock-free or atomics-friendly path from the processor (SPSC/atomics), never by calling into the audio thread from the component.\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/GUI/MeterComponent.h.\n\nBefore editing, inspect:\n- Source/PluginProcessor.h\n- Source/PluginProcessor.cpp (peak/RMS or meter level fields from earlier phases)\n- Source/GUI/SpectrumVisualizer.h (Timer/FIFO patterns for consistency)\n- Source/GUI/ (existing GUI headers)\n\nHeader requirements:\n- Class MeterComponent : public juce::Component, private juce::Timer\n- Public API for the editor to host left/right meters (constructor/destructor, paint, resized as needed)\n- setLevels / pushLevels / or atomic level readers for L/R peak and RMS that are safe for the processor to update lock-free\n- Timer cadence capped at 30-60 Hz stated as a named constant\n- No audio-thread callbacks on this component; message-thread Timer only for UI refresh\n- Include guards / #pragma once and minimal JUCE includes\n- Declarations only; no out-of-line method bodies\n\nDo not implement .cpp, SpectrumVisualizer, PluginEditor, or PluginProcessor in this task.",
+                "phase": "G",
+                "dependencies": [],
+                "exclusivity_category": null,
+                "max_in_category": null,
+                "status": "completed",
+                "acceptance_criteria": [
+                  "Source/GUI/MeterComponent.h exists",
+                  "Source/GUI/MeterComponent.h declares class MeterComponent deriving from juce::Component and juce::Timer",
+                  "Source/GUI/MeterComponent.h declares L/R peak and RMS level inputs or atomics suitable for lock-free processor updates",
+                  "Source/GUI/MeterComponent.h declares a Timer cadence constant in the 30-60 Hz range",
+                  "clang-format --dry-run --Werror Source/GUI/MeterComponent.h exits 0",
+                  "No file outside the task's allowed_write_paths is created or modified"
+                ],
+                "created_at": "2026-07-22T00:28:35.572644",
+                "selected_backend": "antigravity_cli",
+                "model": "",
+                "task_timeout_seconds": 900.0,
+                "verification_profile": "focused",
+                "verification_commands": [],
+                "allowed_write_paths": [
+                  "Source/GUI/MeterComponent.h"
+                ],
+                "forbidden_patterns_override": null
+              },
+              "dependencies": [],
+              "status": "completed"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-07-22T00:29:27.243692",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-g.3",
+      "created_at": "2026-07-22T00:28:35.762273"
     }
   }
 ]

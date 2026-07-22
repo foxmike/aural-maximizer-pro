@@ -1,17 +1,17 @@
 {
   "project_name": "aural-maximizer-pro",
-  "plan_version": "task-g.3",
+  "plan_version": "task-g.4",
   "active_phase": "G",
   "default_backend": "codex_cli",
   "routing_mode": "manual",
   "tasks": [
     {
-      "task_id": "g.3",
-      "title": "Declare MeterComponent header",
+      "task_id": "g.4",
+      "title": "Implement L R peak meter rendering",
       "phase": "G",
-      "status": "completed",
+      "status": "planned",
       "backend": "antigravity_cli",
-      "last_run": "2026-07-22T00:29:27.265241",
+      "last_run": null,
       "notes": ""
     }
   ],
