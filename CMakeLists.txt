@@ -10,8 +10,9 @@ juce_add_plugin(AuralMaximizerPro
     COMPANY_NAME "nSpace"
     PLUGIN_CODE "Axpr"
     PLUGIN_MANUFACTURER_CODE "nSpc"
-    FORMATS Standalone VST3 CLAP LV2
+    FORMATS Standalone VST3
     PRODUCT_NAME "AuralMaximizerPro"
+    LV2URI "urn:nspace:auralmaxpro"
 )
 
 juce_generate_juce_header(AuralMaximizerPro)
@@ -20,22 +21,12 @@ target_sources(AuralMaximizerPro
     PRIVATE
         Source/PluginProcessor.cpp
         Source/PluginEditor.cpp
-        Source/DSP/BandSplitter.cpp
-        Source/DSP/DynamicsProcessor.cpp
-        Source/DSP/HarmonicExciter.cpp
-        Source/DSP/LimiterEngine.cpp
-        Source/DSP/MidSideProcessor.cpp
-        Source/DSP/StereoWidener.cpp
-        Source/GUI/BandControlComponent.cpp
-        Source/GUI/LevelMeterComponent.cpp
-        Source/GUI/MainPanel.cpp
-        Source/GUI/SpectrumAnalyzer.cpp
-        Source/GUI/TransportBar.cpp
-        Source/State/PresetManager.cpp
-        Source/State/StateSerializer.cpp
-        Source/Util/FFTWrapper.cpp
-        Source/Util/LUFSMeter.cpp
-        Source/Util/ParameterLayout.cpp
+        Source/DSP/AuralExciter.cpp
+        Source/DSP/RoutingEngine.cpp
+        Source/DSP/SonicMaximizer.cpp
+        Source/GUI/CustomLookAndFeel.cpp
+        Source/GUI/MeterComponent.cpp
+        Source/GUI/SpectrumVisualizer.cpp
 )
 
 target_compile_definitions(AuralMaximizerPro
