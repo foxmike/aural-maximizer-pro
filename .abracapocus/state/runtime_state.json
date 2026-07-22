@@ -1,17 +1,17 @@
 {
   "project_name": "aural-maximizer-pro",
-  "plan_version": "task-f.1",
+  "plan_version": "task-f.2",
   "active_phase": "F",
   "default_backend": "codex_cli",
   "routing_mode": "manual",
   "tasks": [
     {
-      "task_id": "f.1",
-      "title": "Declare CustomLookAndFeel header and palette",
+      "task_id": "f.2",
+      "title": "Implement rotary combobox and toggle drawing",
       "phase": "F",
-      "status": "completed",
+      "status": "planned",
       "backend": "antigravity_cli",
-      "last_run": "2026-07-22T00:22:00.335724",
+      "last_run": null,
       "notes": ""
     }
   ],
