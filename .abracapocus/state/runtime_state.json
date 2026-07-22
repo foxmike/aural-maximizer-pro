@@ -1,7 +1,7 @@
 {
   "project_name": "aural-maximizer-pro",
   "plan_version": "task-i.2",
-  "active_phase": "I",
+  "active_phase": "completed",
   "default_backend": "codex_cli",
   "routing_mode": "manual",
   "tasks": [
@@ -333,8 +333,8 @@
     }
   ],
   "operator_overrides": {},
-  "completed_phases": [],
-  "remaining_phases": [
+  "completed_phases": [
     "I"
-  ]
+  ],
+  "remaining_phases": []
 }

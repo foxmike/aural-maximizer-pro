@@ -1,65 +1,5 @@
 [
   {
-    "created_at": "2026-07-22T00:02:15.927089",
-    "project_name": "aural-maximizer-pro",
-    "goal": "Create Source/DSP/RoutingEngine.cpp only (Wave 2). Implement the API declared in Source/DSP/RoutingEngine.h.\n\nRequirements:\n- prepareToPlay/prepare path: size/pre-allocate all scratch buffers for parallel path to samplesPerBlock x channel count; reset juce::SmoothedValue for PARALLEL_BLEND; never allocate inside process().\n- process path real-time-safe: no heap allocation, no locks, prefer ScopedNoDenormals at the entry if consistent with sibling modules.\n- ROUTING_MODE Serial Maximizer -> Exciter: S_E(S_M(x)).\n- ROUTING_MODE Serial Exciter -> Maximizer: S_M(S_E(x)).\n- ROUTING_MODE Parallel Matrix Blend: y = (1-K)*S_M(x) + K*S_E(x) where K is PARALLEL_BLEND advanced via SmoothedValue each sample or block-consistent smoothing to avoid clicks; use pre-sized scratch for intermediate S_M/S_E outputs.\n- Engine owns module call order and crossfade summing only; do not reimplement Maximizer/Exciter internals.\n- Runtime mode/blend changes must not reallocate; only retarget smoothing / branch selection.\n\nBefore editing, inspect:\n- Source/DSP/RoutingEngine.h (from d.1)\n- Source/DSP Maximizer and Exciter .h/.cpp prepare/process contracts\n- Sibling DSP .cpp files for RT-safety and buffer handling patterns\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/RoutingEngine.cpp.",
-    "plan_template": {
-      "project_name": "aural-maximizer-pro",
-      "summary": "Task run: Implement serial and parallel matrix crossfade",
-      "phases": [
-        {
-          "name": "D",
-          "objective": "Create Source/DSP/RoutingEngine.cpp only (Wave 2). Implement the API declared in Source/DSP/RoutingEngine.h.\n\nRequirements:\n- prepareToPlay/prepare path: size/pre-allocate all scratch buffers for parallel path to samplesPerBlock x channel count; reset juce::SmoothedValue for PARALLEL_BLEND; never allocate inside process().\n- process path real-time-safe: no heap allocation, no locks, prefer ScopedNoDenormals at the entry if consistent with sibling modules.\n- ROUTING_MODE Serial Maximizer -> Exciter: S_E(S_M(x)).\n- ROUTING_MODE Serial Exciter -> Maximizer: S_M(S_E(x)).\n- ROUTING_MODE Parallel Matrix Blend: y = (1-K)*S_M(x) + K*S_E(x) where K is PARALLEL_BLEND advanced via SmoothedValue each sample or block-consistent smoothing to avoid clicks; use pre-sized scratch for intermediate S_M/S_E outputs.\n- Engine owns module call order and crossfade summing only; do not reimplement Maximizer/Exciter internals.\n- Runtime mode/blend changes must not reallocate; only retarget smoothing / branch selection.\n\nBefore editing, inspect:\n- Source/DSP/RoutingEngine.h (from d.1)\n- Source/DSP Maximizer and Exciter .h/.cpp prepare/process contracts\n- Sibling DSP .cpp files for RT-safety and buffer handling patterns\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/RoutingEngine.cpp.",
-          "status": "completed",
-          "tasks": [
-            {
-              "task": {
-                "task_id": "d.2",
-                "title": "Implement serial and parallel matrix crossfade",
-                "description": "Create Source/DSP/RoutingEngine.cpp only (Wave 2). Implement the API declared in Source/DSP/RoutingEngine.h.\n\nRequirements:\n- prepareToPlay/prepare path: size/pre-allocate all scratch buffers for parallel path to samplesPerBlock x channel count; reset juce::SmoothedValue for PARALLEL_BLEND; never allocate inside process().\n- process path real-time-safe: no heap allocation, no locks, prefer ScopedNoDenormals at the entry if consistent with sibling modules.\n- ROUTING_MODE Serial Maximizer -> Exciter: S_E(S_M(x)).\n- ROUTING_MODE Serial Exciter -> Maximizer: S_M(S_E(x)).\n- ROUTING_MODE Parallel Matrix Blend: y = (1-K)*S_M(x) + K*S_E(x) where K is PARALLEL_BLEND advanced via SmoothedValue each sample or block-consistent smoothing to avoid clicks; use pre-sized scratch for intermediate S_M/S_E outputs.\n- Engine owns module call order and crossfade summing only; do not reimplement Maximizer/Exciter internals.\n- Runtime mode/blend changes must not reallocate; only retarget smoothing / branch selection.\n\nBefore editing, inspect:\n- Source/DSP/RoutingEngine.h (from d.1)\n- Source/DSP Maximizer and Exciter .h/.cpp prepare/process contracts\n- Sibling DSP .cpp files for RT-safety and buffer handling patterns\n\nSTRICT FILE SCOPE: Create or modify ONLY Source/DSP/RoutingEngine.cpp.",
-                "phase": "D",
-                "dependencies": [
-                  "d.1"
-                ],
-                "exclusivity_category": null,
-                "max_in_category": null,
-                "status": "completed",
-                "acceptance_criteria": [
-                  "Source/DSP/RoutingEngine.cpp exists and implements RoutingEngine prepare and process",
-                  "Serial Maximizer->Exciter and Serial Exciter->Maximizer paths call modules in the correct order",
-                  "Parallel path implements y = (1-K)*S_M(x) + K*S_E(x) with K from juce::SmoothedValue PARALLEL_BLEND and pre-allocated scratch buffers",
-                  "process() performs no heap allocation and no locking",
-                  "cmake -B cmake-build-debug -G Ninja configures successfully when run from project root",
-                  "cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone passes",
-                  "cppcheck --enable=all Source/DSP/RoutingEngine.cpp Source/DSP/RoutingEngine.h completes without error exit",
-                  "clang-format --dry-run --Werror Source/DSP/RoutingEngine.cpp Source/DSP/RoutingEngine.h passes",
-                  "No file outside the task's allowed_write_paths is created or modified"
-                ],
-                "created_at": "2026-07-22T00:00:19.448904",
-                "selected_backend": "codex_cli",
-                "model": null,
-                "task_timeout_seconds": 1200.0,
-                "verification_profile": "focused",
-                "verification_commands": [],
-                "allowed_write_paths": [
-                  "Source/DSP/RoutingEngine.cpp"
-                ],
-                "forbidden_patterns_override": null
-              },
-              "dependencies": [],
-              "status": "completed"
-            }
-          ],
-          "completed": true,
-          "completed_at": "2026-07-22T00:02:15.869598",
-          "human_checkpoint": null
-        }
-      ],
-      "version": "task-d.2",
-      "created_at": "2026-07-22T00:00:19.645584"
-    }
-  },
-  {
     "created_at": "2026-07-22T00:03:35.571697",
     "project_name": "aural-maximizer-pro",
     "goal": "Create docs/verification/phase_d_routing_engine.md only (final wave). Document phase D verification evidence for Module C Routing / Matrix engine.\n\nRecord:\n- Files in scope: Source/DSP/RoutingEngine.h, Source/DSP/RoutingEngine.cpp\n- Modes covered: Serial Max->Exc, Serial Exc->Max, Parallel blend y=(1-K)*S_M(x)+K*S_E(x)\n- RT-safety notes: scratch sized in prepareToPlay, no process() allocation/locks, SmoothedValue crossfade\n- Commands run and expected results:\n  - cmake -B cmake-build-debug -G Ninja\n  - cmake --build cmake-build-debug --target AuralMaximizerPro_Standalone\n  - cppcheck --enable=all Source/DSP/RoutingEngine.h Source/DSP/RoutingEngine.cpp\n  - clang-format --dry-run --Werror on those two files\n- Explicit statement that make was not used\n- Dependencies on phases b/c exists conceptually via phase order\n\nBefore editing, inspect:\n- Source/DSP/RoutingEngine.h\n- Source/DSP/RoutingEngine.cpp\n- docs/verification/ for prior phase verification markdown style if present\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_d_routing_engine.md.",
@@ -1138,6 +1078,63 @@
       ],
       "version": "task-i.1",
       "created_at": "2026-07-22T00:40:06.101579"
+    }
+  },
+  {
+    "created_at": "2026-07-22T00:44:54.810760",
+    "project_name": "aural-maximizer-pro",
+    "goal": "Write docs/verification/phase_i_build_targets.md recording the clean multi-format build result for phase i.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_i_build_targets.md.\n\nBefore editing, inspect:\n- scripts/build_all.sh from task i.1\n- prior docs/verification/phase_* artifacts for tone and structure\n\nDocument must record:\n1. That verification used scripts/build_all.sh (cmake -B cmake-build-debug -G Ninja + multi-target cmake --build), never make\n2. Results for AuralMaximizerPro_Standalone, AuralMaximizerPro_VST3, AuralMaximizerPro_CLAP, AuralMaximizerPro_LV2\n3. Any undefined references or target-discovery failures\n4. If CLAP is deferred/pending, state Standalone+VST3+LV2 status and mark CLAP pending explicitly\n5. That this phase is the only gate for the full four-format matrix\n\nDepends on i.1. Do not edit the build script in this task.",
+    "plan_template": {
+      "project_name": "aural-maximizer-pro",
+      "summary": "Task run: Record phase i build targets verification",
+      "phases": [
+        {
+          "name": "I",
+          "objective": "Write docs/verification/phase_i_build_targets.md recording the clean multi-format build result for phase i.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_i_build_targets.md.\n\nBefore editing, inspect:\n- scripts/build_all.sh from task i.1\n- prior docs/verification/phase_* artifacts for tone and structure\n\nDocument must record:\n1. That verification used scripts/build_all.sh (cmake -B cmake-build-debug -G Ninja + multi-target cmake --build), never make\n2. Results for AuralMaximizerPro_Standalone, AuralMaximizerPro_VST3, AuralMaximizerPro_CLAP, AuralMaximizerPro_LV2\n3. Any undefined references or target-discovery failures\n4. If CLAP is deferred/pending, state Standalone+VST3+LV2 status and mark CLAP pending explicitly\n5. That this phase is the only gate for the full four-format matrix\n\nDepends on i.1. Do not edit the build script in this task.",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "i.2",
+                "title": "Record phase i build targets verification",
+                "description": "Write docs/verification/phase_i_build_targets.md recording the clean multi-format build result for phase i.\n\nSTRICT FILE SCOPE: Create or modify ONLY docs/verification/phase_i_build_targets.md.\n\nBefore editing, inspect:\n- scripts/build_all.sh from task i.1\n- prior docs/verification/phase_* artifacts for tone and structure\n\nDocument must record:\n1. That verification used scripts/build_all.sh (cmake -B cmake-build-debug -G Ninja + multi-target cmake --build), never make\n2. Results for AuralMaximizerPro_Standalone, AuralMaximizerPro_VST3, AuralMaximizerPro_CLAP, AuralMaximizerPro_LV2\n3. Any undefined references or target-discovery failures\n4. If CLAP is deferred/pending, state Standalone+VST3+LV2 status and mark CLAP pending explicitly\n5. That this phase is the only gate for the full four-format matrix\n\nDepends on i.1. Do not edit the build script in this task.",
+                "phase": "I",
+                "dependencies": [
+                  "i.1"
+                ],
+                "exclusivity_category": null,
+                "max_in_category": null,
+                "status": "completed",
+                "acceptance_criteria": [
+                  "docs/verification/phase_i_build_targets.md exists",
+                  "docs/verification/phase_i_build_targets.md references scripts/build_all.sh and cmake -B cmake-build-debug -G Ninja",
+                  "docs/verification/phase_i_build_targets.md records build outcome for Standalone, VST3, CLAP, and LV2 targets",
+                  "docs/verification/phase_i_build_targets.md states verification does not use make",
+                  "If CLAP is pending, docs/verification/phase_i_build_targets.md marks CLAP pending and records Standalone+VST3+LV2",
+                  "No file outside the task's allowed_write_paths is created or modified"
+                ],
+                "created_at": "2026-07-22T00:41:32.553009",
+                "selected_backend": "pi_cli",
+                "model": "openrouter/z-ai/glm-5.2",
+                "task_timeout_seconds": 900.0,
+                "verification_profile": "focused",
+                "verification_commands": [],
+                "allowed_write_paths": [
+                  "docs/verification/phase_i_build_targets.md"
+                ],
+                "forbidden_patterns_override": null
+              },
+              "dependencies": [],
+              "status": "completed"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-07-22T00:44:54.723379",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-i.2",
+      "created_at": "2026-07-22T00:41:32.767958"
     }
   }
 ]
