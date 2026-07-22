@@ -77,3 +77,4 @@
 2026-07-21 20:41:32 | INFO | abracapocus | run=c8cb5dda-2606-46a5-b13d-9de07e41f58a phases=1 verification=passed
 2026-07-21 20:44:54 | INFO | abracapocus.backends.pi_cli | backend=pi_cli retry_count=0
 2026-07-21 20:44:54 | INFO | abracapocus | run=a51bf4a2-50af-468e-a952-2a3156ad8243 phases=1 verification=passed
+2026-07-21 21:03:42 | INFO | abracapocus.backends.codex_cli | backend=codex_cli retry_count=0

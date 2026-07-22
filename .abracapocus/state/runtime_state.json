@@ -1,17 +1,17 @@
 {
   "project_name": "aural-maximizer-pro",
-  "plan_version": "task-i.2",
-  "active_phase": "completed",
+  "plan_version": "task-a.1",
+  "active_phase": "A",
   "default_backend": "codex_cli",
   "routing_mode": "manual",
   "tasks": [
     {
-      "task_id": "i.2",
-      "title": "Record phase i build targets verification",
-      "phase": "I",
-      "status": "completed",
-      "backend": "pi_cli",
-      "last_run": "2026-07-22T00:44:54.744127",
+      "task_id": "a.1",
+      "title": "Author root CMakeLists.txt build config",
+      "phase": "A",
+      "status": "planned",
+      "backend": "codex_cli",
+      "last_run": null,
       "notes": ""
     }
   ],
@@ -333,8 +333,8 @@
     }
   ],
   "operator_overrides": {},
-  "completed_phases": [
-    "I"
-  ],
-  "remaining_phases": []
+  "completed_phases": [],
+  "remaining_phases": [
+    "A"
+  ]
 }
