@@ -1,17 +1,17 @@
 {
   "project_name": "aural-maximizer-pro",
-  "plan_version": "task-a.1",
-  "active_phase": "A",
+  "plan_version": "task-i.1",
+  "active_phase": "I",
   "default_backend": "codex_cli",
   "routing_mode": "manual",
   "tasks": [
     {
-      "task_id": "a.1",
-      "title": "Author root CMakeLists.txt build config",
-      "phase": "A",
-      "status": "completed",
+      "task_id": "i.1",
+      "title": "Author multi-format build helper script",
+      "phase": "I",
+      "status": "planned",
       "backend": "codex_cli",
-      "last_run": "2026-07-22T01:03:42.392962",
+      "last_run": null,
       "notes": ""
     }
   ],
@@ -344,6 +344,6 @@
   "operator_overrides": {},
   "completed_phases": [],
   "remaining_phases": [
-    "A"
+    "I"
   ]
 }
