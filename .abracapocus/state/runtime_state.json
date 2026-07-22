@@ -9,9 +9,9 @@
       "task_id": "g.5",
       "title": "Record phase g gui components verification",
       "phase": "G",
-      "status": "planned",
+      "status": "completed",
       "backend": "pi_cli",
-      "last_run": null,
+      "last_run": "2026-07-22T00:34:10.510482",
       "notes": ""
     }
   ],
@@ -276,6 +276,15 @@
       "reviewer_status": "approved",
       "verifier_status": "passed",
       "timestamp": "2026-07-22T00:31:08.055056"
+    },
+    {
+      "run_id": "2a6e8475-bf26-4a76-bfb5-9ababa91ee2c",
+      "task_id": "g.5",
+      "backend": "pi_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-22T00:34:10.511018"
     }
   ],
   "operator_overrides": {},
