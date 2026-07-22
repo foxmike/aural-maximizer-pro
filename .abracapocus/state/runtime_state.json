@@ -9,9 +9,9 @@
       "task_id": "d.3",
       "title": "Record phase d routing engine verification",
       "phase": "D",
-      "status": "planned",
+      "status": "completed",
       "backend": "pi_cli",
-      "last_run": null,
+      "last_run": "2026-07-22T00:03:35.506510",
       "notes": ""
     }
   ],
@@ -168,6 +168,15 @@
       "reviewer_status": "approved",
       "verifier_status": "passed",
       "timestamp": "2026-07-22T00:02:15.893940"
+    },
+    {
+      "run_id": "06624ab8-a93c-43d7-b26d-f3ddf4d11750",
+      "task_id": "d.3",
+      "backend": "pi_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-22T00:03:35.506861"
     }
   ],
   "operator_overrides": {},
