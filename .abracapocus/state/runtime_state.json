@@ -1,17 +1,17 @@
 {
   "project_name": "aural-maximizer-pro",
-  "plan_version": "task-h.1",
+  "plan_version": "task-h.3",
   "active_phase": "H",
   "default_backend": "codex_cli",
   "routing_mode": "manual",
   "tasks": [
     {
-      "task_id": "h.1",
-      "title": "Declare PluginEditor header and attachments",
+      "task_id": "h.3",
+      "title": "Wire processor createEditor to real editor",
       "phase": "H",
-      "status": "completed",
+      "status": "planned",
       "backend": "antigravity_cli",
-      "last_run": "2026-07-22T00:35:07.431539",
+      "last_run": null,
       "notes": ""
     }
   ],
@@ -294,6 +294,15 @@
       "reviewer_status": "approved",
       "verifier_status": "passed",
       "timestamp": "2026-07-22T00:35:07.431857"
+    },
+    {
+      "run_id": "e4b44ab6-30f4-4e1c-ba5f-23375bbf455f",
+      "task_id": "h.2",
+      "backend": "codex_cli",
+      "status": "ok",
+      "reviewer_status": "approved",
+      "verifier_status": "passed",
+      "timestamp": "2026-07-22T00:35:56.412277"
     }
   ],
   "operator_overrides": {},
