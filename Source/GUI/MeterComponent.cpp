@@ -1,4 +1,5 @@
 #include "MeterComponent.h"
+#include "../PluginProcessor.h"
 #include <algorithm>
 #include <cmath>
 #include <juce_audio_basics/juce_audio_basics.h>
@@ -29,7 +30,10 @@ float gainToNormalizedLevel(float gain) noexcept {
 }
 } // namespace
 
-MeterComponent::MeterComponent() { startTimerHz(timerHz); }
+MeterComponent::MeterComponent(AuralMaximizerProAudioProcessor &processor)
+    : processorRef(processor) {
+  startTimerHz(timerHz);
+}
 
 MeterComponent::~MeterComponent() {
   stopTimer();
@@ -63,7 +67,11 @@ void MeterComponent::paint(juce::Graphics &g) {
 
   // Layout dimensions
   const float totalWidth = bounds.getWidth();
-  const float totalHeight = bounds.getHeight();
+  constexpr float channelLabelHeight = 10.0f;
+  constexpr float barLabelHeight = 11.0f;
+  const auto meterBounds = bounds.withTrimmedTop(channelLabelHeight)
+                               .withTrimmedBottom(barLabelHeight);
+  const float totalHeight = meterBounds.getHeight();
 
   // Center label width
   const float labelWidth = juce::jlimit(20.0f, 40.0f, totalWidth * 0.2f);
@@ -81,13 +89,13 @@ void MeterComponent::paint(juce::Graphics &g) {
   const float leftPeakX = leftChannelX + padding;
   const float leftRmsX = leftPeakX + barWidth + gap;
 
-  const float rightRmsX = rightChannelX + padding;
-  const float rightPeakX = rightRmsX + barWidth + gap;
+  const float rightPeakX = rightChannelX + padding;
+  const float rightRmsX = rightPeakX + barWidth + gap;
 
   // Helper lambda to draw a vertical LED/bar meter
   auto drawLedMeter = [&](float x, float normLevel, float normHold) {
     const auto barBounds =
-        juce::Rectangle<float>(x, bounds.getY(), barWidth, totalHeight);
+        juce::Rectangle<float>(x, meterBounds.getY(), barWidth, totalHeight);
 
     // Draw track background
     g.setColour(juce::Colour(0xFF1A1D22));
@@ -101,8 +109,8 @@ void MeterComponent::paint(juce::Graphics &g) {
 
     for (int i = 0; i < numSegments; ++i) {
       // Segment starts from bottom
-      float segY = bounds.getBottom() - (i + 1) * (segmentHeight + segmentGap) +
-                   segmentGap;
+      float segY = meterBounds.getBottom() -
+                   (i + 1) * (segmentHeight + segmentGap) + segmentGap;
       float segProp = (float)i / (float)(numSegments - 1);
 
       // Map segment proportion to dB to determine color
@@ -136,9 +144,9 @@ void MeterComponent::paint(juce::Graphics &g) {
 
     // Draw Peak Hold indicator as a thin line
     if (normHold > 0.0f) {
-      float holdY =
-          juce::jlimit(bounds.getY() + 1.0f, bounds.getBottom() - 1.0f,
-                       bounds.getBottom() - normHold * totalHeight);
+      float holdY = juce::jlimit(
+          meterBounds.getY() + 1.0f, meterBounds.getBottom() - 1.0f,
+          meterBounds.getBottom() - normHold * totalHeight);
       g.setColour(juce::Colours::white.withAlpha(0.85f));
       g.fillRect(juce::Rectangle<float>(x, holdY - 1.0f, barWidth, 2.0f));
     }
@@ -147,8 +155,36 @@ void MeterComponent::paint(juce::Graphics &g) {
   // Draw the 4 meters
   drawLedMeter(leftPeakX, leftPeakNorm, leftPeakHoldNorm);
   drawLedMeter(leftRmsX, leftRmsNorm, 0.0f);
-  drawLedMeter(rightRmsX, rightRmsNorm, 0.0f);
   drawLedMeter(rightPeakX, rightPeakNorm, rightPeakHoldNorm);
+  drawLedMeter(rightRmsX, rightRmsNorm, 0.0f);
+
+  const auto textColour = juce::Colour(0xFFF2F2F7);
+  g.setColour(textColour.withAlpha(0.7f));
+  g.setFont(8.5f);
+  g.drawFittedText("L",
+                   juce::Rectangle<float>(leftChannelX, bounds.getY(),
+                                          channelWidth, channelLabelHeight)
+                       .toNearestInt(),
+                   juce::Justification::centred, 1);
+  g.drawFittedText("R",
+                   juce::Rectangle<float>(rightChannelX, bounds.getY(),
+                                          channelWidth, channelLabelHeight)
+                       .toNearestInt(),
+                   juce::Justification::centred, 1);
+
+  g.setColour(textColour.withAlpha(0.6f));
+  g.setFont(7.5f);
+  const auto drawBarLabel = [&](juce::StringRef text, float x) {
+    g.drawFittedText(text,
+                     juce::Rectangle<float>(x, meterBounds.getBottom(),
+                                            barWidth, barLabelHeight)
+                         .toNearestInt(),
+                     juce::Justification::centred, 1);
+  };
+  drawBarLabel("PK", leftPeakX);
+  drawBarLabel("RMS", leftRmsX);
+  drawBarLabel("PK", rightPeakX);
+  drawBarLabel("RMS", rightRmsX);
 
   // Draw Center dB Labels
   const float dbs[] = {6.0f,   0.0f,   -6.0f,  -12.0f,
@@ -157,7 +193,7 @@ void MeterComponent::paint(juce::Graphics &g) {
 
   for (float db : dbs) {
     float norm = gainToNormalizedLevel(juce::Decibels::decibelsToGain(db));
-    float y = bounds.getBottom() - norm * totalHeight;
+    float y = meterBounds.getBottom() - norm * totalHeight;
 
     g.setColour(juce::Colour(0xFFF2F2F7).withAlpha(0.5f));
     juce::String text =
@@ -177,34 +213,17 @@ void MeterComponent::paint(juce::Graphics &g) {
 
 void MeterComponent::resized() {}
 
-void MeterComponent::setLevels(float newLeftPeak, float newLeftRms,
-                               float newRightPeak, float newRightRms) noexcept {
-  leftPeak.store(newLeftPeak, std::memory_order_relaxed);
-  leftRms.store(newLeftRms, std::memory_order_relaxed);
-  rightPeak.store(newRightPeak, std::memory_order_relaxed);
-  rightRms.store(newRightRms, std::memory_order_relaxed);
-}
-
-void MeterComponent::pushLevels(float newLeftPeak, float newLeftRms,
-                                float newRightPeak,
-                                float newRightRms) noexcept {
-  leftPeak.store(newLeftPeak, std::memory_order_relaxed);
-  leftRms.store(newLeftRms, std::memory_order_relaxed);
-  rightPeak.store(newRightPeak, std::memory_order_relaxed);
-  rightRms.store(newRightRms, std::memory_order_relaxed);
-}
-
 void MeterComponent::timerCallback() {
   const auto *messageManager =
       juce::MessageManager::getInstanceWithoutCreating();
   jassert(messageManager != nullptr &&
           messageManager->isThisTheMessageThread());
 
-  // Load raw values from atomics
-  float rawLeftPeak = leftPeak.load(std::memory_order_relaxed);
-  float rawLeftRms = leftRms.load(std::memory_order_relaxed);
-  float rawRightPeak = rightPeak.load(std::memory_order_relaxed);
-  float rawRightRms = rightRms.load(std::memory_order_relaxed);
+  const auto levels = processorRef.getMeterLevels();
+  const auto rawLeftPeak = levels.leftPeak;
+  const auto rawLeftRms = levels.leftRms;
+  const auto rawRightPeak = levels.rightPeak;
+  const auto rawRightRms = levels.rightRms;
 
   // Retrieve or create the state for this component
   auto &state = g_meterStates[this];

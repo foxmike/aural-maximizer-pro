@@ -47,7 +47,7 @@ void drawCaption(juce::Graphics &graphics, juce::StringRef text,
 AuralMaximizerProAudioProcessorEditor::AuralMaximizerProAudioProcessorEditor(
     AuralMaximizerProAudioProcessor &processor)
     : AudioProcessorEditor(&processor), processorRef(processor),
-      spectrumVisualizer(processor) {
+      spectrumVisualizer(processor), meterComponent(processor) {
   setLookAndFeel(&customLookAndFeel);
   setResizable(false, false);
   setSize(920, 540);
@@ -199,7 +199,7 @@ void AuralMaximizerProAudioProcessorEditor::paint(juce::Graphics &graphics) {
     drawCaption(graphics, masterLabels[index], {352 + index * 96, 508, 80, 14},
                 CustomLookAndFeel::Text.withAlpha(0.75f), 9.5f);
 
-  drawCaption(graphics, "L/R  PEAK + RMS", {772, 508, 128, 14},
+  drawCaption(graphics, "OUTPUT LEVELS", {772, 508, 128, 14},
               CustomLookAndFeel::Master, 9.0f);
 }
 

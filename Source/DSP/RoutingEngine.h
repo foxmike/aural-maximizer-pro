@@ -50,7 +50,8 @@ public:
    */
   void process(const juce::dsp::ProcessContextReplacing<float> &context,
                SonicMaximizer &maximizer, AuralExciter &exciter,
-               RoutingMode mode, float parallelBlendTarget) noexcept;
+               RoutingMode mode, float parallelBlendTarget,
+               bool maximizerEnabled, bool exciterEnabled) noexcept;
 
 private:
   using SmoothedParameter =

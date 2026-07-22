@@ -9,6 +9,9 @@ constexpr float defaultMaxLowFrequencyHz = 120.0f;
 constexpr float defaultMaxHighFrequencyHz = 5000.0f;
 constexpr float minimumFrequencyHz = 1.0f;
 constexpr double envelopeTimeSeconds = 0.05;
+constexpr double phaseModeTransitionSeconds = 0.02;
+constexpr double crossoverTransitionSeconds = 0.05;
+constexpr std::size_t coefficientUpdateInterval = 16;
 } // namespace
 
 SonicMaximizer::SonicMaximizer()
@@ -31,7 +34,19 @@ void SonicMaximizer::prepare(double sampleRate, int samplesPerBlock) {
   envelopeAlpha = static_cast<float>(
       std::exp(-1.0 / (envelopeTimeSeconds * preparedSampleRate)));
 
-  setCrossoverFrequencies(maxLowFrequencyTargetHz, maxHighFrequencyTargetHz);
+  const auto maximumFrequencyHz =
+      static_cast<float>(preparedSampleRate * 0.499);
+  maxLowFrequencyTargetHz = std::clamp(maxLowFrequencyTargetHz,
+                                       minimumFrequencyHz, maximumFrequencyHz);
+  maxHighFrequencyTargetHz = std::clamp(
+      maxHighFrequencyTargetHz, maxLowFrequencyTargetHz, maximumFrequencyHz);
+
+  lowFrequencyHz.reset(preparedSampleRate, crossoverTransitionSeconds);
+  highFrequencyHz.reset(preparedSampleRate, crossoverTransitionSeconds);
+  lowFrequencyHz.setCurrentAndTargetValue(maxLowFrequencyTargetHz);
+  highFrequencyHz.setCurrentAndTargetValue(maxHighFrequencyTargetHz);
+  updateCrossoverCoefficients(maxLowFrequencyTargetHz,
+                              maxHighFrequencyTargetHz);
 
   const juce::dsp::ProcessSpec spec{
       preparedSampleRate, static_cast<juce::uint32>(preparedSamplesPerBlock),
@@ -49,6 +64,9 @@ void SonicMaximizer::prepare(double sampleRate, int samplesPerBlock) {
   prepareFilterBank(lowBandAllPassFilters);
   prepareFilterBank(midBandAllPassFilters);
   prepareFilterBank(highBandAllPassFilters);
+  prepareFilterBank(modernLowBandAllPassFilters);
+  prepareFilterBank(modernMidBandAllPassFilters);
+  phaseModeBlend.reset(preparedSampleRate, phaseModeTransitionSeconds);
   reset();
 }
 
@@ -66,11 +84,15 @@ void SonicMaximizer::reset() noexcept {
   resetFilterBank(lowBandAllPassFilters);
   resetFilterBank(midBandAllPassFilters);
   resetFilterBank(highBandAllPassFilters);
+  resetFilterBank(modernLowBandAllPassFilters);
+  resetFilterBank(modernMidBandAllPassFilters);
   envelopeE.fill(0.0f);
+  phaseModeBlend.setCurrentAndTargetValue(
+      phaseModeTarget == PhaseMode::modern ? 1.0f : 0.0f);
 }
 
-void SonicMaximizer::setCrossoverFrequencies(float maxLowFrequencyHz,
-                                             float maxHighFrequencyHz) {
+void SonicMaximizer::setCrossoverFrequencies(
+    float maxLowFrequencyHz, float maxHighFrequencyHz) noexcept {
   maxLowFrequencyTargetHz = std::max(minimumFrequencyHz, maxLowFrequencyHz);
   maxHighFrequencyTargetHz =
       std::max(maxLowFrequencyTargetHz, maxHighFrequencyHz);
@@ -88,20 +110,26 @@ void SonicMaximizer::setCrossoverFrequencies(float maxLowFrequencyHz,
   maxLowFrequencyTargetHz = lowFrequencyHz;
   maxHighFrequencyTargetHz = highFrequencyHz;
 
-  using Coefficients = juce::dsp::IIR::Coefficients<float>;
+  this->lowFrequencyHz.setTargetValue(lowFrequencyHz);
+  this->highFrequencyHz.setTargetValue(highFrequencyHz);
+}
+
+void SonicMaximizer::updateCrossoverCoefficients(float lowFrequency,
+                                                 float highFrequency) noexcept {
+  using ArrayCoefficients = juce::dsp::IIR::ArrayCoefficients<float>;
   const auto lowPassCoefficients =
-      Coefficients::makeLowPass(preparedSampleRate, lowFrequencyHz);
+      ArrayCoefficients::makeLowPass(preparedSampleRate, lowFrequency);
   const auto lowHighPassCoefficients =
-      Coefficients::makeHighPass(preparedSampleRate, lowFrequencyHz);
+      ArrayCoefficients::makeHighPass(preparedSampleRate, lowFrequency);
   const auto highLowPassCoefficients =
-      Coefficients::makeLowPass(preparedSampleRate, highFrequencyHz);
+      ArrayCoefficients::makeLowPass(preparedSampleRate, highFrequency);
   const auto highPassCoefficients =
-      Coefficients::makeHighPass(preparedSampleRate, highFrequencyHz);
+      ArrayCoefficients::makeHighPass(preparedSampleRate, highFrequency);
 
   const auto assignCoefficients = [](auto &stages, const auto &coefficients) {
     for (auto &stage : stages)
       for (auto &filter : stage)
-        filter.coefficients = coefficients;
+        *filter.coefficients = coefficients;
   };
 
   assignCoefficients(lowBandLowPassFilters, lowPassCoefficients);
@@ -109,20 +137,34 @@ void SonicMaximizer::setCrossoverFrequencies(float maxLowFrequencyHz,
   assignCoefficients(midBandLowPassFilters, highLowPassCoefficients);
   assignCoefficients(highBandHighPassFilters, highPassCoefficients);
 
-  const auto tangent =
-      std::tan(juce::MathConstants<float>::pi * lowFrequencyHz /
-               static_cast<float>(preparedSampleRate));
+  const auto tangent = std::tan(juce::MathConstants<float>::pi * lowFrequency /
+                                static_cast<float>(preparedSampleRate));
   apfCoefficientA = (tangent - 1.0f) / (tangent + 1.0f);
-  const auto allPassCoefficients =
-      Coefficients::makeFirstOrderAllPass(preparedSampleRate, lowFrequencyHz);
+  const auto allPassCoefficients = ArrayCoefficients::makeFirstOrderAllPass(
+      preparedSampleRate, lowFrequency);
 
   assignCoefficients(lowBandAllPassFilters, allPassCoefficients);
   assignCoefficients(midBandAllPassFilters, allPassCoefficients);
   assignCoefficients(highBandAllPassFilters, allPassCoefficients);
+  assignCoefficients(modernLowBandAllPassFilters, allPassCoefficients);
+  assignCoefficients(modernMidBandAllPassFilters, allPassCoefficients);
+
+  appliedLowFrequencyHz = lowFrequency;
+  appliedHighFrequencyHz = highFrequency;
 }
 
 void SonicMaximizer::setLoContour(float newLoContour) noexcept {
   loContourTarget = std::clamp(newLoContour, 0.0f, 1.0f);
+}
+
+void SonicMaximizer::setProcessAmount(float newProcessAmount) noexcept {
+  processAmountTarget = std::clamp(newProcessAmount, 0.0f, 1.0f);
+}
+
+void SonicMaximizer::setPhaseMode(PhaseMode newPhaseMode) noexcept {
+  phaseModeTarget = newPhaseMode;
+  phaseModeBlend.setTargetValue(newPhaseMode == PhaseMode::modern ? 1.0f
+                                                                  : 0.0f);
 }
 
 void SonicMaximizer::process(
@@ -137,43 +179,75 @@ void SonicMaximizer::process(
   const auto sampleCount = outputBlock.getNumSamples();
   const auto oneMinusEnvelopeAlpha = 1.0f - envelopeAlpha;
   const auto loContour = loContourTarget;
+  const auto highBandGain = 1.0f + 3.0f * processAmountTarget;
 
-  for (std::size_t channel = 0; channel < channelCount; ++channel) {
-    auto *samples = outputBlock.getChannelPointer(channel);
-    auto envelope = envelopeE[channel];
+  for (std::size_t chunkStart = 0; chunkStart < sampleCount;
+       chunkStart += coefficientUpdateInterval) {
+    const auto chunkSize =
+        std::min(coefficientUpdateInterval, sampleCount - chunkStart);
+    const auto smoothedLowFrequency =
+        lowFrequencyHz.skip(static_cast<int>(chunkSize));
+    const auto smoothedHighFrequency =
+        highFrequencyHz.skip(static_cast<int>(chunkSize));
 
-    for (std::size_t sampleIndex = 0; sampleIndex < sampleCount;
-         ++sampleIndex) {
-      const auto input = samples[sampleIndex];
-      auto low = input;
-      auto mid = input;
-      auto high = input;
+    if (smoothedLowFrequency != appliedLowFrequencyHz ||
+        smoothedHighFrequency != appliedHighFrequencyHz)
+      updateCrossoverCoefficients(smoothedLowFrequency, smoothedHighFrequency);
 
-      for (auto &stage : lowBandLowPassFilters)
-        low = stage[channel].processSample(low);
+    for (std::size_t sampleIndex = chunkStart;
+         sampleIndex < chunkStart + chunkSize; ++sampleIndex) {
+      const auto modernBlend = phaseModeBlend.getNextValue();
+      const auto classicBlend = 1.0f - modernBlend;
 
-      for (auto &stage : midBandHighPassFilters)
-        mid = stage[channel].processSample(mid);
-      for (auto &stage : midBandLowPassFilters)
-        mid = stage[channel].processSample(mid);
+      for (std::size_t channel = 0; channel < channelCount; ++channel) {
+        auto *samples = outputBlock.getChannelPointer(channel);
+        auto envelope = envelopeE[channel];
+        const auto input = samples[sampleIndex];
+        auto low = input;
+        auto mid = input;
+        auto high = input;
 
-      for (auto &stage : highBandHighPassFilters)
-        high = stage[channel].processSample(high);
+        for (auto &stage : lowBandLowPassFilters)
+          low = stage[channel].processSample(low);
 
-      for (auto &stage : lowBandAllPassFilters)
-        low = stage[channel].processSample(low);
-      for (auto &stage : midBandAllPassFilters)
-        mid = stage[channel].processSample(mid);
-      for (auto &stage : highBandAllPassFilters)
-        high = stage[channel].processSample(high);
+        for (auto &stage : midBandHighPassFilters)
+          mid = stage[channel].processSample(mid);
+        for (auto &stage : midBandLowPassFilters)
+          mid = stage[channel].processSample(mid);
 
-      envelope =
-          oneMinusEnvelopeAlpha * std::abs(low) + envelopeAlpha * envelope;
-      const auto lowGain = 1.0f + loContour * (envelope / (1.0f + envelope));
-      samples[sampleIndex] = low * lowGain + mid + high;
+        for (auto &stage : highBandHighPassFilters)
+          high = stage[channel].processSample(high);
+
+        auto classicLow = low;
+        auto classicMid = mid;
+        auto modernLow = low;
+        auto modernMid = mid;
+
+        for (auto &stage : lowBandAllPassFilters)
+          classicLow = stage[channel].processSample(classicLow);
+        for (auto &stage : midBandAllPassFilters)
+          classicMid = stage[channel].processSample(classicMid);
+        for (auto &stage : highBandAllPassFilters)
+          high = stage[channel].processSample(high);
+
+        for (auto &stage : modernLowBandAllPassFilters)
+          modernLow = stage[channel].processSample(modernLow);
+        for (auto &stage : modernMidBandAllPassFilters)
+          modernMid = stage[channel].processSample(modernMid);
+
+        envelope =
+            oneMinusEnvelopeAlpha * std::abs(low) + envelopeAlpha * envelope;
+        const auto lowGain = 1.0f + loContour * (envelope / (1.0f + envelope));
+        const auto classicOutput =
+            classicLow * lowGain + classicMid + high * highBandGain;
+        const auto modernOutput =
+            modernLow * lowGain + modernMid + high * highBandGain;
+        samples[sampleIndex] =
+            classicBlend * classicOutput + modernBlend * modernOutput;
+
+        envelopeE[channel] = envelope;
+      }
     }
-
-    envelopeE[channel] = envelope;
   }
 }
 } // namespace nSpace

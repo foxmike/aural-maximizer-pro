@@ -16,6 +16,13 @@ public:
   static constexpr int spectrumFifoCapacity = 8;
   using SpectrumFrame = std::array<float, spectrumFrameSize>;
 
+  struct MeterLevels {
+    float leftPeak = 0.0f;
+    float leftRms = 0.0f;
+    float rightPeak = 0.0f;
+    float rightRms = 0.0f;
+  };
+
   AuralMaximizerProAudioProcessor();
   ~AuralMaximizerProAudioProcessor() override;
 
@@ -52,6 +59,7 @@ public:
   void setStateInformation(const void *data, int sizeInBytes) override;
 
   bool popSpectrumFrame(SpectrumFrame &destination) noexcept;
+  [[nodiscard]] MeterLevels getMeterLevels() const noexcept;
 
   // Kept public for the generic editor and later APVTS attachments.
   juce::AudioProcessorValueTreeState apvts{*this, nullptr};
@@ -63,6 +71,8 @@ private:
   void cacheParameterHandles();
   void updateParameterTargets() noexcept;
   void updateLatencyForOversampling();
+  void updateMeterLevels(const juce::AudioBuffer<float> &buffer,
+                         int channelCount) noexcept;
   void pushSpectrumFrame(const juce::AudioBuffer<float> &buffer) noexcept;
 
   nSpace::SonicMaximizer sonicMaximizer;
@@ -99,6 +109,11 @@ private:
 
   std::array<SpectrumFrame, spectrumFifoCapacity> spectrumBuffer{};
   juce::AbstractFifo spectrumFifo{spectrumFifoCapacity};
+
+  std::atomic<float> leftPeakMeter{0.0f};
+  std::atomic<float> leftRmsMeter{0.0f};
+  std::atomic<float> rightPeakMeter{0.0f};
+  std::atomic<float> rightRmsMeter{0.0f};
 
   nSpace::AuralExciter::OversamplingFactor preparedOversamplingFactor =
       nSpace::AuralExciter::OversamplingFactor::twoTimes;

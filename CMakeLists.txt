@@ -49,3 +49,22 @@ target_link_libraries(AuralMaximizerPro
         juce::juce_dsp
         juce::juce_gui_basics
         juce::juce_gui_extra)
+
+include(CTest)
+
+if(BUILD_TESTING)
+    add_executable(AuralMaximizerProTests)
+
+    target_sources(AuralMaximizerProTests
+        PRIVATE
+            Tests/ProcessorTests.cpp)
+
+    target_link_libraries(AuralMaximizerProTests
+        PRIVATE
+            AuralMaximizerPro
+            juce::juce_audio_processors
+            juce::juce_dsp)
+
+    add_test(NAME AuralMaximizerProProcessorTests
+        COMMAND AuralMaximizerProTests)
+endif()

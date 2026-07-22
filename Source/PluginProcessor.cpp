@@ -62,6 +62,13 @@ oversamplingFactorFromParameter(float value) noexcept {
              ? nSpace::AuralExciter::OversamplingFactor::fourTimes
              : nSpace::AuralExciter::OversamplingFactor::twoTimes;
 }
+
+nSpace::SonicMaximizer::PhaseMode
+maximizerPhaseModeFromParameter(float value) noexcept {
+  return juce::roundToInt(value) == 1
+             ? nSpace::SonicMaximizer::PhaseMode::modern
+             : nSpace::SonicMaximizer::PhaseMode::classic;
+}
 } // namespace
 
 APVTS::ParameterLayout
@@ -181,20 +188,20 @@ void AuralMaximizerProAudioProcessor::cacheParameterHandles() {
 }
 
 void AuralMaximizerProAudioProcessor::updateParameterTargets() noexcept {
-  const auto maximizerAmount =
-      isEnabled(maxEnableParameter) ? loadParameter(maxProcessParameter) : 0.0f;
-  sonicMaximizer.setLoContour(maximizerAmount *
-                              loadParameter(maxContourParameter));
+  sonicMaximizer.setProcessAmount(loadParameter(maxProcessParameter));
+  sonicMaximizer.setLoContour(loadParameter(maxContourParameter));
+  sonicMaximizer.setCrossoverFrequencies(
+      loadParameter(maxLowFrequencyParameter),
+      loadParameter(maxHighFrequencyParameter));
+  sonicMaximizer.setPhaseMode(
+      maximizerPhaseModeFromParameter(loadParameter(maxPhaseModeParameter)));
 
-  const auto exciterAmount =
-      isEnabled(excEnableParameter) ? loadParameter(excMixParameter) : 0.0f;
-  auralExciter.setMix(exciterAmount);
+  auralExciter.setMix(loadParameter(excMixParameter));
   auralExciter.setTuneHz(loadParameter(excTuneParameter));
-  auralExciter.setDriveGain(juce::Decibels::decibelsToGain(
-      loadParameter(excDriveParameter) * exciterAmount));
-  auralExciter.setHarmonics(loadParameter(excHarmonicsParameter) *
-                            exciterAmount);
-  auralExciter.setAirGainDb(loadParameter(excAirGainParameter) * exciterAmount);
+  auralExciter.setDriveGain(
+      juce::Decibels::decibelsToGain(loadParameter(excDriveParameter)));
+  auralExciter.setHarmonics(loadParameter(excHarmonicsParameter));
+  auralExciter.setAirGainDb(loadParameter(excAirGainParameter));
   auralExciter.setWaveShaperMode(
       exciterModeFromParameter(loadParameter(excModeParameter)));
 
@@ -203,8 +210,6 @@ void AuralMaximizerProAudioProcessor::updateParameterTargets() noexcept {
   masterOutputGain.setTargetValue(
       juce::Decibels::decibelsToGain(loadParameter(masterOutputGainParameter)));
   masterMix.setTargetValue(loadParameter(masterMixParameter));
-
-  juce::ignoreUnused(maxPhaseModeParameter);
 }
 
 void AuralMaximizerProAudioProcessor::prepareToPlay(double sampleRate,
@@ -219,10 +224,12 @@ void AuralMaximizerProAudioProcessor::prepareToPlay(double sampleRate,
       oversamplingFactorFromParameter(loadParameter(oversamplingParameter));
   auralExciter.setOversamplingFactor(preparedOversamplingFactor);
 
-  sonicMaximizer.prepare(sampleRate, samplesPerBlock);
+  sonicMaximizer.setPhaseMode(
+      maximizerPhaseModeFromParameter(loadParameter(maxPhaseModeParameter)));
   sonicMaximizer.setCrossoverFrequencies(
       loadParameter(maxLowFrequencyParameter),
       loadParameter(maxHighFrequencyParameter));
+  sonicMaximizer.prepare(sampleRate, samplesPerBlock);
 
   const juce::dsp::ProcessSpec spec{sampleRate,
                                     static_cast<juce::uint32>(samplesPerBlock),
@@ -234,6 +241,7 @@ void AuralMaximizerProAudioProcessor::prepareToPlay(double sampleRate,
   masterOutputGain.reset(sampleRate, smoothingTimeSeconds);
   masterMix.reset(sampleRate, smoothingTimeSeconds);
   updateParameterTargets();
+  auralExciter.reset();
   masterInputGain.setCurrentAndTargetValue(masterInputGain.getTargetValue());
   masterOutputGain.setCurrentAndTargetValue(masterOutputGain.getTargetValue());
   masterMix.setCurrentAndTargetValue(masterMix.getTargetValue());
@@ -307,7 +315,8 @@ void AuralMaximizerProAudioProcessor::processBlock(
   routingEngine.process(
       context, sonicMaximizer, auralExciter,
       routingModeFromParameter(loadParameter(routingModeParameter)),
-      loadParameter(parallelBlendParameter));
+      loadParameter(parallelBlendParameter), isEnabled(maxEnableParameter),
+      isEnabled(excEnableParameter));
 
   for (auto sample = 0; sample < sampleCount; ++sample) {
     const auto outputGain = masterOutputGain.getNextValue();
@@ -315,13 +324,14 @@ void AuralMaximizerProAudioProcessor::processBlock(
     const auto dry = 1.0f - wet;
 
     for (auto channel = 0; channel < channelCount; ++channel) {
-      const auto processed = buffer.getSample(channel, sample) * outputGain;
-      buffer.setSample(channel, sample,
-                       dry * dryBuffer.getSample(channel, sample) +
-                           wet * processed);
+      const auto processed = buffer.getSample(channel, sample);
+      const auto mixed =
+          dry * dryBuffer.getSample(channel, sample) + wet * processed;
+      buffer.setSample(channel, sample, mixed * outputGain);
     }
   }
 
+  updateMeterLevels(buffer, channelCount);
   pushSpectrumFrame(buffer);
 }
 
@@ -383,6 +393,32 @@ bool AuralMaximizerProAudioProcessor::popSpectrumFrame(
   destination = spectrumBuffer[static_cast<std::size_t>(startIndex1)];
   spectrumFifo.finishedRead(1);
   return true;
+}
+
+AuralMaximizerProAudioProcessor::MeterLevels
+AuralMaximizerProAudioProcessor::getMeterLevels() const noexcept {
+  return {leftPeakMeter.load(std::memory_order_relaxed),
+          leftRmsMeter.load(std::memory_order_relaxed),
+          rightPeakMeter.load(std::memory_order_relaxed),
+          rightRmsMeter.load(std::memory_order_relaxed)};
+}
+
+void AuralMaximizerProAudioProcessor::updateMeterLevels(
+    const juce::AudioBuffer<float> &buffer, int channelCount) noexcept {
+  const auto sampleCount = buffer.getNumSamples();
+  const auto leftPeak =
+      channelCount > 0 ? buffer.getMagnitude(0, 0, sampleCount) : 0.0f;
+  const auto leftRms =
+      channelCount > 0 ? buffer.getRMSLevel(0, 0, sampleCount) : 0.0f;
+  const auto rightPeak =
+      channelCount > 1 ? buffer.getMagnitude(1, 0, sampleCount) : leftPeak;
+  const auto rightRms =
+      channelCount > 1 ? buffer.getRMSLevel(1, 0, sampleCount) : leftRms;
+
+  leftPeakMeter.store(leftPeak, std::memory_order_relaxed);
+  leftRmsMeter.store(leftRms, std::memory_order_relaxed);
+  rightPeakMeter.store(rightPeak, std::memory_order_relaxed);
+  rightRmsMeter.store(rightRms, std::memory_order_relaxed);
 }
 
 bool AuralMaximizerProAudioProcessor::hasEditor() const { return true; }

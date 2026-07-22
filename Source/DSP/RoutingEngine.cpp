@@ -54,7 +54,8 @@ void RoutingEngine::reset() noexcept {
 void RoutingEngine::process(
     const juce::dsp::ProcessContextReplacing<float> &context,
     SonicMaximizer &maximizer, AuralExciter &exciter, RoutingMode mode,
-    float parallelBlendTarget) noexcept {
+    float parallelBlendTarget, bool maximizerEnabled,
+    bool exciterEnabled) noexcept {
   juce::ScopedNoDenormals noDenormals;
 
   auto outputBlock = context.getOutputBlock();
@@ -80,14 +81,18 @@ void RoutingEngine::process(
   switch (mode) {
   case RoutingMode::SerialMaximizerThenExciter:
     parallelBlend.skip(static_cast<int>(sampleCount));
-    maximizer.process(context);
-    exciter.process(context);
+    if (maximizerEnabled)
+      maximizer.process(context);
+    if (exciterEnabled)
+      exciter.process(context);
     return;
 
   case RoutingMode::SerialExciterThenMaximizer:
     parallelBlend.skip(static_cast<int>(sampleCount));
-    exciter.process(context);
-    maximizer.process(context);
+    if (exciterEnabled)
+      exciter.process(context);
+    if (maximizerEnabled)
+      maximizer.process(context);
     return;
 
   case RoutingMode::ParallelMatrixBlend:
@@ -106,8 +111,10 @@ void RoutingEngine::process(
 
   juce::dsp::ProcessContextReplacing<float> maximizerContext(maximizerBlock);
   juce::dsp::ProcessContextReplacing<float> exciterContext(exciterBlock);
-  maximizer.process(maximizerContext);
-  exciter.process(exciterContext);
+  if (maximizerEnabled)
+    maximizer.process(maximizerContext);
+  if (exciterEnabled)
+    exciter.process(exciterContext);
 
   for (std::size_t sampleIndex = 0; sampleIndex < sampleCount; ++sampleIndex) {
     const auto blend = parallelBlend.getNextValue();
