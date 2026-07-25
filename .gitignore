@@ -10,3 +10,4 @@ build/
 .abracapocus/logs/
 .abracapocus/reports/
 .abracapocus/state/
+state/
