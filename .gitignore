@@ -11,3 +11,7 @@ build/
 .abracapocus/reports/
 .abracapocus/state/
 state/
+
+# SQLite runtime
+*.db-shm
+*.db-wal
