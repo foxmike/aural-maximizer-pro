@@ -141,20 +141,24 @@ void AuralExciter::process(
     for (std::size_t channel = 0; channel < channelCount; ++channel) {
       auto *samples = oversampledBlock.getChannelPointer(channel);
       const auto drivenInput = drive * samples[sampleIndex];
+      auto oddHarmonics = 0.0f;
 
       switch (mode) {
       case WaveShaperMode::cubicSoftClipping:
-        samples[sampleIndex] = cubicSoftClip(drivenInput);
+        oddHarmonics = cubicSoftClip(drivenInput);
         break;
       case WaveShaperMode::asymmetricTube:
-        samples[sampleIndex] = std::tanh(drivenInput + delta) +
-                               harmonicAmount * drivenInput * drivenInput;
+        oddHarmonics = std::tanh(drivenInput + delta);
         break;
       case WaveShaperMode::tape:
-        samples[sampleIndex] =
+        oddHarmonics =
             (2.0f / juce::MathConstants<float>::pi) * std::atan(drivenInput);
         break;
       }
+
+      const auto evenHarmonics = drivenInput * drivenInput;
+      samples[sampleIndex] = (1.0f - harmonicAmount) * oddHarmonics +
+                             harmonicAmount * evenHarmonics;
     }
   }
 
@@ -191,7 +195,7 @@ void AuralExciter::setDeltaBias(float delta) noexcept {
 }
 
 void AuralExciter::setHarmonics(float newGamma) noexcept {
-  gamma.setTargetValue(newGamma);
+  gamma.setTargetValue(std::clamp(newGamma, 0.0f, 1.0f));
 }
 
 void AuralExciter::setAirGainDb(float newAirGainDb) noexcept {
