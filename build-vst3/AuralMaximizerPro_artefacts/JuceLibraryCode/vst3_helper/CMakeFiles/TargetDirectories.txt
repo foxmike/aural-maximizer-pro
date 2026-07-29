@@ -1,3 +1,0 @@
-/home/mike/dev/mike/music/plugins/aural-maximizer-pro/build-vst3/AuralMaximizerPro_artefacts/JuceLibraryCode/vst3_helper/CMakeFiles/vst3_helper.dir
-/home/mike/dev/mike/music/plugins/aural-maximizer-pro/build-vst3/AuralMaximizerPro_artefacts/JuceLibraryCode/vst3_helper/CMakeFiles/edit_cache.dir
-/home/mike/dev/mike/music/plugins/aural-maximizer-pro/build-vst3/AuralMaximizerPro_artefacts/JuceLibraryCode/vst3_helper/CMakeFiles/rebuild_cache.dir
