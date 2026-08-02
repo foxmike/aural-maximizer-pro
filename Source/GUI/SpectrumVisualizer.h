@@ -35,7 +35,10 @@ public:
 private:
   void timerCallback() override;
   void consumePendingFrames();
-  void updateMagnitudes(const SpectrumFrame &frame);
+  float analyseFrame(const SpectrumFrame &frame);
+  void updateMagnitudeEnvelope();
+  void updateDisplayCeiling(bool receivedUsefulFrame,
+                            float highestTargetCeiling);
   void rebuildSpectrumPath();
 
   static_assert((std::size_t{1} << fftOrder) == fftSize,
@@ -48,8 +51,12 @@ private:
   juce::dsp::WindowingFunction<float> window;
   SpectrumFrame frameReadBuffer{};
   std::array<float, fftSize * 2> fftData{};
-  std::array<float, fftSize / 2> magnitudes{};
+  std::array<float, fftSize / 2> smoothedDecibels{};
+  std::array<float, fftSize / 2> percentileScratch{};
   juce::Path spectrumPath;
+  float displayCeilingDecibels = -18.0f;
+  int timersSinceUsefulFrame = 0;
+  bool hasUsefulScale = false;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SpectrumVisualizer)
 };
